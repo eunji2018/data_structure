@@ -1,0 +1,29 @@
+package design_pattern.ProducerConsumer;
+
+import java.util.Random;
+
+//消费者线程
+public class Consumer extends Thread {
+
+	private final Random random;
+	private final Pool pool;
+	
+	public Consumer(String name, int seed, Pool pool) {
+		super(name);
+		this.random = new Random(seed);
+		this.pool = pool;
+	}
+	
+	@Override
+	public void run() {
+		super.run();
+		try {
+			while(true) {
+				String data = pool.take();
+				Thread.sleep(random.nextInt(1000));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
