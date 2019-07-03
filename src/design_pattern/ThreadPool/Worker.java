@@ -1,6 +1,6 @@
 package design_pattern.ThreadPool;
 
-//工作者线程
+//工作线程
 public class Worker extends Thread {
 
 	private final Channel channel;
@@ -14,8 +14,8 @@ public class Worker extends Thread {
 	public void run() {
 		super.run();
 		while(true) {
-			Request request = channel.take();
-			request.execute();
+			Request request = channel.take();//取出请求
+			request.execute();//处理请求
 		}
 	}
 }

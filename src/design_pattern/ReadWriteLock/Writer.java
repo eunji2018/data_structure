@@ -20,7 +20,7 @@ public class Writer extends Thread {
 		super.run();
 		try {
 			while(true) {
-				data.write(nextchar());
+				data.write(nextchar());//执行写入操作
 				Thread.sleep(random.nextInt(500));
 			}
 		} catch (Exception e) {}

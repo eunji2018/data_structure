@@ -1,5 +1,5 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 

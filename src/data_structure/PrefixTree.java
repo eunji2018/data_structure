@@ -1,5 +1,5 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 
@@ -9,16 +9,15 @@ package data_structure;
 //根节点没有对应的字符
 //从根节点到某一节点路径上的字符拼接起来就是对应的字符串
 //所有节点的子节点上的字符都不相同
-//实现了查找，添加，删除字符串，层次，深度优先遍历的操作
 public class PrefixTree {
-
-    private Stack<TreeNode> stack;//保存查询时遍历的节点
 
     private TreeNode root;
 
     private static final char START = 'a';//字符集的首字符
 
     private static final int SIZE = 26;//字符集的大小
+
+    private Stack<TreeNode> stack;//保存查询时遍历的节点
 
     //节点类
     private class TreeNode{
@@ -37,8 +36,8 @@ public class PrefixTree {
     }
 
     public PrefixTree() {
-        this.stack = new Stack<>();
         this.root = new TreeNode('#');//根节点保存'#'字符，且不是终止节点
+        this.stack = new Stack<>();
     }
 
     //前缀树中保存的字符串数目
@@ -132,21 +131,20 @@ public class PrefixTree {
         Queue<TreeNode> queue = new Queue<>();
         TreeNode node = root;
         queue.enter(node);
+        queue.enter(new TreeNode('/'));//虚拟节点，表示当前层遍历完毕
         System.out.println();
         while (!queue.isEmpty()) {
             node = queue.depart();
-            System.out.print("(" + node.character + "：" + (node.end ? "t) " : "f) "));
-            for (int i = 0; i < SIZE; i++) {
-                if (node.children[i] != null)
-                    queue.enter(node.children[i]);
-            }
-            if (node.character == '#') {//当前层遍历完毕
-                if (queue.isEmpty()) {//所有节点遍历完毕
+            if (node.character == '/') {//当前层遍历完毕
+                if (queue.isEmpty())//所有节点遍历完毕
                     break;
-                }else {//构造临时节点，代表每层最后的虚拟节点
-                    node = new TreeNode('#');
-                    queue.enter(node);
-                    System.out.println();
+                queue.enter(node);//代表每层最后的虚拟节点
+                System.out.println();
+            }else {
+                System.out.print(node.character + ":" + (node.end ? "t " : "f "));
+                for (int i = 0; i < SIZE; i++) {
+                    if (node.children[i] != null)
+                        queue.enter(node.children[i]);
                 }
             }
         }
@@ -170,7 +168,7 @@ public class PrefixTree {
                     node = node.children[index];
                     stack.push(node);
                     other.push(index);
-                    System.out.print("(" + node.character + "：" + (node.end ? "t) " : "f) "));//入栈代表访问节点
+                    System.out.print(node.character + ":" + (node.end ? "t " : "f "));//入栈代表访问节点
                     index = -1;//新节点从第一个位置开始遍历子节点
                     break;
                 }

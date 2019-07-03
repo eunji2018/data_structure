@@ -1,5 +1,5 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 
@@ -18,6 +18,7 @@ public class SingleList<T> {
 		
 		public Node(Object data) {
 			this.data = data;
+			this.next = null;
 		}
 	}
 	
@@ -69,9 +70,10 @@ public class SingleList<T> {
 	}
 	
 	public void print() {
+		System.out.println();
 		for(Node temp = head.next; temp != null; temp = temp.next)
 			System.out.print(temp.data + " ");
-		System.out.println();
+		return;
 	}
 	
 	//逆置链表（递归式）

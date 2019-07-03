@@ -1,5 +1,5 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 
@@ -7,16 +7,19 @@ public class Test {
 
 	public static void main(String[] args) {
 //	    test_AVL();
+//	    test_DoubleQueue();
 //		test_UndirectedGraph();
 //		test_DirectedGraph();
-		test_Heap();
+//		test_Heap();
 //		test_LinkedList();
 //		test_PrefixTree();
+//		test_PriorityQueue();
 //		test_Queue();
 //		test_RBT();
 //		test_SingleList();
 //		test_SkipList();
 //		test_Stack();
+//		test_UnionFindSet();
 
 	}
 
@@ -26,20 +29,110 @@ public class Test {
         AVL avl = new AVL();
         for(int i = 0; i < array.length; i++)
             avl.insert(array[i]);
-//		avl.preOrder();
-//		avl.inOrder();
-//		avl.mirror();
-//		avl.preOrder();
-//		avl.inOrder();
-//		avl.mirror_recursive();
-//		avl.preOrder();
-//		avl.inOrder();
+        System.out.println("初始");
+        System.out.println(avl.size());
+        System.out.println(avl.height());
+        System.out.println(avl.contains(10));
+        System.out.println(avl.contains(20));
+        System.out.println(avl.common(8,16));
+        System.out.println(avl.common(8,20));
+        avl.preOrder();
+        avl.preOrder_recursive();
+        avl.inOrder();
+        avl.inOrder_recursive();
+        avl.postOrder();
+        avl.postOrder_recursive();
+        avl.hierarchy();
         avl.hierarchy_inturn_stack();
         avl.hierarchy_inturn_queue();
+
+        System.out.println("镜像");
+        avl.mirror();
+        System.out.println(avl.size());
+        System.out.println(avl.height());
+        avl.preOrder();
+        avl.preOrder_recursive();
+        avl.inOrder();
+        avl.inOrder_recursive();
+        avl.postOrder();
+        avl.postOrder_recursive();
+        avl.hierarchy();
+        avl.hierarchy_inturn_stack();
+        avl.hierarchy_inturn_queue();
+
+        System.out.println("镜像");
+        avl.mirror_recursive();
+        System.out.println(avl.size());
+        System.out.println(avl.height());
+        avl.preOrder();
+        avl.preOrder_recursive();
+        avl.inOrder();
+        avl.inOrder_recursive();
+        avl.postOrder();
+        avl.postOrder_recursive();
+        avl.hierarchy();
+        avl.hierarchy_inturn_stack();
+        avl.hierarchy_inturn_queue();
+
+        System.out.println("删除");
+        avl.delete(16);
+        System.out.println();
+        avl.delete(17);
+        System.out.println();
+        avl.delete(18);
+        System.out.println();
+        avl.delete(19);
+        System.out.println();
+        System.out.println(avl.size());
+        System.out.println(avl.height());
+        System.out.println(avl.contains(5));
+        System.out.println(avl.contains(16));
+        System.out.println(avl.common(8,14));
+        System.out.println(avl.common(8,16));
+        avl.preOrder();
+        avl.preOrder_recursive();
+        avl.inOrder();
+        avl.inOrder_recursive();
+        avl.postOrder();
+        avl.postOrder_recursive();
+        avl.hierarchy();
+        avl.hierarchy_inturn_stack();
+        avl.hierarchy_inturn_queue();
+
     }
 
     //双端队列测试
     public static void test_DoubleQueue() {
+	    DoubleQueue<Integer> queue = new DoubleQueue<>();
+	    for (int i = 0; i < 6; i++)
+	        queue.enterHead(i);
+	    for (int i = 6; i < 15; i++)
+	        queue.enterTail(i);
+        System.out.println("初始");
+        System.out.println(queue.length());
+        System.out.println(queue.isEmpty());
+        queue.print();
+
+        System.out.println("删除");
+        for (int i = 0; i < 3; i++)
+            System.out.println(queue.departHead());
+        System.out.println(queue.length());
+        System.out.println(queue.isEmpty());
+        queue.print();
+
+        System.out.println("删除");
+        for (int i = 0; i < 5; i++)
+            System.out.println(queue.departTail());
+        System.out.println(queue.length());
+        System.out.println(queue.isEmpty());
+        queue.print();
+
+        System.out.println("清空");
+        queue.clear();
+        System.out.println(queue.length());
+        System.out.println(queue.isEmpty());
+        queue.print();
+
     }
 
     //无向图测试
@@ -47,181 +140,392 @@ public class Test {
         //{from,to,weight}
         int [][] array = {{0,1,3},{0,2,5},{0,3,6},{0,4,7},{1,3,2},{2,4,3},{3,5,2},{3,6,3},
                 {4,5,2},{4,6,3},{5,7,5},{5,9,7},{6,8,4},{6,9,5},{7,9,4},{8,9,3}};
-        Graph graph = new Graph(10, array);
+        Graph graph = new Graph(false,10);
+        for (int i = 0; i < array.length; i++)
+            graph.insert(array[i]);
+        System.out.println("初始");
         graph.print();
+        graph.breadthTraverse(0).print();
+        graph.breadthTraverse(5).print();
+        graph.depthTraverse(0).print();
+        graph.depthTraverse_recursive(0).print();
+        graph.depthTraverse(5).print();
+        graph.depthTraverse_recursive(5).print();
+        graph.minSpanTree_K().print();
+        graph.minSpanTree_P(0).print();
+        graph.minSpanTree_P(5).print();
+        graph.shortPath_D(0).print();
+        graph.shortPath_D(5).print();
 
-//		int [] trace1 = graph.breadthFirstTraverse(0);
-//		for(int i = 0; i < trace1.length; i++)
-//			System.out.print(trace1[i] + " ");
-//		System.out.println();
-//		int [] trace2 = graph.breadthFirstTraverse(5);
-//		for(int i = 0; i < trace2.length; i++)
-//			System.out.print(trace2[i] + " ");
-//		System.out.println();
-//		int [] trace3 = graph.depthFirstTraverse(0);
-//		for(int i = 0; i < trace3.length; i++)
-//			System.out.print(trace3[i] + " ");
-//		System.out.println();
-//		int [] trace4 = graph.depthFirstTraverse(5);
-//		for(int i = 0; i < trace4.length; i++)
-//			System.out.print(trace4[i] + " ");
+        System.out.println();
+        System.out.println("删除");
+        graph.delete(3,6);
+        graph.delete(4,5);
+        graph.print();
+        graph.breadthTraverse(0).print();
+        graph.breadthTraverse(5).print();
+        graph.depthTraverse(0).print();
+        graph.depthTraverse_recursive(0).print();
+        graph.depthTraverse(5).print();
+        graph.depthTraverse_recursive(5).print();
+        graph.minSpanTree_K().print();
+        graph.minSpanTree_P(0).print();
+        graph.minSpanTree_P(5).print();
+        graph.shortPath_D(0).print();
+        graph.shortPath_D(5).print();
+
     }
 
     //有向图测试
     public static void test_DirectedGraph() {
         int [][] array = {{0,1,3},{0,2,5},{0,3,6},{0,4,7},{1,3,2},{2,4,3},{3,5,2},{3,6,3},
                 {4,5,2},{4,6,3},{5,7,5},{5,9,7},{6,8,4},{6,9,5},{7,9,4},{8,9,3}};
-        Graph graph = new Graph(10, array);
+        Graph graph = new Graph(true,10);
+        for (int i = 0; i < array.length; i++)
+            graph.insert(array[i]);
         graph.print();
-//		int [] trace1 = graph.breadthFirstTraverse(0);
-//		if(trace1 != null)
-//			for(int i = 0; i < trace1.length; i++)
-//				System.out.print(trace1[i] + " ");
-//		System.out.println();
-//		int [] trace2 = graph.breadthFirstTraverse(5);
-//		if(trace2 != null)
-//			for(int i = 0; i < trace2.length; i++)
-//				System.out.print(trace2[i] + " ");
-//		System.out.println();
-//		int [] trace3 = graph.depthFirstTraverse(0);
-//		if(trace3 != null)
-//			for(int i = 0; i < trace3.length; i++)
-//				System.out.print(trace3[i] + " ");
-//		System.out.println();
-//		int [] trace4 = graph.depthFirstTraverse(5);
-//		if(trace4 != null)
-//			for(int i = 0; i < trace4.length; i++)
-//				System.out.print(trace4[i] + " ");
-//		System.out.println();
-//		int [] trace5 = graph.topologicalSort();
-//		if(trace5 != null)
-//			for(int i = 0; i < trace5.length; i++)
-//				System.out.print(trace5[i] + " ");
+        graph.breadthTraverse(0).print();
+        graph.breadthTraverse(5).print();
+        graph.depthTraverse(0).print();
+        graph.depthTraverse_recursive(0).print();
+        graph.depthTraverse(5).print();
+        graph.depthTraverse_recursive(5).print();
+        graph.topologicalSort().print();
     }
 
     //堆测试
     public static void test_Heap() {
 	    Heap heap = new Heap();
-	    for (int i = 0; i < 20; i++)
+	    heap.push(0);
+        System.out.println(heap.size());
+        System.out.println(heap.isEmpty());
+        heap.hierarchy();
+
+	    for (int i = 1; i < 20; i++)
 	        heap.push(i);
+        System.out.println();
+        System.out.println("初始");
 	    System.out.println(heap.size());
-	    heap.print();
-	    heap.pop();
-	    heap.print();
+        System.out.println(heap.isEmpty());
+	    heap.hierarchy();
+
+        System.out.println();
+        System.out.println("删除");
+        for (int i = 0; i < 10; i++)
+            System.out.println(heap.pop());
+        System.out.println(heap.size());
+        System.out.println(heap.isEmpty());
+        heap.hierarchy();
+
+        System.out.println();
+        System.out.println("清空");
+        heap.clear();
+        System.out.println(heap.size());
+        System.out.println(heap.isEmpty());
+        heap.hierarchy();
     }
 
     //双向链表测试
     public static void test_LinkedList() {
+	    LinkedList<Integer> list = new LinkedList<>();
+	    for (int i = 0; i < 10; i++)
+	        list.insert(i);
+        System.out.println("初始");
+        System.out.println(list.length());
+        System.out.println(list.isEmpty());
+        list.print();
+
+        System.out.println();
+        System.out.println("删除");
+        for (int i = 0; i < 5; i++)
+            System.out.println(list.remove());
+        System.out.println(list.length());
+        System.out.println(list.isEmpty());
+        list.print();
+
+        System.out.println();
+        System.out.println("清空");
+        list.clear();
+        System.out.println(list.length());
+        System.out.println(list.isEmpty());
+        list.print();
+
     }
 
     //前缀树测试
     public static void test_PrefixTree() {
         PrefixTree tree = new PrefixTree();
-        tree.insert("ca");
-        tree.insert("can");
-        tree.insert("f");
-        tree.insert("fei");
-        tree.insert("fen");
-        tree.insert("mei");
-        tree.insert("meitu");
-        tree.insert("t");
-        tree.insert("tuan");
-        tree.insert("tui");
+        String [] strings = {"ca", "can", "f", "fei", "fen", "mei", "meitu", "t", "tuan", "tui"};
+        for (int i = 0; i < strings.length; i++)
+            tree.insert(strings[i]);
+        System.out.println("初始");
         System.out.println(tree.size());
         System.out.println(tree.contains("meitu"));
         System.out.println(tree.contains("meituan"));
         System.out.println(tree.prefix("mei"));
         System.out.println(tree.prefix("t"));
-        System.out.println(tree.prefix("c"));
         tree.hierarchy();
         tree.depthTraverse();
+
         System.out.println();
+        System.out.println("删除");
         tree.delete("meitu");
         tree.delete("tuan");
         System.out.println(tree.size());
         System.out.println(tree.contains("meitu"));
-        System.out.println(tree.contains("tuan"));
+        System.out.println(tree.prefix("mei"));
+        System.out.println(tree.prefix("t"));
         tree.hierarchy();
         tree.depthTraverse();
+
     }
 
     //优先队列测试
     public static void test_PriorityQueue() {
+        PriorityQueue queue = new PriorityQueue();
+        for (char c = 'a'; c <= 'z'; c++)
+            queue.enter(c);
+        System.out.println("初始");
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
+
+        System.out.println();
+        System.out.println("删除");
+        for (int i = 0; i < 10; i++)
+            System.out.println(queue.depart());
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
+
+        System.out.println();
+        System.out.println("清空");
+        queue.clear();
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
+
+        for (int i = 0; i < 20; i++)
+            queue.enter(i);
+        System.out.println("初始");
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
+
+        System.out.println();
+        System.out.println("删除");
+        for (int i = 0; i < 10; i++)
+            System.out.println(queue.depart());
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
+
+        System.out.println();
+        System.out.println("清空");
+        queue.clear();
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
 
     }
 
     //队列测试
     public static void test_Queue() {
+	    Queue<Integer> queue = new Queue();
+	    for (int i = 0; i < 20; i++)
+	        queue.enter(i);
+        System.out.println("初始");
+        System.out.println(queue.length());
+        System.out.println(queue.isEmpty());
+        queue.print();
+
+        System.out.println();
+        System.out.println("删除");
+        for (int i = 0; i < 10; i++)
+            System.out.println(queue.depart());
+        System.out.println(queue.length());
+        System.out.println(queue.isEmpty());
+        queue.print();
+
+        System.out.println();
+        System.out.println("清空");
+        queue.clear();
+        System.out.println(queue.length());
+        System.out.println(queue.isEmpty());
+        queue.print();
+
     }
 
     //红黑树测试
     public static void test_RBT() {
         int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
         RBT rbt = new RBT();
-        for(int i = 0; i < array.length; i++) {
+        for(int i = 0; i < array.length; i++)
             rbt.insert(array[i]);
-            rbt.preTraverse();
-            System.out.println();
-            rbt.inTraverse();
-            System.out.println();
-            rbt.postTraverse();
-            System.out.println();
-        }
+        System.out.println("初始");
+        System.out.println(rbt.height());
+        System.out.println(rbt.size());
+        System.out.println(rbt.contains(10));
+        System.out.println(rbt.contains(20));
+        rbt.preTraverse();
+        rbt.inTraverse();
+        rbt.postTraverse();
+
+        System.out.println();
+        System.out.println("删除");
+
     }
 
 	//单向链表测试
 	public static void test_SingleList() {
 		SingleList<Integer> list = new SingleList<>();
-		for(int i = 0; i < 10; i++)
+		for(int i = 0; i < 20; i++)
 			list.insert(i);
+        System.out.println("初始");
+        System.out.println(list.isEmpty());
+        System.out.println(list.length());
 		list.print();
+        System.out.println();
 		System.out.println(list.middle());
-		System.out.println(list.reciprocal(3));
+		System.out.println(list.reciprocal(7));
+
+        System.out.println("删除");
+        for (int i = 0; i < 5; i++)
+            System.out.println(list.remove());
+        System.out.println(list.isEmpty());
+        System.out.println(list.length());
+        list.print();
+        System.out.println();
+        System.out.println(list.middle());
+        System.out.println(list.reciprocal(5));
+
+        System.out.println("逆置");
 		list.inverse();
-		list.print();
-		System.out.println(list.middle());
-		System.out.println(list.reciprocal(6));
-		list.inverse_recursive();
-		list.print();
-		System.out.println(list.middle());
-		System.out.println(list.reciprocal(9));
-		for(int i = 0; i < 3; i++)
-			list.remove();
-		list.print();
-		System.out.println(list.middle());
-		System.out.println(list.reciprocal(5));
+        System.out.println(list.isEmpty());
+        System.out.println(list.length());
+        list.print();
+        System.out.println();
+        System.out.println(list.middle());
+        System.out.println(list.reciprocal(7));
+
+        System.out.println("逆置");
+        list.inverse_recursive();
+        System.out.println(list.isEmpty());
+        System.out.println(list.length());
+        list.print();
+        System.out.println();
+        System.out.println(list.middle());
+        System.out.println(list.reciprocal(3));
+
+        System.out.println("清空");
+        list.clear();
+        System.out.println(list.isEmpty());
+        System.out.println(list.length());
+        list.print();
+        System.out.println(list.middle());
+        System.out.println(list.reciprocal(1));
+
 	}
 
     //跳跃表测试
     public static void test_SkipList() {
-        SkipList skipList = new SkipList(4, 4);
-        for(int i = 0; i < 100; i++) {
+        SkipList skipList = new SkipList(4, 3);
+        System.out.println("初始");
+        for(int i = 0; i < 20; i++) {
             skipList.insert(i);
             skipList.print();
-            System.out.println("-----");
         }
-        skipList.trace(0);
-        System.out.println();
-        skipList.trace(25);
-        System.out.println();
-        skipList.trace(50);
-        System.out.println();
-        skipList.trace(99);
+        System.out.println(skipList.isEmpty());
+        System.out.println(skipList.length());
+        System.out.println(skipList.size());
+        for (int i = 0; i < 5; i++)
+            skipList.trace(5 * i);
+
+        System.out.println("删除");
         skipList.delete(0);
-        skipList.delete(25);
-        skipList.delete(50);
-        skipList.delete(99);
-        System.out.println();
+        skipList.delete(10);
+        skipList.delete(19);
+        System.out.println(skipList.isEmpty());
+        System.out.println(skipList.length());
+        System.out.println(skipList.size());
         skipList.print();
-        System.out.println("-----");
+        for (int i = 0; i < 5; i++)
+            skipList.trace(5 * i);
+
+        System.out.println("清空");
         skipList.clear();
+        System.out.println(skipList.isEmpty());
+        System.out.println(skipList.length());
+        System.out.println(skipList.size());
         skipList.print();
+        skipList.trace(0);
+
     }
 
 	
 	//栈测试
 	public static void test_Stack() {
-	}
+	    Stack<Integer> stack = new Stack<>();
+	    for (int i = 0; i < 20; i++)
+	        stack.push(i);
+        System.out.println("初始");
+        System.out.println(stack.isEmpty());
+        System.out.println(stack.length());
+        stack.print();
+
+        System.out.println();
+        System.out.println("删除");
+        for (int i = 0; i < 5; i++)
+            System.out.println(stack.pop());
+        System.out.println(stack.isEmpty());
+        System.out.println(stack.length());
+        stack.print();
+
+        System.out.println();
+        System.out.println("清空");
+        stack.clear();
+        System.out.println(stack.isEmpty());
+        System.out.println(stack.length());
+        stack.print();
+
+    }
+
+	//并查集测试
+    public static void test_UnionFindSet() {
+	    UnionFindSet set = new UnionFindSet();
+	    for (int i = 0; i < 10; i++)
+            set.insert(i);
+        System.out.println("初始");
+        System.out.println(set.isEmpty());
+        System.out.println(set.size());
+        System.out.println(set.count());
+        set.print();
+        System.out.println();
+        System.out.println(set.connected(0,9));
+        System.out.println(set.connected(3,6));
+
+        System.out.println("合并");
+        set.union(0,1);
+        set.union(1,2);
+        set.union(5,6);
+        set.union(7,8);
+        set.union(8,9);
+        set.union(2,7);
+        System.out.println(set.isEmpty());
+        System.out.println(set.size());
+        System.out.println(set.count());
+        set.print();
+        System.out.println();
+        System.out.println(set.connected(0,9));
+        System.out.println(set.connected(3,6));
+
+        System.out.println("清空");
+        set.clear();
+        System.out.println(set.isEmpty());
+        System.out.println(set.size());
+        System.out.println(set.count());
+        set.print();
+
+    }
 	
 }
-

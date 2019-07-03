@@ -1,11 +1,9 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 
-//循环双向链表的实现
-//在每个操作后都保持双向循环结构
-//实现了添加，删除元素，判空，清空的操作
+//双向循环链表的实现
 public class LinkedList<T> {
 	
 	private Node head;//头节点
@@ -23,6 +21,8 @@ public class LinkedList<T> {
 		
 		public Node(Object data) {
 			this.data = data;
+			this.previous = null;
+			this.next = null;
 		}
 	}
 	
@@ -31,7 +31,7 @@ public class LinkedList<T> {
 		this.tail = head;
 		this.head.previous = tail;
 		this.tail.next = head;
-		this.length = 0;		
+		this.length = 0;
 	}
 	
 	//添加元素（尾部）
@@ -81,7 +81,7 @@ public class LinkedList<T> {
 		System.out.println();
 		for(Node temp = head.next; temp != head; temp = temp.next) 
 			System.out.print(temp.data + " ");
+		return;
 	}	
 	
 }
-

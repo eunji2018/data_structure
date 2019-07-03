@@ -1,5 +1,5 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package basic_algorithm.string;
 
@@ -47,7 +47,6 @@ public class LCSTR {
 	
 	//单变量实现
     //从右上到左下计算矩阵中的斜线，斜线的方向为从左上指向右下，起点在最左一列或最上一行，终点在最下一行或最右一列
-    //
 	public static int generate2(char [] string1, char [] string2) {
 		if (string1 == null || string1.length == 0 ||
 			string2 == null || string2.length == 0) 

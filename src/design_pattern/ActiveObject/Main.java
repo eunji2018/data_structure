@@ -1,5 +1,8 @@
 package design_pattern.ActiveObject;
 
+//ActiveObject模式
+//可以从外部接收和处理异步消息，并且返回处理结果
+//结合了生产者消费者模式，Future模式，线程池模式
 public class Main {
 
 	public static void main(String[] args) {
@@ -11,7 +14,7 @@ public class Main {
 }
 
 //客户端线程
-//制作字符串
+//请求生成字符串
 class MakerClient extends Thread{
 	
     private final Active active;
@@ -28,16 +31,17 @@ class MakerClient extends Thread{
         super.run();
         try {
             for(int i = 1; true; i++){
-                Result<String> result = active.make(i, c);
+                Result<String> result = active.make(i, c);//发送生成字符串的异步消息
                 Thread.sleep(10);
-                String string = result.getValue();
+                String string = result.getValue();//获取返回结果
                 System.out.println(Thread.currentThread().getName() + " value= " + string);
             }
         }catch (Exception e){}
     }
 }
 
-//展示字符串
+//客户端线程
+//请求显示字符串
 class DisplayClient extends Thread{
 	
     private final Active active;
@@ -53,7 +57,7 @@ class DisplayClient extends Thread{
         try {
             for(int i = 0; true; i++){
                 String string = Thread.currentThread().getName() + " " + i;
-                active.display(string);
+                active.display(string);//发送显示字符串的异步消息
                 Thread.sleep(500);
             }
         }catch (Exception e){}

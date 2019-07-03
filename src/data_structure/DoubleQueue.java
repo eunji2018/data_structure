@@ -1,10 +1,9 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 
 //双端队列的双向链表实现
-//实现了队首、队尾入队与出队，判空，清空的操作
 public class DoubleQueue<T> {
 
 	private Node head;//队首节点
@@ -22,25 +21,26 @@ public class DoubleQueue<T> {
 		
 		public Node(Object data) {
 			this.data = data;
+			this.previous = null;
+			this.next = null;
 		}
 	}
 	
 	public DoubleQueue() {
-		this.head = null;
-		this.tail = null;
+		this.head = new Node(null);//队首节点不保存元素
+		this.tail = new Node(null);//队尾节点不保存元素
+		this.head.next = tail;
+		this.tail.previous = head;
 		this.length = 0;
 	}
 	
 	//队首入队
 	public void enterHead(T t) {
 		Node node = new Node(t);
-		if(length == 0) {
-			tail = node;
-		}else {
-			head.previous = node;
-			node.next = head;
-		}
-		head = node;
+		node.next = head.next;
+		head.next.previous = node;
+		head.next = node;
+		node.previous = head;
 		length++;
 		return;
 	}
@@ -48,13 +48,10 @@ public class DoubleQueue<T> {
 	//队尾入队
 	public void enterTail(T t) {
 		Node node = new Node(t);
-		if(length == 0) {
-			head = node;
-		}else {
-			tail.next = node;
-			node.previous = tail;
-		}
-		tail = node;
+		node.previous = tail.previous;
+		tail.previous.next = node;
+		tail.previous = node;
+		node.next = tail;
 		length++;
 		return;
 	}
@@ -63,10 +60,9 @@ public class DoubleQueue<T> {
 	public T departHead() {
 		if(length == 0)
 			return null;
-		Node node = head;
-		head = head.next;
-		if(head == null)//只有一个元素
-			tail = null;
+		Node node = head.next;
+		head.next = node.next;
+		node.next.previous = head;
 		length--;
 		return (T)node.data;
 	}
@@ -75,10 +71,9 @@ public class DoubleQueue<T> {
 	public T departTail() {
 		if(length == 0)
 			return null;
-		Node node = tail;
-		tail = tail.previous;
-		if(tail == null)//只有一个元素
-			head = null;
+		Node node = tail.previous;
+		tail.previous = node.previous;
+		node.previous.next = tail;
 		length--;
 		return (T)node.data;
 	}
@@ -90,8 +85,8 @@ public class DoubleQueue<T> {
 	
 	//清空
 	public void clear() {
-		head = null;
-		tail = null;
+		head.next = tail;
+		tail.previous = head;
 		length = 0;
 		return;
 	}
@@ -102,12 +97,12 @@ public class DoubleQueue<T> {
 	
 	//打印
 	public void print() {
-		Node node = head;
-		System.out.println();
-		while(node != null) {
+		Node node = head.next;
+		while(node != tail) {
 			System.out.print(node.data + " ");
 			node = node.next;
 		}
+		System.out.println();
 		return;
 	}
 }

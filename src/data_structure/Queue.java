@@ -1,5 +1,5 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 
@@ -9,8 +9,7 @@ package data_structure;
  * 若out栈为空，则将in栈中所有元素转移到out栈中，出栈返回
  * 若in栈为空，则返回null
  */
-//队列的单向链表实现
-//实现了入队，出队，判空，清空的操作
+//队列的双向链表实现
 public class Queue<T> {
 	
 	private Node head;//队首节点
@@ -23,28 +22,31 @@ public class Queue<T> {
 	private static class Node {
 		
 		public Object data;
+		public Node previous;
 		public Node next;
 		
 		public Node(Object data) {
 			this.data = data;
+			this.previous = null;
+			this.next = null;
 		}
 	}
 	
 	public Queue() {
-		this.head = null;
-		this.tail = null;
+		this.head = new Node(null);//队首节点不保存元素
+		this.tail = new Node(null);//队尾节点不保存元素
+		this.head.next = tail;
+		this.tail.previous = head;
 		this.length = 0;
 	}
 	
 	//入队
 	public void enter(T t) {
 		Node node = new Node(t);
-		if(length == 0) {
-			head = node;
-		}else {
-			tail.next = node;
-		}
-		tail = node;
+		node.previous = tail.previous;
+		tail.previous.next = node;
+		tail.previous = node;
+		node.next = tail;
 		length++;
 		return;
 	}
@@ -53,10 +55,9 @@ public class Queue<T> {
 	public T depart() {
 		if(length == 0)
 			return null;
-		Node node = head;
-		head = head.next;
-		if(head == null)//只有一个元素
-			tail = null;
+		Node node = head.next;
+		head.next = node.next;
+		node.next.previous = head;
 		length--;
 		return (T)node.data;
 	}
@@ -68,8 +69,8 @@ public class Queue<T> {
 	
 	//清空
 	public void clear() {
-		head = null;
-		tail = null;
+		head.next = tail;
+		tail.previous = head;
 		length = 0;
 		return;
 	}
@@ -80,9 +81,9 @@ public class Queue<T> {
 	
 	//打印
 	public void print() {
-		Node node = head;
+		Node node = head.next;
 		System.out.println();
-		while(node != null) { 
+		while(node != tail) {
 			System.out.print(node.data + " ");
 			node = node.next;
 		}

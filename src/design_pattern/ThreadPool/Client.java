@@ -18,8 +18,8 @@ public class Client extends Thread {
 		super.run();
 		try {
 			for(int i = 0; true; i++) {
-				Request request = new Request(getName() + " " + i);
-				channel.put(request);
+				Request request = new Request(getName() + " " + i);//准备请求
+				channel.put(request);//放入请求
 				Thread.sleep(random.nextInt(1000));
 			}
 		} catch (Exception e) {}

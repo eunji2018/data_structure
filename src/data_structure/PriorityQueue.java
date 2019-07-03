@@ -1,14 +1,14 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 
 //优先队列的有序单向链表实现
 //元素有序且可以重复
 //优化：跳跃表实现或堆实现
-//实现了查找元素，入队，出队，判空，清空的操作
-//comparable1.compareTo(comparable2) > 0 表示comparable1优先于comparable2
-public class PriorityQueue<T> {
+//comparable1.compareTo(comparable2) < 0 表示comparable1优先于comparable2
+//Java八种数据类型都实现了Comparable接口，整型数据较小的优先，字符型数据字典序较前的优先
+public class PriorityQueue {
 
 	private Node head;//头节点
 	
@@ -22,6 +22,7 @@ public class PriorityQueue<T> {
 		
 		public Node(Comparable comparable) {
 			this.comparable = comparable;
+			this.next = null;
 		}
 	}
 	
@@ -30,15 +31,13 @@ public class PriorityQueue<T> {
 		this.length = 0;
 	}
 	
-	//查找优先级 高于给定元素且最低 的节点，包含头节点
+	//查找优先级【高于给定元素且最低】的节点，包含头节点
 	private Node search(Comparable comparable) {
 		Node temp = head;
 		while(temp.next != null) {
-			if(temp.next.comparable.compareTo(comparable) > 0) {
-				temp = temp.next;
-			}else {
+			if(temp.next.comparable.compareTo(comparable) >= 0)
 				break;
-			}
+			temp = temp.next;
 		}
 		return temp;
 	}

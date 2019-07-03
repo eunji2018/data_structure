@@ -15,7 +15,7 @@ public abstract class Request<T> {
 	
 }
 
-//制作字符串请求
+//生成字符串请求
 class MakeRequest extends Request<String>{
 	
 	private final int count;	
@@ -30,11 +30,12 @@ class MakeRequest extends Request<String>{
 	@Override
 	public void execute() {
 		Result<String> result = server.make(count, c);
-		future.setResult(result);
+		future.setResult(result);//关联Future角色与真实结果
+		return;
 	}
 }
 
-//展示字符串请求
+//显示字符串请求
 class DisplayRequest extends Request<String>{
 	
 	private final String string;

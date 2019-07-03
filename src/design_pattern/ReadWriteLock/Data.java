@@ -11,22 +11,24 @@ public class Data {
 			buffer[i] = '#';
 		}
 	}
-	
+
+	//读线程读取数据
 	public char[] read() throws Exception{
-		lock.readLock();
+		lock.readLock();//获取读锁
 		try {
 			return doRead();
 		} finally {
-			lock.readUnlock();
+			lock.readUnlock();//释放读锁
 		}
 	}
-	
+
+	//写线程写入数据
 	public void write(char c) throws Exception{
-		lock.writeLock();
+		lock.writeLock();//获取写锁
 		try {
 			doWrite(c);
 		} finally {
-			lock.writeUnlock();
+			lock.writeUnlock();//释放写锁
 		}
 	}
 	
@@ -45,7 +47,8 @@ public class Data {
 			slowly();
 		}
 	}
-	
+
+	//模拟耗时操作
 	private void slowly() {
 		try {
 			Thread.sleep(50);

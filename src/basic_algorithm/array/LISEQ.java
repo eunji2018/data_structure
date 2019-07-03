@@ -1,7 +1,7 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
-package basic_algorithm.string;
+package basic_algorithm.array;
 
 import data_structure.Stack;
 

@@ -1,5 +1,5 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 
@@ -10,16 +10,15 @@ package data_structure;
  * 若one队列为空，则返回null
  */
 /* 实现getMin（getMax）功能
-   另外维护一个min栈，栈顶元素始终是当前数据栈的最小元素
-   入栈时，若min栈为空，则元素同时压入min栈
-   否则min栈不为空时，若元素小于或等于min栈顶元素，则元素同时压入min栈
-   出栈时，若元素等于min栈顶元素，则min出栈
+ * 另外维护一个min栈，栈顶元素始终是当前数据栈的最小元素
+ * 入栈时，若min栈为空，则元素同时压入min栈
+ * 否则min栈不为空时，若元素小于或等于min栈顶元素，则元素同时压入min栈
+ * 出栈时，若元素等于min栈顶元素，则min出栈
  */
 //栈的单向链表实现
-//实现了入栈，出栈，取栈顶，判空，清空的操作
 public class Stack<T> {
 	
-	private Node index;//栈顶元素
+	private Node head;//头节点
 	
 	private int length;//栈的长度
 	
@@ -31,48 +30,49 @@ public class Stack<T> {
 		
 		public Node(Object data) {
 			this.data = data;
+			this.next = null;
 		}
 	}
 	
 	public Stack() {
-		this.index = null;
+		this.head = new Node(null);//头节点不保存元素
 		this.length = 0;
 	}
 	
 	//入栈
 	public void push(T t) {
 		Node node = new Node(t);
-		node.next = index;
-		index = node;
+		node.next = head.next;
+		head.next = node;
 		length++;
 		return;
 	}
 	
 	//出栈
 	public T pop() {
-		if(index == null)
+		if(length == 0)
 			return null;
-		Node node = index;
-		index = index.next;
+		Node node = head.next;
+		head.next = node.next;
 		length--;
 		return (T)node.data;
 	}
 	
 	//取栈顶
 	public T peek() {
-		if(index == null)
+		if(length == 0)
 			return null;
-		return (T)index.data;
+		return (T)head.next.data;
 	}
 	
 	//判空
 	public boolean isEmpty() {
-		return index == null;
+		return length == 0;
 	}
 
 	//清空
 	public void clear() {
-		index = null;
+		head.next = null;
 		length = 0;
 		return;
 	}
@@ -83,7 +83,7 @@ public class Stack<T> {
 
 	//打印
 	public void print() {
-		Node node = index;
+		Node node = head.next;
 		System.out.println();
 		while(node != null) {
 			System.out.print(node.data + " ");

@@ -1,9 +1,9 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package basic_algorithm.sort;
 
-//快速排序
+//快速排序（三向排序）
 //平均时间复杂度O(nlogn)，空间复杂度O(logn)，不稳定
 //优化：子数组规模较小时可以使用插入排序，切分元素数目较多时可以使用三向排序
 public class QuickSort {

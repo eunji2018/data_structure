@@ -1,5 +1,5 @@
-/*
-    @Author:eunji
+/**
+ * @Author eunji
  */
 package basic_algorithm.string;
 

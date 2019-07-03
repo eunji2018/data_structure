@@ -1,14 +1,15 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package basic_algorithm.array;
 
 import data_structure.Stack;
 
-//最大连续子序列和
+//最大连续子序列
 public class MCSEQ {
 
-	public static int generate(int [] array) {
+	//最大连续子序列和
+	public static int generate1(int [] array) {
 		if (array == null || array.length == 0) 
 			return -1;
 		int end = 0, sum = 0, max = 0;
@@ -32,4 +33,11 @@ public class MCSEQ {
 			System.out.print(stack.pop() + " ");
 		return max;
 	}
+
+	//最大连续子序列积
+	public static int generate2(int [] array) {
+
+		return 0;
+	}
+
 }

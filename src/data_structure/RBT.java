@@ -1,5 +1,5 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 
@@ -20,7 +20,6 @@ package data_structure;
  * 删除元素的情形：
  * 
  * 
- * 实现了左旋，右旋，变色，添加，删除元素，前序，中序，后序遍历的操作
 */
 public class RBT {
 
@@ -29,15 +28,21 @@ public class RBT {
 	//节点类
 	private static class TreeNode {
 
-		public int data;
+		public Comparable comparable;
 		public TreeNode left;
 		public TreeNode right;
 		public boolean color;//红节点为true，黑节点为false
 		
-		public TreeNode(int data, boolean color) {
-			this.data = data;
+		public TreeNode(Comparable comparable, boolean color) {
+			this.comparable = comparable;
 			this.color = color;
+			this.left = null;
+			this.right = null;
 		}
+	}
+
+	public RBT() {
+		this.root = null;
 	}
 	
 	public int height() {
@@ -94,19 +99,19 @@ public class RBT {
 	}
 	
 	//添加元素
-	public void insert(int data) {
-		root = insert(root, data);
+	public void insert(Comparable comparable) {
+		root = insert(root, comparable);
 		root.color = false;//根节点保持黑色
 		return;
 	}
 	
-	private static TreeNode insert(TreeNode node, int data) {
+	private static TreeNode insert(TreeNode node, Comparable comparable) {
 		if(node == null)//找到添加的位置
-			return new TreeNode(data, true);//新节点都为红色
-		if(data <= node.data) {
-			node.left = insert(node.left, data);
+			return new TreeNode(comparable, true);//新节点都为红色
+		if(comparable.compareTo(node.comparable) < 0) {
+			node.left = insert(node.left, comparable);
 		}else {
-			node.right = insert(node.right, data);
+			node.right = insert(node.right, comparable);
 		}
 		//调整节点
 		if(color(node.right) && !color(node.left))//左子节点为黑，右子节点为红，对父节点左旋 
@@ -118,16 +123,17 @@ public class RBT {
 		return node;
 	}
 	
-	public boolean contains(int data) {
-		return contains(root, data);
+	public boolean contains(Comparable comparable) {
+		return contains(root, comparable);
 	}
 	
-	private static boolean contains(TreeNode node, int data) {
+	private static boolean contains(TreeNode node, Comparable comparable) {
 		if(node == null)
 			return false;
-		if(node.data == data)
+		if(comparable.compareTo(node.comparable) == 0)
 			return true;
-		return data < node.data ? contains(node.left, data) : contains(node.right, data);
+		return comparable.compareTo(node.comparable) < 0
+		       ? contains(node.left, comparable) : contains(node.right, comparable);
 	}
 	
 	private static TreeNode getMin(TreeNode node) {
@@ -150,7 +156,8 @@ public class RBT {
 	//删除
 	
 	//删除元素
-	
+
+	//递归遍历
 	public void preTraverse() {
 		System.out.println();
 		preTraverse(root);
@@ -173,7 +180,7 @@ public class RBT {
 	private static void preTraverse(TreeNode node) {
 		if(node == null)
 			return;
-		System.out.print(node.data + ":" + (node.color ? "T" : "F") + " ");
+		System.out.print(node.comparable + ":" + (node.color ? "T " : "F "));
 		preTraverse(node.left);
 		preTraverse(node.right);
 	}
@@ -183,7 +190,7 @@ public class RBT {
 		if(node == null)
 			return;
 		inTraverse(node.left);
-		System.out.print(node.data + ":" + (node.color ? "T" : "F") + " ");
+		System.out.print(node.comparable + ":" + (node.color ? "T " : "F "));
 		inTraverse(node.right);
 	}
 	
@@ -193,6 +200,6 @@ public class RBT {
 			return;
 		postTraverse(node.left);
 		postTraverse(node.right);
-		System.out.print(node.data + ":" + (node.color ? "T" : "F") + " ");
+		System.out.print(node.comparable + ":" + (node.color ? "T " : "F "));
 	}
 }

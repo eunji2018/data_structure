@@ -1,11 +1,10 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 
 //堆的完全二叉树实现
 //小根堆，元素较小则优先
-//实现了入堆，出堆，取堆顶，判空，清空，向上查找第一个左子节点或右子节点，向下查找最左节点或最右节点的操作
 public class Heap {
 
     private int size;//堆的大小
@@ -17,13 +16,16 @@ public class Heap {
     //节点类
     private static class TreeNode{
 
-        public int data;
+        public Comparable comparable;
         private TreeNode left;//左子节点
         private TreeNode right;//右子节点
         private TreeNode parent;//父节点
 
-        public TreeNode(int data) {
-            this.data = data;
+        public TreeNode(Comparable comparable) {
+            this.comparable = comparable;
+            this.left = null;
+            this.right = null;
+            this.parent = null;
         }
     }
 
@@ -44,25 +46,27 @@ public class Heap {
 
     //清空
     public void clear() {
-        this.size = 0;
         this.head = null;
         this.tail = null;
+        this.size = 0;
         return;
     }
 
     //取堆顶
-    public int peek() {
-        return size == 0 ? Integer.MIN_VALUE : head.data;
+    //限制条件：调用peek()方法前先调用isEmpty()方法判断
+    public Comparable peek() {
+        return size == 0 ? null : head.comparable;
     }
 
     //入堆
-    //过程：查找堆尾后一个位置的父节点，更新引用，调整，更新计数
-    public void push(int data) {
-        TreeNode node = new TreeNode(data);
-        if (size == 0) {
+    //过程：查找堆尾后一个位置的【父节点】，更新引用，调整堆，更新计数
+    public void push(Comparable comparable) {
+        TreeNode node = new TreeNode(comparable);
+        if (size == 0) {//堆为空
             head = node;
         }else {
-            tail = next();
+            tail = next();//堆尾后一个位置的父节点
+            //更新引用
             //堆大小为偶数时，新元素是右子节点，为奇数时，是左子节点
             if (size % 2 == 0) {
                 tail.right = node;
@@ -79,16 +83,17 @@ public class Heap {
     }
 
     //出堆
-    //限制条件：调用pop()方法前先调用isEmpty()判断
-    //过程：查找堆尾前一个位置，交换元素，更新引用，调整，更新计数，返回结果
-    public int pop() {
+    //限制条件：调用pop()方法前先调用isEmpty()方法判断
+    //过程：查找堆尾前一个位置的节点，交换元素，更新引用，调整堆，更新计数
+    public Comparable pop() {
         TreeNode node = tail;
-        if (size == 1) {
+        if (size == 1) {//只有一个元素
             head = null;
             tail = null;
         }else {
-            tail = previous();
-            swap(head,node);
+            tail = previous();//堆尾前一个位置
+            swap(head, node);//交换元素
+            //更新引用
             //堆大小为偶数时，堆尾是左子节点，为奇数时，是右子节点
             if (size % 2 == 0) {
                 node.parent.left = null;
@@ -99,10 +104,10 @@ public class Heap {
             sink(head);
         }
         size--;
-        return node.data;
+        return node.comparable;
     }
 
-    //返回堆尾后一个位置的父节点
+    //查找堆尾后一个位置的父节点
     //堆至少包含一个节点，tail不为null
     private TreeNode next() {
         TreeNode node = upLeft(tail);//从堆尾开始向上查找第一个左子节点或堆顶节点
@@ -112,7 +117,7 @@ public class Heap {
         return node.right == null ? node : downLeft(node.right);//node.right可能为null
     }
 
-    //返回堆尾前一个位置的节点
+    //查找堆尾前一个位置的节点
     //堆至少包含两个节点，tail不为null
     private TreeNode previous() {
         TreeNode node = upRight(tail);//从堆尾开始向上查找第一个右子节点或堆顶节点
@@ -123,7 +128,6 @@ public class Heap {
     }
 
     //从当前节点开始向上查找第一个左子节点或堆顶节点
-    //node不为null
     private TreeNode upLeft(TreeNode node) {
         TreeNode temp;
         while (node.parent != null) {
@@ -136,7 +140,6 @@ public class Heap {
     }
 
     //从当前节点开始向上查找第一个右子节点或堆顶节点
-    //node不为null
     private TreeNode upRight(TreeNode node) {
         TreeNode temp;
         while (node.parent != null) {
@@ -149,7 +152,6 @@ public class Heap {
     }
 
     //以当前节点为根的子树的最左节点
-    //node不为null
     private TreeNode downLeft(TreeNode node) {
         while (node.left != null)
             node = node.left;
@@ -157,7 +159,6 @@ public class Heap {
     }
 
     //以当前节点为根的子树的最右节点
-    //node不为null
     private TreeNode downRight(TreeNode node) {
         while (node.right != null)
             node = node.right;
@@ -166,9 +167,9 @@ public class Heap {
 
     //交换两个节点保存的元素
     private void swap(TreeNode one, TreeNode other) {
-        int data = one.data;
-        one.data = other.data;
-        other.data = data;
+        Comparable comparable = one.comparable;
+        one.comparable = other.comparable;
+        other.comparable = comparable;
         return;
     }
 
@@ -177,9 +178,9 @@ public class Heap {
         TreeNode temp;
         while (node.parent != null) {
             temp = node.parent;
-            if (node.data >= temp.data)
+            if (node.comparable.compareTo(temp.comparable) >= 0)//父节点的元素优先，或者优先级相同
                 break;
-            swap(node,temp);
+            swap(node, temp);
             node = temp;
         }
         return;
@@ -189,33 +190,41 @@ public class Heap {
     private void sink(TreeNode node) {
         TreeNode temp = node;
         while (true) {
-            if (node.right != null && node.right.data < temp.data)
+            if (node.right != null && node.right.comparable.compareTo(temp.comparable) < 0)//右子节点的元素优先
                 temp = node.right;
-            if (node.left != null && node.left.data < temp.data)
+            if (node.left != null && node.left.comparable.compareTo(temp.comparable) < 0)//左子节点的元素优先
                 temp = node.left;
-            if (node == temp)//父节点是最优先元素，则结束
+            if (node == temp)//父节点的元素优先级最高，则结束
                 break;
-            swap(temp,node);
+            swap(node, temp);
             node = temp;
         }
         return;
     }
 
-    //打印
-    public void print() {
+    //层次遍历
+    public void hierarchy() {
         if (size == 0)
             return;
         Queue<TreeNode> queue = new Queue<>();
         TreeNode node = head;
         queue.enter(node);
+        queue.enter(new TreeNode(null));//虚拟节点，表示当前层遍历完毕
         System.out.println();
         while (!queue.isEmpty()) {
             node = queue.depart();
-            System.out.print(node.data + " ");
-            if (node.left != null)
-                queue.enter(node.left);
-            if (node.right != null)
-                queue.enter(node.right);
+            if (node.comparable == null) {//当前层遍历完毕
+                if (queue.isEmpty())//所有层遍历完毕
+                    break;
+                queue.enter(node);
+                System.out.println();
+            }else {
+                System.out.print(node.comparable + " ");
+                if (node.left != null)
+                    queue.enter(node.left);
+                if (node.right != null)
+                    queue.enter(node.right);
+            }
         }
         return;
     }

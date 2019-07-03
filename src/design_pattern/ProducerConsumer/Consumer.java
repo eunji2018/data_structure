@@ -2,7 +2,7 @@ package design_pattern.ProducerConsumer;
 
 import java.util.Random;
 
-//消费者线程
+//消费者角色
 public class Consumer extends Thread {
 
 	private final Random random;
@@ -19,7 +19,7 @@ public class Consumer extends Thread {
 		super.run();
 		try {
 			while(true) {
-				String data = pool.take();
+				pool.take();//从缓冲池取出数据
 				Thread.sleep(random.nextInt(1000));
 			}
 		} catch (Exception e) {

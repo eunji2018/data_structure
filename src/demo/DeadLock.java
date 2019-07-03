@@ -1,5 +1,5 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package demo;
 
@@ -28,33 +28,33 @@ public class DeadLock {
 			@Override
 			public void run() {
 				super.run();
-				synchronized (one) {
+				synchronized (one) {//先获取对象one的锁
 					System.out.println(Thread.currentThread().getName() + " get one");
 					try {
-						Thread.sleep(100);
+						Thread.sleep(100);//休眠100ms
 					} catch (Exception e) {}
-					synchronized (two) {
+					synchronized (two) {//再获取对象two的锁
 						System.out.println(Thread.currentThread().getName() + " get two");
 					}
 				}
 			}
 		}.start();
-		
+
 		new Thread() {
 			@Override
 			public void run() {
 				super.run();
-				synchronized (two) {
+				synchronized (two) {//先获取对象two的锁
 					System.out.println(Thread.currentThread().getName() + " get two");
 					try {
-						Thread.sleep(100);
+						Thread.sleep(100);//休眠100ms
 					} catch (Exception e) {}
-					synchronized (one) {
+					synchronized (one) {//再获取对象one的锁
 						System.out.println(Thread.currentThread().getName() + " get one");
 					}
 				}
 			}
 		}.start();
-		
+
 	}
 }

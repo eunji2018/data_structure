@@ -1,10 +1,12 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package basic_algorithm.string;
 
 //最长回文子串
-//
+//对字符串填充'#'字符，处理后的字符串长度为奇数
+//从左到右遍历字符数组，记录当前回文子串到达的最右端和最长回文子串的半径
+//以当前字符为中心的最长回文子串可以借助当前回文子串到达的最右端来快速求出
 public class LPSTR {
 
 	public static int generate(char [] string) {
@@ -22,19 +24,17 @@ public class LPSTR {
 		for(int i = 0; i < temp.length; i++) {
 			radius[i] = i < right ? Math.min(radius[2*index-i],right-i) : 1;
 			while(i + radius[i] < temp.length && i - radius[i] >= 0) {
-				if (temp[i+radius[i]] == temp[i-radius[i]]) {
-					radius[i]++;
-				}else {
+				if (temp[i+radius[i]] != temp[i-radius[i]])
 					break;
-				}
+				radius[i]++;
 			}
-			if (i + radius[i] > right) {
+			if (i + radius[i] > right) {//更新最右端
 				right = i + radius[i];
 				index = i;
 			}
-			if(radius[i] > max) {
-				position = i;
+			if(radius[i] > max) {//更新最长回文半径
 				max = radius[i];
+				position = i;
 			}
 		}
 		//打印最长回文子串

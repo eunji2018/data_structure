@@ -1,5 +1,5 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package basic_algorithm;
 
@@ -15,6 +15,8 @@ public class Test {
 //	    test_ExchangeMoney();
 //	    test_JumpArray();
 //	    test_MatrixMinPath();
+//	    test_MaxSubMatrix();
+
 //	    test_MCSEQ();
 //	    test_MinBlood();
 //	    test_TOPK();
@@ -36,9 +38,12 @@ public class Test {
 //	    test_LISEQ();
 //	    test_LPSTR();
 //	    test_MinEditCost();
-	    test_PalindromeSeparate();
+//	    test_PalindromeSeparate();
 //	    test_PalindromeString();
 //	    test_StringMatch();
+        test_SubSequenceNumber();
+
+
 	}
 
     //背包问题测试
@@ -86,21 +91,32 @@ public class Test {
     }
 
     //矩阵最小路径和测试
-    public static void test_MatrixMinPath(){
+    public static void test_MatrixMinPath() {
         int[][] matrix = {{1,3,5,9},
-                {8,1,3,4},
-                {5,0,6,1},
-                {8,8,4,0}};
+                          {8,1,3,4},
+                          {5,0,6,1},
+                          {8,8,4,0}};
         int pathSum1 = MatrixMinPath.generate1(matrix);
         int pathSum2 = MatrixMinPath.generate2(matrix);
         System.out.println(pathSum1);
         System.out.println(pathSum2);
     }
 
-    //最大连续子序列和测试
+    //最大子矩阵和测试
+    public static void test_MaxSubMatrix() {
+	    int[][] matrix = {{5,-10,3,-1},
+                          {-4,2,0,3},
+                          {1,5,4,-2},
+                          {2,-3,-8,4}};
+	    int sum = MaxSubMatrix.generate1(matrix);
+        System.out.println();
+        System.out.println(sum);
+    }
+
+    //最大连续子序列测试
     public static void test_MCSEQ() {
         int [] array = {1,-2,3,5,-2,6,-1};
-        int sum = MCSEQ.generate(array);
+        int sum = MCSEQ.generate1(array);
         System.out.println("sum: " + sum);
     }
 
@@ -117,7 +133,7 @@ public class Test {
     //TOPK测试
     public static void test_TOPK() {
         int [] array = {15,14,20,16,17,13,12,18,11,19,5,4,10,6,7,3,2,9,8,1};
-        TOPK.generate(array, 7);
+        TOPK.kMin(array, 7);
     }
 
     //斐波那契测试
@@ -249,5 +265,14 @@ public class Test {
 		int index = StringMatch.generate(source.toCharArray(), match.toCharArray());
 		System.out.println(index);
 	}
+
+	//子序列个数测试
+    public static void test_SubSequenceNumber() {
+	    String string1 = "rabbbit";
+	    String string2 = "rabbit";
+	    int count = SubSequenceNumber.generate1(string1.toCharArray(), string2.toCharArray());
+        System.out.println(count);
+    }
+
 	
 }

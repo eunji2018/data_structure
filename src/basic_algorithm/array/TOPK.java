@@ -1,12 +1,13 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package basic_algorithm.array;
 
-//前K个最小数：堆排序实现
+//TOK问题
 public class TOPK {
 
-	public static void generate(int [] array, int k) {
+	//前K个最小数：堆排序实现
+	public static void kMin(int [] array, int k) {
 		if (array == null || array.length == 0 || k < 1 || k > array.length) 
 			return;
 		int [] heap = new int [k];
@@ -74,4 +75,5 @@ public class TOPK {
 		array[index2] = temp;
 		return;
 	}
+
 }

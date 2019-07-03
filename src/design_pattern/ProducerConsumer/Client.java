@@ -1,5 +1,6 @@
 package design_pattern.ProducerConsumer;
 
+//生产者消费者模式
 public class Client {
 
 	public static void main(String[] args) {

@@ -2,7 +2,7 @@ package design_pattern.ProducerConsumer;
 
 import java.util.Random;
 
-//生产者线程
+//生产者角色
 public class Producer extends Thread {
 
 	private static int id;//所有生产者共有的产品编号
@@ -21,8 +21,8 @@ public class Producer extends Thread {
 		try {
 			while(true) {
 				Thread.sleep(random.nextInt(1000));
-				String data = "data " + next();
-				pool.put(data);
+				String data = "data " + next();//生产数据
+				pool.put(data);//向缓冲池放入数据
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

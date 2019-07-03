@@ -1,5 +1,5 @@
-/*
-    @Author：eunji
+/**
+ * @Author eunji
  */
 package data_structure;
 
@@ -7,8 +7,7 @@ package data_structure;
 //在空节点里添加元素，自上向下生长
 //添加元素时可能导致不平衡，有四种情形
 //删除元素时可能导致不平衡，有六种情形
-//实现了查找，添加，删除元素，left-left旋转，left-right旋转，right-left旋转，right-right旋转
-//前序，中序，后序，层次遍历的操作
+
 public class AVL {
 
 	private TreeNode root;//根节点
@@ -16,13 +15,19 @@ public class AVL {
 	//树节点类
 	private static class TreeNode {
 
-		public int data;
+		public Comparable comparable;
 		public TreeNode left;
 		public TreeNode right;
 		
-		public TreeNode(int data) {
-			this.data = data;
+		public TreeNode(Comparable comparable) {
+			this.comparable = comparable;
+			this.left = null;
+			this.right = null;
 		}
+	}
+
+	public AVL() {
+		this.root = null;
 	}
 	
 	public int size() {
@@ -45,21 +50,23 @@ public class AVL {
 		return Math.max(height(node.left), height(node.right)) + 1;
 	}
 	
-	//节点的平衡度，左子树高度减去右子树高度，node不为null
+	//节点的平衡度，左子树高度减去右子树高度
+	//node不为null
 	private static int balance(TreeNode node) {
 		return height(node.left) - height(node.right);
 	}
 	
-	public boolean contains(int data) {
-		return contains(root, data);
+	public boolean contains(Comparable comparable) {
+		return contains(root, comparable);
 	}
 	
-	private static boolean contains(TreeNode node, int data) {
+	private static boolean contains(TreeNode node, Comparable comparable) {
 		if(node == null)
 			return false;
-		if(node.data == data)
+		if(node.comparable.compareTo(comparable) == 0)
 			return true;
-		return data < node.data ? contains(node.left, data) : contains(node.right, data);
+		return comparable.compareTo(node.comparable) < 0
+			   ? contains(node.left, comparable) : contains(node.right, comparable);
 	}
 	
 	//left-left旋转：将节点变为右子节点，左子节点变为父节点
@@ -110,29 +117,29 @@ public class AVL {
 		return node;//删除节点后依然保持平衡
 	}
 	
-	public void insert(int data) {
-		root = insert(root, data);
+	public void insert(Comparable comparable) {
+		root = insert(root, comparable);
 		return;
 	}
 	
 	//添加元素后可能不平衡，有四种情形
-	private static TreeNode insert(TreeNode node, int data) {
+	private static TreeNode insert(TreeNode node, Comparable comparable) {
 		if(node == null)//找到添加的位置
-			return new TreeNode(data);
-		if(data <= node.data) {
-			node.left = insert(node.left, data);
+			return new TreeNode(comparable);
+		if(comparable.compareTo(node.comparable) < 0) {
+			node.left = insert(node.left, comparable);
 		}else {
-			node.right = insert(node.right, data);
+			node.right = insert(node.right, comparable);
 		}
 		//调整节点
 		if(balance(node) > 1) {
-			if(data <= node.left.data) {
+			if(comparable.compareTo(node.left.comparable) < 0) {
 				node = leftLeft(node);
 			}else {
 				node = leftRight(node);
 			}
 		}else if(balance(node) < -1) {
-			if(data > node.right.data) {
+			if(comparable.compareTo(node.right.comparable) >= 0) {
 				node = rightRight(node);
 			}else {
 				node = rightLeft(node);
@@ -142,12 +149,13 @@ public class AVL {
 	}
 	
 	//查找元素，返回节点
-	private static TreeNode select(TreeNode node, int data) {
+	private static TreeNode select(TreeNode node, Comparable comparable) {
 		if(node == null)
 			return null;
-		if(node.data == data)
+		if(node.comparable.compareTo(comparable) == 0)
 			return node;
-		return data < node.data ? select(node.left, data) : select(node.right, data);
+		return comparable.compareTo(node.comparable) < 0
+		       ? select(node.left, comparable) : select(node.right, comparable);
 	}
 	
 	private static TreeNode getMin(TreeNode node) {
@@ -186,17 +194,17 @@ public class AVL {
 //	}
 	
 	//删除元素，维护平衡性
-	public void delete(int data) {
+	public void delete(Comparable comparable) {
 		Stack<TreeNode> stack = new Stack<>();//保存可能需要调整的节点
-		root = delete(root, data, stack);
+		root = delete(root, comparable, stack);
 		if(stack.isEmpty())//删除的是根节点且至少一个子树为空，不需要调整
 			return;
-		//依次出栈，自底向上调整
+		//依次出栈，自下向上调整
 		TreeNode child, parent;
 		while(!stack.isEmpty()) {
 			child = stack.pop();
 			parent = stack.peek();
-			System.out.print(child.data + " ");
+			System.out.print(child.comparable + " ");
 			if(parent == null)//出栈的是根节点
 				break;
 			if(parent.left == child) {
@@ -210,19 +218,19 @@ public class AVL {
 	}
 	
 	//左右子树都不为空时，以中序后继节点（右子树最小节点）替换被删节点，有六种不平衡情形
-	private static TreeNode delete(TreeNode node, int data, Stack<TreeNode> stack) {
+	private static TreeNode delete(TreeNode node, Comparable comparable, Stack<TreeNode> stack) {
 		if(node == null)//被删节点不存在
 			return null;
-		if(data < node.data) {
+		if(comparable.compareTo(node.comparable) < 0) {
 			stack.push(node);
-			node.left = delete(node.left, data, stack);
+			node.left = delete(node.left, comparable, stack);
 		}
-		if(data > node.data) {
+		if(comparable.compareTo(node.comparable) > 0) {
 			stack.push(node);
-			node.right = delete(node.right, data, stack);
+			node.right = delete(node.right, comparable, stack);
 		}
 		//找到被删节点
-		if(data == node.data) {
+		if(comparable.compareTo(node.comparable) == 0) {
 			if(node.left == null)
 				return node.right;
 			if(node.right == null)
@@ -264,30 +272,33 @@ public class AVL {
 	}
 	
 	private static void preOrder_recursive(TreeNode node) {
-		if(node != null)
-			System.out.print(node.data + " ");
+		if(node != null) {
+			System.out.print(node.comparable + " ");
 			preOrder_recursive(node.left);
 			preOrder_recursive(node.right);
+		}
 	}
 
 	private static void inOrder_recursive(TreeNode node) {
-		if(node != null)
+		if(node != null) {
 			inOrder_recursive(node.left);
-			System.out.print(node.data + " ");
+			System.out.print(node.comparable + " ");
 			inOrder_recursive(node.right);
+		}
 	}
 	
 	private static void postOrder_recursive(TreeNode node) {
-		if(node != null)
+		if(node != null) {
 			postOrder_recursive(node.left);
 			postOrder_recursive(node.right);
-			System.out.print(node.data + " ");
+			System.out.print(node.comparable + " ");
+		}
 	}
 	
 	/* 非递归式前序遍历
-	 * 
-	 * 
-	 * 
+	 * 1.使当前节点指向根节点，当前节点入栈
+	 * 2.若栈非空，则使当前节点指向出栈的栈顶节点，遍历节点，将右左子节点依次入栈
+	 * 3.重复第2步，直到栈为空
 	 */
 	public void preOrder() {
 		if (root != null) {
@@ -295,20 +306,23 @@ public class AVL {
 			Stack<TreeNode> stack = new Stack<>();
 			stack.push(node);
 			System.out.println();
-			while(!stack.isEmpty()) {
+			while(!stack.isEmpty()) {//栈非空
 				node = stack.pop();
-				System.out.print(node.data + " ");
+				System.out.print(node.comparable + " ");//遍历节点
 				if (node.right != null) 
 					stack.push(node.right);
 				if (node.left != null) 
 					stack.push(node.left);
 			}
 		}
+		return;
 	}
 	
 	/* 非递归式中序遍历
-	 * 
-	 * 
+	 * 1.使当前节点指向根节点
+	 * 2.若当前节点非空，则入栈，使当前节点指向其左子节点
+	 * 3.重复第2步，直到当前节点为空，若栈非空，则使当前节点指向出栈的栈顶节点，遍历节点，使当前节点指向其右子节点
+	 * 4.重复第3步，直到栈为空
 	 */
 	public void inOrder() {
 		if (root != null) {
@@ -316,57 +330,76 @@ public class AVL {
 			Stack<TreeNode> stack = new Stack<>();
 			System.out.println();
 			while(!stack.isEmpty() || node != null) {
-				if (node != null) {
+				if (node != null) {//当前节点非空
 					stack.push(node);
 					node = node.left;
-				} else {
+				} else {//栈非空
 					node = stack.pop();
-					System.out.print(node.data + " ");
+					System.out.print(node.comparable + " ");//遍历节点
 					node = node.right;
 				}
 			}
-		}		
+		}
+		return;
 	}
 	
 	/* 非递归式后序遍历（两个栈）
-	 * 
+	 * 1.使当前节点指向根节点，当前节点入栈one
+	 * 2.若栈one非空，则使当前节点指向出栈的栈顶节点，当前节点入栈other，将左右子节点依次入栈one
+	 * 3.重复第2步，直到栈one为空
+	 * 4.若栈other非空，则使当前节点指向出栈的栈顶节点，遍历节点
+	 * 5.重复第4步，直到栈other为空
 	 */
 	public void postOrder() {
 		if (root != null) {
 			TreeNode node = root;
-			Stack<TreeNode> stack1 = new Stack<>();
-			Stack<TreeNode> stack2 = new Stack<>();
-			stack1.push(node);
-			while(!stack1.isEmpty()) {
-				node = stack1.pop();
-				stack2.push(node);
+			Stack<TreeNode> one = new Stack<>();
+			Stack<TreeNode> other = new Stack<>();
+			one.push(node);
+			while(!one.isEmpty()) {//栈one非空
+				node = one.pop();
+				other.push(node);
 				if (node.left != null) 
-					stack1.push(node.left);
+					one.push(node.left);
 				if (node.right != null) 
-					stack1.push(node.right);
+					one.push(node.right);
 			}
 			System.out.println();
-			while(!stack2.isEmpty()) {
-				System.out.print(stack2.pop().data + " ");
+			while(!other.isEmpty()) {//栈other非空
+				System.out.print(other.pop().comparable + " ");//遍历节点
 			}
 		}
+		return;
 	}
 	
 	//层次遍历（从左到右，队列）
+	//1.使当前节点指向根节点，当前节点入队，虚拟节点入队
+	//2.若队非空，则使当前节点指向出队的队首节点
+	//（1）当前节点是虚拟节点，若队为空，则结束，若队非空，则当前节点入队
+	//（2）当前节点不是虚拟节点，遍历节点，将左右子节点依次入队
+	//3.重复第2步，直到队为空
 	public void hierarchy() {
 		if(root == null)
 			return;
 		TreeNode node = root;
 		Queue<TreeNode> queue = new Queue<>();
 		queue.enter(node);
+		queue.enter(new TreeNode(null));//虚拟节点
 		System.out.println();
-		while(!queue.isEmpty()) {
+		while(!queue.isEmpty()) {//队非空
 			node = queue.depart();
-			System.out.print(node.data + " ");
-			if(node.left != null)
-				queue.enter(node.left);
-			if(node.right != null)
-				queue.enter(node.right);
+			if (node.comparable == null) {//虚拟节点
+				if (queue.isEmpty())//队为空
+					break;
+				queue.enter(node);
+				System.out.println();
+			}else {
+				System.out.print(node.comparable + " ");//遍历节点
+				if(node.left != null)
+					queue.enter(node.left);
+				if(node.right != null)
+					queue.enter(node.right);
+			}
 		}
 		return;
 	}
@@ -384,21 +417,23 @@ public class AVL {
 			if(!left.isEmpty()) {//从左到右遍历
 				while(!left.isEmpty()) {
 					node = left.pop();
-					System.out.print(node.data + " ");
+					System.out.print(node.comparable + " ");//遍历节点
 					if(node.left != null)
 						right.push(node.left);
 					if(node.right != null)
 						right.push(node.right);
 				}
+				System.out.println();
 			}else {//从右到左遍历
 				while(!right.isEmpty()) {
 					node = right.pop();
-					System.out.print(node.data + " ");
+					System.out.print(node.comparable + " ");//遍历节点
 					if(node.right != null)
 						left.push(node.right);
 					if(node.left != null)
 						left.push(node.left);
 				}
+				System.out.println();
 			}
 		}
 		return;
@@ -417,7 +452,7 @@ public class AVL {
             if (left != 0) {//从左到右遍历，元素从队首出队
                 while (left != 0) {
                     node = queue.departHead();
-                    System.out.print(node.data + " ");
+                    System.out.print(node.comparable + " ");//遍历节点
                     left--;
                     //左右子节点依次从队尾入队，更新right
                     if (node.left != null) {
@@ -429,10 +464,11 @@ public class AVL {
                         right++;
                     }
                 }
+				System.out.println();
             }else {//从右到左遍历，元素从队尾出队
                 while (right != 0) {
                     node = queue.departTail();
-                    System.out.print(node.data + " ");
+                    System.out.print(node.comparable + " ");//遍历节点
                     right--;
                     //右左子节点依次从队首入队，更新left
                     if (node.right != null) {
@@ -444,18 +480,19 @@ public class AVL {
                         left++;
                     }
                 }
+				System.out.println();
             }
         }
         return;
     }
 	
 	//最近公共父节点
-	public int common(int one, int other) {
-		TreeNode node1 = select(root, one);
-		TreeNode node2 = select(root, other);
+	public Comparable common(Comparable comparable1, Comparable comparable2) {
+		TreeNode node1 = select(root, comparable1);
+		TreeNode node2 = select(root, comparable2);
 		if(node1 == null || node2 == null)
 			return -1;
-		return common(root, node1, node2).data;
+		return common(root, node1, node2).comparable;
 	}
 	
 	//当以node为根的子树不包含两个节点时，返回null
@@ -497,7 +534,7 @@ public class AVL {
 			return;
 		Stack<TreeNode> stack = new Stack<>();
 		stack.push(root);
-		TreeNode node = null, temp = null;
+		TreeNode node, temp;
 		while(!stack.isEmpty()) {
 			node = stack.pop();
 			//交换左右子节点
@@ -513,4 +550,3 @@ public class AVL {
 	}
 	
 }
-
