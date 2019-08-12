@@ -8,14 +8,23 @@ public class Test {
 	public static void main(String[] args) {
 //		test_EvenAndOdd1();
 //		test_EvenAndOdd2();
+
 //		test_MinSortLength();
 //		test_Tuple();
 //		test_MaxLength();
 //		test_NaturalNumberSort();
+//		test_Median1();
 //		test_Median2();
+
+//		test_Swap();
+//		test_NumberOfOne();
+//		test_NumberOfOne3();
+
 //		test_MaxCommonDivisor();
 //		test_OddTimes();
+//		test_MissNumber();
 //		test_TwoDimensionSearch();
+		test_MoveOut();
 
 //		test_NRandom();
 //		test_SquareRandom();
@@ -29,7 +38,7 @@ public class Test {
 
 /**********数组相关**********/
 
-	//调整数组奇数在前偶数在后测试
+	//调整数组奇数在前偶数在后
 	public static void test_EvenAndOdd1() {
 		int [] array1 = {0,1,2,3,4,5,6,7,8,9};
 		int [] array2 = {9,8,7,6,5,4,3,2,1,0};
@@ -55,7 +64,7 @@ public class Test {
 			System.out.print(array2[i] + " ");
 	}
 
-	//需要排序的最短子数组测试
+	//需要排序的最短子数组
 	public static void test_MinSortLength() {
 		int [] array = {0,1,2,5,6,3,4,7,8,9};
 		int length = Array.minSortLength(array);
@@ -63,7 +72,7 @@ public class Test {
 		System.out.println(length);
 	}
 
-	//和为给定值的二元组，三元组测试
+	//和为给定值的二元组，三元组
 	public static void test_Tuple() {
 		int [] array1 = {1,2,2,3,3,4,5,6,6,7,8,8,9};
 		Array.binaryTuple(array1,10);
@@ -72,7 +81,7 @@ public class Test {
 		Array.ternaryTuple(array2,13);
 	}
 
-	//和为给定值的最长子数组测试
+	//和为给定值的最长子数组
 	public static void test_MaxLength() {
 		int [] array = {1,2,2,3,1,2,1,2,2,1,3,1,2};
 		Array.maxLength(array,8);
@@ -80,7 +89,7 @@ public class Test {
 		Array.maxLength(array,10);
 	}
 
-	//自然数排序测试
+	//自然数排序
 	public static void test_NaturalNumberSort() {
 		int [] array = {2,9,1,5,3,6,4,0,7,8};
 		Array.naturalNumberSort(array);
@@ -88,7 +97,16 @@ public class Test {
 			System.out.print(array[i] + " ");
 	}
 
-	//长度相等的有序数组的中位数测试
+	//数据流的中位数
+	public static void test_Median1() {
+		int [] array1 = {0,1,2,3,4,5,6,7,8,9};
+		Array.median1(array1);
+		System.out.println();
+		int [] array2 = {5,1,7,0,9,4,8,2,6,3};
+		Array.median1(array2);
+	}
+
+	//长度相等的有序数组的中位数
 	public static void test_Median2() {
 		int [] one = {0,2,4,6,8};
 		int [] other = {1,3,5,7,9};
@@ -100,7 +118,29 @@ public class Test {
 
 /**********位运算相关**********/
 
-	//最大公约数测试
+	//交换两个整数
+	public static void test_Swap() {
+		BitOperation.swap(1,2);
+		BitOperation.swap(3,4);
+		BitOperation.swap(5,6);
+	}
+
+	//二进制数字中1的个数
+	public static void test_NumberOfOne() {
+		System.out.println(BitOperation.numberOfOne1(220));
+		System.out.println(BitOperation.numberOfOne2(220));
+		System.out.println(BitOperation.numberOfOne1(78));
+		System.out.println(BitOperation.numberOfOne2(78));
+	}
+
+	//统计自然数的二进制中1的个数
+	public static void test_NumberOfOne3() {
+		int [] count = BitOperation.numberOfOne3(10);
+		for (int i = 0; i < count.length; i++)
+			System.out.print(count[i] + " ");
+	}
+
+	//最大公约数
 	public static void test_MaxCommonDivisor() {
 		System.out.println(BitOperation.maxCommonDivisor(42, 30));
 		System.out.println(BitOperation.maxCommonDivisor(42, 21));
@@ -108,7 +148,7 @@ public class Test {
 		System.out.println(BitOperation.maxCommonDivisor(42, 3));
 	}
 
-	//数字出现奇数次测试
+	//数字出现奇数次
 	public static void test_OddTimes() {
 		int [] array1 = {1,2,2,3,3,4,4};
 		BitOperation.oneOdd(array1);
@@ -120,16 +160,19 @@ public class Test {
 		BitOperation.twoOdd(array4);
 	}
 
-
-
-
-
+	//缺失的自然数
+	public static void test_MissNumber() {
+		int [] array1 = {2,3,6,5,1,0};
+		BitOperation.missNumber(array1);
+		int [] array2 = {3,7,0,1,8,4,9,6,2};
+		BitOperation.missNumber(array2);
+	}
 
 
 
 /**********矩阵相关**********/
 
-	//二维数组查找测试
+	//二维数组查找
 	public static void test_TwoDimensionSearch() {
 		int [][] array = {{1,2,8,9},
 						  {2,4,9,12},
@@ -141,10 +184,18 @@ public class Test {
 		System.out.println(flag2);
 	}
 
+	//走出矩阵测试
+	public static void test_MoveOut() {
+		System.out.println(Matrix.moveOut(3, 4, 0, 0, 1));
+		System.out.println(Matrix.moveOut(3, 4, 0, 1, 1));
+		System.out.println(Matrix.moveOut(3, 4, 0, 1, 2));
+		System.out.println(Matrix.moveOut(3, 4, 1, 1, 3));
+	}
+
 
 /**********随机数相关**********/
 
-	//等可能N随机数测试
+	//等可能N随机数
 	public static void test_NRandom() {
 		int seed = 5;
 		int [] array = new int[seed];
@@ -157,7 +208,7 @@ public class Test {
 			System.out.print(array[i] + " ");
 	}
 
-	//平方随机数测试
+	//平方随机数
 	public static void test_SquareRandom() {
 		int seed = 5;
 		int [] array = new int[seed*seed];
@@ -170,7 +221,7 @@ public class Test {
 			System.out.print(array[i] + " ");
 	}
 
-	//N-M随机数测试
+	//N-M随机数
 	public static void test_NMRandom() {
 		int from = 5;
 		int to = 10;
@@ -193,7 +244,7 @@ public class Test {
 			System.out.print(array[i] + " ");
 	}
 
-	//不等可能0-1随机数测试
+	//不等可能0-1随机数
 	public static void test_01Random1() {
 		float p = 0.8f;
 		int result = 0;
@@ -206,7 +257,7 @@ public class Test {
 			System.out.print(array[i] + " ");
 	}
 
-	//等可能0-1随机数测试
+	//等可能0-1随机数
 	public static void test_01Random2() {
 		float p = 0.7f;
 		int result = 0;

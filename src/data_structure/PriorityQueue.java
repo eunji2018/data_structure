@@ -13,6 +13,8 @@ public class PriorityQueue {
 	private Node head;//头节点
 	
 	private int length;//队列长度
+
+	private boolean order;//true表示正序，false表示逆序
 	
 	//节点类
 	private static class Node {
@@ -26,16 +28,20 @@ public class PriorityQueue {
 		}
 	}
 	
-	public PriorityQueue() {
+	public PriorityQueue(boolean order) {
 		this.head = new Node(null);//头节点不保存元素
 		this.length = 0;
+		this.order = order;
 	}
 	
-	//查找优先级【高于给定元素且最低】的节点，包含头节点
+	//正序时查找优先级【高于给定元素且最低】的节点，包含头节点
+	//逆序时查找优先级【低于给定元素且最高】的节点，包含头节点
 	private Node search(Comparable comparable) {
 		Node temp = head;
 		while(temp.next != null) {
-			if(temp.next.comparable.compareTo(comparable) >= 0)
+			if(order && temp.next.comparable.compareTo(comparable) >= 0)
+				break;
+			if (!order && temp.next.comparable.compareTo(comparable) <= 0)
 				break;
 			temp = temp.next;
 		}

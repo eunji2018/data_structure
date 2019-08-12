@@ -11,14 +11,20 @@ import basic_algorithm.string.*;
 public class Test {
 
 	public static void main(String[] args) {
+//	    test_AllocateCandy();
 //	    test_Backpack();
 //	    test_ExchangeMoney();
 //	    test_JumpArray();
 //	    test_MatrixMinPath();
 //	    test_MaxSubMatrix();
 
-//	    test_MCSEQ();
+	    test_MCSEQ();
 //	    test_MinBlood();
+//        test_MinDescPathSum();
+//	    test_MinRefuel();
+//	    test_StockProfit();
+//	    test_SwingSequence();
+
 //	    test_TOPK();
 
 //	    test_Fibonacci();
@@ -36,15 +42,23 @@ public class Test {
 //	    test_LCSEQ();
 //	    test_LCSTR();
 //	    test_LISEQ();
+//	    test_LPSEQ();
 //	    test_LPSTR();
 //	    test_MinEditCost();
 //	    test_PalindromeSeparate();
-//	    test_PalindromeString();
+//	    test_PalindromeFill();
+//        test_SCSEQ();
+//        test_SequenceNumber();
 //	    test_StringMatch();
-        test_SubSequenceNumber();
 
 
 	}
+
+	//糖果分配问题测试
+    public static void test_AllocateCandy() {
+	    int [] array = {5,4,1,1};
+        System.out.println(AllocateCandy.generate1(array));
+    }
 
     //背包问题测试
     public static void test_Backpack() {
@@ -85,7 +99,7 @@ public class Test {
     //跳跃数组测试
     public static void test_JumpArray() {
         int [] array = {3,2,3,1,1,3,2,2,1,2};
-        int count = JumpArray.generate(array);
+        int count = JumpArray.generate2(array);
         System.out.println();
         System.out.println(count);
     }
@@ -115,9 +129,23 @@ public class Test {
 
     //最大连续子序列测试
     public static void test_MCSEQ() {
-        int [] array = {1,-2,3,5,-2,6,-1};
-        int sum = MCSEQ.generate1(array);
-        System.out.println("sum: " + sum);
+        int [] array1 = {1,-2,3,5,-2,6,-1};
+
+        System.out.println("最大连续子序列和：");
+        System.out.println("线性遍历");
+        System.out.println("sum: " + MCSEQ.generate1(array1));
+        System.out.println("动态规划");
+        System.out.println("sum: " + MCSEQ.generate2(array1));
+        System.out.println("分治");
+        System.out.println("sum: " + MCSEQ.generate3(array1));
+
+        System.out.println("最大子序列和：");
+        System.out.println("sum: " + MCSEQ.generate4(array1, 1));
+        System.out.println("sum: " + MCSEQ.generate4(array1, 2));
+        System.out.println("sum: " + MCSEQ.generate4(array1, 3));
+
+        System.out.println("最大连续子序列积：");
+        System.out.println("multiply: " + MCSEQ.generate5(array1));
     }
 
     //最低血量测试
@@ -129,6 +157,66 @@ public class Test {
         int blood = MinBlood.generate(matrix);
         System.out.println(blood);
     }
+
+    //最小下降路径和测试
+    public static void test_MinDescPathSum() {
+	    int [][] matrix = {{5,2,9,6,4,5},
+                           {7,8,4,3,6,7},
+                           {4,2,5,6,4,3},
+                           {8,6,4,5,7,6}};
+	    int sum = MinDescPathSum.generate(matrix);
+        System.out.println(sum);
+    }
+
+    //最少加油次数测试
+    public static void test_MinRefuel() {
+	    int [][] stations = {{5,10},{10,5},{20,20},{30,10},{50,30},{80,10}};
+	    int count = MinRefuel.generate(20, 100, stations);
+        System.out.println(count);
+	    count = MinRefuel.generate(50, 120, stations);
+        System.out.println(count);
+    }
+
+    //最大股票利润测试
+    public static void test_StockProfit() {
+        System.out.println("买卖一次");
+	    int [] array1 = {7,3,4,9,5,1,8,2,6};
+        System.out.println(StockProfit.generate1(array1));
+        int [] array2 = {2,5,8,4,1,7,3,9,6};
+        System.out.println(StockProfit.generate1(array2));
+        int [] array3 = {8,9,6,3,5,7,1,2,4};
+        System.out.println(StockProfit.generate1(array3));
+
+        System.out.println("买卖多次");
+        int [] array4 = {7,3,4,9,5,1,8,2,6};
+        System.out.println(StockProfit.generate2(array4));
+        int [] array5 = {2,5,8,4,1,7,3,9,6};
+        System.out.println(StockProfit.generate2(array5));
+        int [] array6 = {8,9,6,3,5,7,1,2,4};
+        System.out.println(StockProfit.generate2(array6));
+
+        System.out.println("最多买卖两次");
+        int [] array7 = {7,3,4,9,5,1,8,2,6};
+        System.out.println("profit: " + StockProfit.generate3(array7));
+        int [] array8 = {2,5,8,4,1,7,3,9,6};
+        System.out.println("profit: " + StockProfit.generate3(array8));
+        int [] array9 = {8,9,6,3,5,7,1,2,4};
+        System.out.println("profit: " + StockProfit.generate3(array9));
+    }
+
+    //摆动序列测试
+    public static void test_SwingSequence() {
+        System.out.println("最长连续摆动序列");
+        int [] array1 = {1,2,3,3,2,2,3,2,3,2,3,4,3};
+        System.out.println("length: " + SwingSequence.generate1(array1));
+
+        System.out.println("最长摆动序列");
+	    int [] array3 = {1,8,2,4,5,6,4,2,7,3};
+        System.out.println(SwingSequence.generate2(array3));
+        int [] array4 = {1,2,6,6,3,3,4,2,2,1,3,3,5};
+        System.out.println(SwingSequence.generate2(array4));
+    }
+
 
     //TOPK测试
     public static void test_TOPK() {
@@ -225,11 +313,24 @@ public class Test {
 		System.out.println(length);
 	}
 
+	//最长回文子序列测试
+    public static void test_LPSEQ() {
+	    String string = "abacadbca";
+	    int length = LPSEQ.generate(string.toCharArray());
+        System.out.println(length);
+    }
+
 	//最长回文子串测试
 	public static void test_LPSTR() {
 		String string = "abaabcdcbab";
-		int length = LPSTR.generate(string.toCharArray());
+		int length = LPSTR.generate1(string.toCharArray());
 		System.out.println(length);
+
+		length = LPSTR.generate2(string.toCharArray());
+        System.out.println(length);
+
+        length = LPSTR.generate3(string.toCharArray());
+        System.out.println(length);
 	}
 	
 	//最小编辑代价测试
@@ -241,38 +342,48 @@ public class Test {
 	    System.out.println(cost);
     }
 
-    //回文最少切分数测试
+    //回文分割测试
     public static void test_PalindromeSeparate() {
+	    //最少切分数
 	    String string = "abacbcadac";
-	    int count = PalindromeSeparate.generate(string.toCharArray());
+	    int count = PalindromeSeparate.generate1(string.toCharArray());
 	    System.out.println(count);
+	    //方法数
     }
 
-    //回文字符串测试
-    public static void test_PalindromeString() {
+    //回文填充测试
+    public static void test_PalindromeFill() {
+	    //在任意位置添加字符
 	    String string1 = "a1bab2";
 	    String string2 = "aabab1";
-        int count1 = PalindromeString.generate(string1.toCharArray());
+        int count1 = PalindromeFill.generate(string1.toCharArray());
         System.out.println(count1);
-        int count2 = PalindromeString.generate(string2.toCharArray());
+        int count2 = PalindromeFill.generate(string2.toCharArray());
         System.out.println(count2);
     }
 
-	//KMP测试
+    //最短公共超序列测试
+    public static void test_SCSEQ() {
+        String string1 = "ab12c345d67";
+        String string2 = "a1b23c4d56e";
+        int length = SCSEQ.generate(string1.toCharArray(),string2.toCharArray());
+        System.out.println("length: " + length);
+    }
+
+    //子序列个数测试
+    public static void test_SequenceNumber() {
+        String string1 = "rabbbit";
+        String string2 = "rabbit";
+        int count = SequenceNumber.generate1(string1.toCharArray(), string2.toCharArray());
+        System.out.println(count);
+    }
+
+    //KMP测试
 	public static void test_StringMatch() {
 		String source = "abcdeabcabcdabcdeabcabc";
 		String match = "abcdabcdeabc";
 		int index = StringMatch.generate(source.toCharArray(), match.toCharArray());
-		System.out.println(index);
+		System.out.println("index: " + index);
 	}
 
-	//子序列个数测试
-    public static void test_SubSequenceNumber() {
-	    String string1 = "rabbbit";
-	    String string2 = "rabbit";
-	    int count = SubSequenceNumber.generate1(string1.toCharArray(), string2.toCharArray());
-        System.out.println(count);
-    }
-
-	
 }

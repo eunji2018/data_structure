@@ -10,7 +10,7 @@ package data_structure;
  * 红黑树性质：
  * 节点是黑色或者红色（指向此节点的连接的颜色），根节点保持黑色
  * 红色节点都是左子节点且不能连续，红连接都是左连接
- * 所有叶子节点到根节点的路径上的黑色节点数量相同
+ * 对于每个节点，从此节点到所有叶子节点的路径上的黑色节点数量相同
  * 添加元素的情形，新节点默认为红色：
  * 向2-节点添加元素：产生红色左连接（无须调整）或红色右连接（需要左旋）
  * 向3-节点添加元素，3-节点中已有一条红色左连接：
@@ -21,10 +21,12 @@ package data_structure;
  * 
  * 
 */
-public class RBT {
+public class RBT_1 {
 
 	private TreeNode root;
-	
+
+	private int size;
+
 	//节点类
 	private static class TreeNode {
 
@@ -41,28 +43,13 @@ public class RBT {
 		}
 	}
 
-	public RBT() {
+	public RBT_1() {
 		this.root = null;
-	}
-	
-	public int height() {
-		return height(root);
-	}
-	
-	private static int height(TreeNode node) {
-		if(node == null)
-			return 0;
-		return Math.max(height(node.left),height(node.right)) + 1;
+		this.size = 0;
 	}
 	
 	public int size() {
-		return size(root);
-	}
-	
-	private static int size(TreeNode node) {
-		if(node == null)
-			return 0;
-		return size(node.left) + size(node.right) + 1;
+		return size;
 	}
 	
 	//判定节点颜色
@@ -102,6 +89,7 @@ public class RBT {
 	public void insert(Comparable comparable) {
 		root = insert(root, comparable);
 		root.color = false;//根节点保持黑色
+		size++;
 		return;
 	}
 	
@@ -122,35 +110,22 @@ public class RBT {
 			convert(node);
 		return node;
 	}
-	
-	public boolean contains(Comparable comparable) {
-		return contains(root, comparable);
-	}
-	
-	private static boolean contains(TreeNode node, Comparable comparable) {
-		if(node == null)
-			return false;
-		if(comparable.compareTo(node.comparable) == 0)
-			return true;
-		return comparable.compareTo(node.comparable) < 0
-		       ? contains(node.left, comparable) : contains(node.right, comparable);
-	}
-	
-	private static TreeNode getMin(TreeNode node) {
-		if(node == null)
-			return null;
-		if(node.left == null)
-			return node;
-		return getMin(node.left);
-	}
-	
-	private static TreeNode getMax(TreeNode node) {
-		if(node == null)
-			return null;
-		if(node.right == null)
-			return node;
-		return getMax(node.right);
-	}
+
+//	private static TreeNode getMin(TreeNode node) {
+//		if(node == null)
+//			return null;
+//		if(node.left == null)
+//			return node;
+//		return getMin(node.left);
+//	}
+//
+//	private static TreeNode getMax(TreeNode node) {
+//		if(node == null)
+//			return null;
+//		if(node.right == null)
+//			return node;
+//		return getMax(node.right);
+//	}
 	
 	
 	//删除

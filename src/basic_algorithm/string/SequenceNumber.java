@@ -4,7 +4,7 @@
 package basic_algorithm.string;
 
 //子序列个数
-public class SubSequenceNumber {
+public class SequenceNumber {
 
     //string1的子序列中string2出现的个数，不考虑空字符
     //dp[i][j]表示string1[0 - j-1]的子序列中string2[0 - i-1]出现的个数

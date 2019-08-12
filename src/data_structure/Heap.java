@@ -4,7 +4,6 @@
 package data_structure;
 
 //堆的完全二叉树实现
-//小根堆，元素较小则优先
 public class Heap {
 
     private int size;//堆的大小
@@ -12,6 +11,8 @@ public class Heap {
     private TreeNode head;//堆顶节点
 
     private TreeNode tail;//堆尾节点
+
+    private boolean order;//true表示正序，false表示逆序
 
     //节点类
     private static class TreeNode{
@@ -29,10 +30,11 @@ public class Heap {
         }
     }
 
-    public Heap() {
+    public Heap(boolean order) {
         this.size = 0;
         this.head = null;
         this.tail = null;
+        this.order = order;
     }
 
     public int size() {
@@ -68,7 +70,7 @@ public class Heap {
             tail = next();//堆尾后一个位置的父节点
             //更新引用
             //堆大小为偶数时，新元素是右子节点，为奇数时，是左子节点
-            if (size % 2 == 0) {
+            if ((size & 1) == 0) {
                 tail.right = node;
             }else {
                 tail.left = node;
@@ -95,7 +97,7 @@ public class Heap {
             swap(head, node);//交换元素
             //更新引用
             //堆大小为偶数时，堆尾是左子节点，为奇数时，是右子节点
-            if (size % 2 == 0) {
+            if ((size & 1) == 0) {
                 node.parent.left = null;
             }else {
                 node.parent.right = null;
@@ -173,12 +175,14 @@ public class Heap {
         return;
     }
 
-    //优先元素上浮
+    //正序时优先元素上浮或者逆序时非优先元素上浮
     private void bubble(TreeNode node) {
         TreeNode temp;
         while (node.parent != null) {
             temp = node.parent;
-            if (node.comparable.compareTo(temp.comparable) >= 0)//父节点的元素优先，或者优先级相同
+            if (order && node.comparable.compareTo(temp.comparable) >= 0)//正序并且父节点的元素优先，或者优先级相同
+                break;
+            if (!order && node.comparable.compareTo(temp.comparable) <= 0)//逆序并且子节点的元素优先，或者优先级相同
                 break;
             swap(node, temp);
             node = temp;
@@ -186,15 +190,22 @@ public class Heap {
         return;
     }
 
-    //非优先元素下沉
+    //正序时非优先元素下沉或者逆序时优先元素下沉
     private void sink(TreeNode node) {
         TreeNode temp = node;
         while (true) {
-            if (node.right != null && node.right.comparable.compareTo(temp.comparable) < 0)//右子节点的元素优先
-                temp = node.right;
-            if (node.left != null && node.left.comparable.compareTo(temp.comparable) < 0)//左子节点的元素优先
-                temp = node.left;
-            if (node == temp)//父节点的元素优先级最高，则结束
+            if (order) {//正序
+                if (node.right != null && node.right.comparable.compareTo(temp.comparable) < 0)//右子节点的元素优先
+                    temp = node.right;
+                if (node.left != null && node.left.comparable.compareTo(temp.comparable) < 0)//左子节点的元素优先
+                    temp = node.left;
+            }else {//逆序
+                if (node.right != null && node.right.comparable.compareTo(temp.comparable) > 0)//右子节点的元素非优先
+                    temp = node.right;
+                if (node.left != null && node.left.comparable.compareTo(temp.comparable) > 0)//左子节点的元素非优先
+                    temp = node.left;
+            }
+            if (node == temp)//父节点的元素优先级最高或者最低，则结束
                 break;
             swap(node, temp);
             node = temp;

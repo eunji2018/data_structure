@@ -9,6 +9,9 @@ import org.omg.CORBA.ARG_OUT;
 //与1异或、同或，等效于取反
 //与1相与，等于自身
 //与0相或、异或、同或，等于自身
+
+//n & (n-1)的结果等于将n最低位的1变为0
+//n & (~n+1)的结果等于只保留n最低位的1
 public class BitOperation {
 
     //不使用中间变量交换两个整数
@@ -33,7 +36,8 @@ public class BitOperation {
         return count;
     }
 
-    //优化：(n-1) & n的结果等于将n最低位的1变为0
+    //优化
+    //n & (n-1)的结果等于将n最低位的1变为0
     //n & (~n+1)的结果等于只保留n最低位的1
     public static int numberOfOne2(int n) {
         int count = 0;
@@ -43,6 +47,16 @@ public class BitOperation {
         }
         return count;
     }
+
+    //统计0 - n每个自然数的二进制中1的个数
+    public static int[] numberOfOne3(int n) {
+        int [] count = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            count[i] = count[i & (i - 1)] + 1;
+        }
+        return count;
+    }
+
 
     //最大公约数
     public static int maxCommonDivisor(int one, int other){
@@ -72,6 +86,18 @@ public class BitOperation {
         return;
     }
 
+    //数组长度为n，包含自然数0 - n中的n个数，求解缺失的自然数
+    //将数组中的所有元素与自然数0 - n共2n + 1个数依次做异或运算，得到的结果即为缺失的自然数
+    public static void missNumber(int [] array) {
+        int result = 0;
+        for (int i = 0; i < array.length; i++) {
+            result = result ^ i ^ array[i];
+        }
+        System.out.println(result ^ array.length);
+        return;
+    }
+
+
     //数组中出现奇数次的两个数字，其他数字都出现偶数次
     public static void twoOdd(int [] array) {
         int result = 0;
@@ -93,5 +119,7 @@ public class BitOperation {
     //所有出现K次的数字进行无进位求和后，结果为0
     //最终结果为出现一次的数字，转换回十进制表示
 
-
+    //汉明距离
+    //两个数字对应二进制位不同的位置的数目
+    //先求异或，再求结果中1的个数
 }

@@ -84,23 +84,17 @@ public class UnionFindSet {
         return node;
     }
 
-    //路径优化
-    //将node到root路径上的所有节点直接指向root节点
-    private void adjust(Node node, Node root) {
+    //查找元素所在的集合，元素已存在
+    private int find(int index) {
+        Node node = search(index).next;
+        Node root = root(node);
+        //路径优化：将node到root路径上的所有节点直接指向root节点
         Node temp;
         while (node.parent != node) {
             temp = node.parent;
             node.parent = root;
             node = temp;
         }
-        return;
-    }
-
-    //查找元素所在的集合，元素已存在
-    private int find(int index) {
-        Node node = search(index).next;
-        Node root = root(node);
-        adjust(node, root);//路径优化
         return root.index;
     }
 

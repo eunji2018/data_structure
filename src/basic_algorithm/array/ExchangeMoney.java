@@ -8,7 +8,7 @@ package basic_algorithm.array;
 public class ExchangeMoney {
 		
 	//方法数、钱数任意
-	//dp[i][j]表示使用货币0-i兑换j的方法数
+	//dp[i][j]表示使用货币0 - i兑换j的方法数
 	//矩阵
 	public static int exchange1(int [] array, int sum) {
 		if (array == null || array.length == 0 || sum < 0) 
@@ -59,7 +59,7 @@ public class ExchangeMoney {
 	
 	
 	//最少张数、钱数任意
-	//dp[i][j]表示使用货币0-i兑换j需要的最少张数
+	//dp[i][j]表示使用货币0 - i兑换j需要的最少张数
 	//矩阵
 	public static int exchange5(int [] array, int sum) {
 		if (array == null || array.length == 0 || sum < 0) 

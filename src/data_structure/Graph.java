@@ -188,7 +188,7 @@ public class Graph {
 		for (int i = 0; i < size; i++)//初始时每个顶点构成一棵树
 			set.insert(i);
 		Queue<String> queue = new Queue<>();//保存构造过程中符合条件的边，(from to weght)
-		PriorityQueue priorityQueue = new PriorityQueue();
+		PriorityQueue priorityQueue = new PriorityQueue(true);
 		boolean [] flag = new boolean[size];//true代表相应顶点所有的边都已放入队列，已被访问过
 		int last = start;//最近添加到最小生成树的顶点
 		//构造生成树
@@ -230,7 +230,7 @@ public class Graph {
 			set.insert(i);
 		Queue<String> queue = new Queue<>();//保存构造过程中符合条件的边，(from to weght)
 		//对边按权重排序
-		PriorityQueue priorityQueue = new PriorityQueue();
+		PriorityQueue priorityQueue = new PriorityQueue(true);
 		boolean [] flag = new boolean[size];//true代表相应顶点所有的边都已放入队列，已被访问过
 		Edge edge;
 		for (int i = 0; i < size; i++) {
@@ -300,7 +300,8 @@ public class Graph {
 			System.out.print(distance[i] + " ");
 		return queue;
 	}
-	
+
+	//TODO 使用队列保存入度为0的顶点
 	//拓扑排序（有向图）
 	//每次循环选择一个没有入边的顶点，更新邻接顶点，直到所有顶点遍历完毕或者剩余的顶点构成环
 	public Queue topologicalSort() {
@@ -335,5 +336,7 @@ public class Graph {
 		}
 		return queue;
 	}
+
+	//最大流
 	
 }

@@ -3,6 +3,8 @@
  */
 package machine_test;
 
+import data_structure.Heap;
+
 //数组相关
 public class Array {
 
@@ -70,7 +72,7 @@ public class Array {
     //如果某些数出现的次数大于N/K，则这些数最后一定会被剩余下来
     //第二次遍历数组，验证被选出来的所有候选有哪些出现次数大于N/K，筛选出符合条件的候选
 
-    //数组中出现次数最多的元素（众位数）
+    //数组中出现次数最多的元素（众数）
 
 
     /* 数据流的中位数：使用两个大小之差不超过1的大根堆和小根堆
@@ -80,11 +82,36 @@ public class Array {
      * 当放入小根堆中时，若元素不小于大根堆的堆顶元素，直接放入，否则将大根堆的堆顶元素放入小根堆中，元素放入大根堆中
      * 最后两个堆的堆顶元素的平均值或其中一个就是中位数
      */
-    public static int median1(int [] array) {
-        return 0;
+    public static void median1(int [] array) {
+        Heap left = new Heap(false);//大根堆
+        Heap right = new Heap(true);//小根堆
+        int temp;
+        left.push(array[0]);
+        System.out.print(left.peek() + " ");
+        for (int i = 1; i < array.length; i++) {
+            temp = array[i];
+            if (i % 2 == 0) {//放入大根堆
+                //若元素较大，则先放入小根堆
+                if (right.peek().compareTo(temp) < 0) {
+                    right.push(temp);
+                    temp = (Integer) right.pop();
+                }
+                left.push(temp);
+                System.out.print(left.peek() + " ");
+            }else {//放入小根堆
+                //若元素较小，则先放入大根堆
+                if (left.peek().compareTo(temp) > 0) {
+                    left.push(temp);
+                    temp = (Integer)left.pop();
+                }
+                right.push(temp);
+                System.out.print((float)((Integer)left.peek() + (Integer) right.peek()) / 2 + " ");
+            }
+        }
+        return;
     }
 
-    //两个长度相等的有序数组的中位数
+    //两个长度相等的有序数组的中位数，时间复杂度要求低于线性复杂度
     //比较两个数组的中位数，若相等则返回，若不相等，则根据情况对两个数组进行二分，减小问题规模
     public static int median2(int [] one, int [] other) {
         if (one == null || one.length == 0 ||
@@ -111,9 +138,8 @@ public class Array {
         return Math.min(one[left1], other[left2]);
     }
 
-
-    //两个有序数组的中位数
-
+    //两个有序数组的中位数，时间复杂度要求低于线性复杂度
+    //
 
     //两个有序数组的第K小的数
 
@@ -122,11 +148,6 @@ public class Array {
 
     //数组元素能拼接出的最小值
 
-
-
-    /* 数组中差值最大的两个数字，要求较小的数在前，较大的数在后（或者较大的数在前，较小的数在后）
-     */
-    //买卖股票
 
     /* 数组中的逆序对
        把数组分为左右两部分，先统计子数组内部的逆序对，再统计子数组之间的逆序对
@@ -172,10 +193,6 @@ public class Array {
         return right - left + 1;
     }
 
-
-    /* 窗口最大值
-
-     */
 
     //有序数组中和为给定值的所有不重复的二元组和三元组
     //二元组
@@ -269,6 +286,8 @@ public class Array {
 
     //无序数组中和小于或等于给定值的最长子数组
 
+    //无序数组中和位于范围内的区间子数组的个数
+
     //数组的小和
     //某元素左边所有小于或等于其的元素之和为小和，数组的小和等于所有元素的小和之和
     //使用归并排序，在对两个有序子数组进行归并时，left指向左边的当前元素，right指向右边的当前元素
@@ -276,5 +295,13 @@ public class Array {
     //若left > right，不产生小和，right向后移动
     //归并完后，两个子数组间的小和计算完毕，整个数组的小和也计算完毕
 
-    //在有序旋转数组中查找最小的数或指定的数
+    //在有序旋转数组中查找最小的数
+    //若首元素大于尾元素，则一定有旋转，进行二分查找
+    //若首元素等于尾元素，则没有旋转（所有元素都相等），或者在重复元素上旋转，都进行二分查找
+    //若首元素小于尾元素，则一定没有旋转，返回首元素
+
+    //在有序旋转数组中查找指定的数
+
+
+    //合并相互重叠的区间
 }

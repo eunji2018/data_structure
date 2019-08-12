@@ -7,7 +7,6 @@ package data_structure;
 //在空节点里添加元素，自上向下生长
 //添加元素时可能导致不平衡，有四种情形
 //删除元素时可能导致不平衡，有六种情形
-
 public class AVL {
 
 	private TreeNode root;//根节点
@@ -28,45 +27,6 @@ public class AVL {
 
 	public AVL() {
 		this.root = null;
-	}
-	
-	public int size() {
-		return size(root);
-	}
-
-	private static int size(TreeNode node) {
-		if(node == null)
-			return 0;
-		return size(node.left) + size(node.right) + 1;
-	}
-	
-	public int height() {
-		return height(root);
-	}
-	
-	private static int height(TreeNode node) {
-		if(node == null)
-			return 0;
-		return Math.max(height(node.left), height(node.right)) + 1;
-	}
-	
-	//节点的平衡度，左子树高度减去右子树高度
-	//node不为null
-	private static int balance(TreeNode node) {
-		return height(node.left) - height(node.right);
-	}
-	
-	public boolean contains(Comparable comparable) {
-		return contains(root, comparable);
-	}
-	
-	private static boolean contains(TreeNode node, Comparable comparable) {
-		if(node == null)
-			return false;
-		if(node.comparable.compareTo(comparable) == 0)
-			return true;
-		return comparable.compareTo(node.comparable) < 0
-			   ? contains(node.left, comparable) : contains(node.right, comparable);
 	}
 	
 	//left-left旋转：将节点变为右子节点，左子节点变为父节点
@@ -99,55 +59,6 @@ public class AVL {
 		return temp;
 	}
 	
-	//平衡子树删除节点后可能不平衡，有六种情形
-	private static TreeNode adjust(TreeNode node) {
-		if(balance(node) > 1) {
-			if(balance(node.left) >= 0) {
-				return leftLeft(node);
-			}else {
-				return leftRight(node);
-			}
-		}else if (balance(node) < -1) {
-			if(balance(node.right) <= 0) {
-				return rightRight(node);
-			}else {
-				return rightLeft(node);
-			}
-		}
-		return node;//删除节点后依然保持平衡
-	}
-	
-	public void insert(Comparable comparable) {
-		root = insert(root, comparable);
-		return;
-	}
-	
-	//添加元素后可能不平衡，有四种情形
-	private static TreeNode insert(TreeNode node, Comparable comparable) {
-		if(node == null)//找到添加的位置
-			return new TreeNode(comparable);
-		if(comparable.compareTo(node.comparable) < 0) {
-			node.left = insert(node.left, comparable);
-		}else {
-			node.right = insert(node.right, comparable);
-		}
-		//调整节点
-		if(balance(node) > 1) {
-			if(comparable.compareTo(node.left.comparable) < 0) {
-				node = leftLeft(node);
-			}else {
-				node = leftRight(node);
-			}
-		}else if(balance(node) < -1) {
-			if(comparable.compareTo(node.right.comparable) >= 0) {
-				node = rightRight(node);
-			}else {
-				node = rightLeft(node);
-			}
-		}
-		return node;
-	}
-	
 	//查找元素，返回节点
 	private static TreeNode select(TreeNode node, Comparable comparable) {
 		if(node == null)
@@ -156,143 +67,6 @@ public class AVL {
 			return node;
 		return comparable.compareTo(node.comparable) < 0
 		       ? select(node.left, comparable) : select(node.right, comparable);
-	}
-	
-	private static TreeNode getMin(TreeNode node) {
-		if(node == null)
-			return null;
-		if(node.left == null)
-			return node;
-		return getMin(node.left);
-	}
-	
-//	private static TreeNode getMax(TreeNode node) {
-//		if(node == null)
-//			return null;
-//		if(node.right == null)
-//			return node;
-//		return getMax(node.right);
-//	}
-	
-	//供删除元素使用，此方法不维护平衡性
-	private static TreeNode deleteMin(TreeNode node) {
-		if(node == null)
-			return null;
-		if(node.left == null)
-			return node.right;
-		node.left = deleteMin(node.left);
-		return node;
-	}
-	
-//	private static TreeNode deleteMax(TreeNode node) {
-//		if(node == null)
-//			return null;
-//		if(node.right == null)
-//			return node.left;
-//		node.right = deleteMax(node.right);
-//		return node;
-//	}
-	
-	//删除元素，维护平衡性
-	public void delete(Comparable comparable) {
-		Stack<TreeNode> stack = new Stack<>();//保存可能需要调整的节点
-		root = delete(root, comparable, stack);
-		if(stack.isEmpty())//删除的是根节点且至少一个子树为空，不需要调整
-			return;
-		//依次出栈，自下向上调整
-		TreeNode child, parent;
-		while(!stack.isEmpty()) {
-			child = stack.pop();
-			parent = stack.peek();
-			System.out.print(child.comparable + " ");
-			if(parent == null)//出栈的是根节点
-				break;
-			if(parent.left == child) {
-				parent.left = adjust(child);
-			}else {
-				parent.right = adjust(child);
-			}
-		}
-		root = adjust(root);
-		return;
-	}
-	
-	//左右子树都不为空时，以中序后继节点（右子树最小节点）替换被删节点，有六种不平衡情形
-	private static TreeNode delete(TreeNode node, Comparable comparable, Stack<TreeNode> stack) {
-		if(node == null)//被删节点不存在
-			return null;
-		if(comparable.compareTo(node.comparable) < 0) {
-			stack.push(node);
-			node.left = delete(node.left, comparable, stack);
-		}
-		if(comparable.compareTo(node.comparable) > 0) {
-			stack.push(node);
-			node.right = delete(node.right, comparable, stack);
-		}
-		//找到被删节点
-		if(comparable.compareTo(node.comparable) == 0) {
-			if(node.left == null)
-				return node.right;
-			if(node.right == null)
-				return node.left;
-			//左右子树都不为空，查找右子树的最小节点
-			TreeNode temp = node;
-			node = getMin(node.right);
-			stack.push(node);//最小节点应当先入栈
-			//右子树的左侧节点依次入栈（除最小节点外）
-			TreeNode one = temp.right;
-			while(one != node) {
-				stack.push(one);
-				one = one.left;
-			}
-			//最小节点替换被删节点
-			node.right = deleteMin(temp.right);
-			node.left = temp.left;
-		}
-		return node;
-	}
-	
-	//递归遍历
-	public void preOrder_recursive() {
-		System.out.println();
-		preOrder_recursive(root);
-		return;
-	}
-	
-	public void inOrder_recursive() {
-		System.out.println();
-		inOrder_recursive(root);
-		return;
-	}
-	
-	public void postOrder_recursive() {
-		System.out.println();
-		postOrder_recursive(root);
-		return;
-	}
-	
-	private static void preOrder_recursive(TreeNode node) {
-		if(node != null) {
-			System.out.print(node.comparable + " ");
-			preOrder_recursive(node.left);
-			preOrder_recursive(node.right);
-		}
-	}
-
-	private static void inOrder_recursive(TreeNode node) {
-		if(node != null) {
-			inOrder_recursive(node.left);
-			System.out.print(node.comparable + " ");
-			inOrder_recursive(node.right);
-		}
-	}
-	
-	private static void postOrder_recursive(TreeNode node) {
-		if(node != null) {
-			postOrder_recursive(node.left);
-			postOrder_recursive(node.right);
-			System.out.print(node.comparable + " ");
-		}
 	}
 	
 	/* 非递归式前序遍历
@@ -505,48 +279,6 @@ public class AVL {
 		if(left != null && right != null)
 			return node;
 		return left == null ? right : left;
-	}
-	
-	//镜像二叉树（递归）
-	public void mirror_recursive() {
-		if(root != null)
-			mirror(root);
-		return;
-	}
-	
-	private static void mirror(TreeNode node) {
-		if(node.left == null && node.right == null)//叶节点
-			return;
-		//交换左右子节点
-		TreeNode temp = node.left;
-		node.left = node.right;
-		node.right = temp;
-		if(node.left != null)
-			mirror(node.left);
-		if(node.right != null)
-			mirror(node.right);
-		return;
-	}
-	
-	//镜像二叉树（循环）
-	public void mirror() {
-		if(root == null)
-			return;
-		Stack<TreeNode> stack = new Stack<>();
-		stack.push(root);
-		TreeNode node, temp;
-		while(!stack.isEmpty()) {
-			node = stack.pop();
-			//交换左右子节点
-			temp = node.left;
-			node.left = node.right;
-			node.right = temp;
-			if(node.left != null)
-				stack.push(node.left);
-			if(node.right != null)
-				stack.push(node.right);
-		}
-		return;
 	}
 	
 }

@@ -15,9 +15,10 @@ public class Test {
 //		test_PrefixTree();
 //		test_PriorityQueue();
 //		test_Queue();
-//		test_RBT();
+//		test_RBT_1();
 //		test_SingleList();
 //		test_SkipList();
+//		test_SplayTree();
 //		test_Stack();
 //		test_UnionFindSet();
 
@@ -25,80 +26,6 @@ public class Test {
 
     //平衡查找树测试
     public static void test_AVL() {
-        int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
-        AVL avl = new AVL();
-        for(int i = 0; i < array.length; i++)
-            avl.insert(array[i]);
-        System.out.println("初始");
-        System.out.println(avl.size());
-        System.out.println(avl.height());
-        System.out.println(avl.contains(10));
-        System.out.println(avl.contains(20));
-        System.out.println(avl.common(8,16));
-        System.out.println(avl.common(8,20));
-        avl.preOrder();
-        avl.preOrder_recursive();
-        avl.inOrder();
-        avl.inOrder_recursive();
-        avl.postOrder();
-        avl.postOrder_recursive();
-        avl.hierarchy();
-        avl.hierarchy_inturn_stack();
-        avl.hierarchy_inturn_queue();
-
-        System.out.println("镜像");
-        avl.mirror();
-        System.out.println(avl.size());
-        System.out.println(avl.height());
-        avl.preOrder();
-        avl.preOrder_recursive();
-        avl.inOrder();
-        avl.inOrder_recursive();
-        avl.postOrder();
-        avl.postOrder_recursive();
-        avl.hierarchy();
-        avl.hierarchy_inturn_stack();
-        avl.hierarchy_inturn_queue();
-
-        System.out.println("镜像");
-        avl.mirror_recursive();
-        System.out.println(avl.size());
-        System.out.println(avl.height());
-        avl.preOrder();
-        avl.preOrder_recursive();
-        avl.inOrder();
-        avl.inOrder_recursive();
-        avl.postOrder();
-        avl.postOrder_recursive();
-        avl.hierarchy();
-        avl.hierarchy_inturn_stack();
-        avl.hierarchy_inturn_queue();
-
-        System.out.println("删除");
-        avl.delete(16);
-        System.out.println();
-        avl.delete(17);
-        System.out.println();
-        avl.delete(18);
-        System.out.println();
-        avl.delete(19);
-        System.out.println();
-        System.out.println(avl.size());
-        System.out.println(avl.height());
-        System.out.println(avl.contains(5));
-        System.out.println(avl.contains(16));
-        System.out.println(avl.common(8,14));
-        System.out.println(avl.common(8,16));
-        avl.preOrder();
-        avl.preOrder_recursive();
-        avl.inOrder();
-        avl.inOrder_recursive();
-        avl.postOrder();
-        avl.postOrder_recursive();
-        avl.hierarchy();
-        avl.hierarchy_inturn_stack();
-        avl.hierarchy_inturn_queue();
-
     }
 
     //双端队列测试
@@ -195,7 +122,9 @@ public class Test {
 
     //堆测试
     public static void test_Heap() {
-	    Heap heap = new Heap();
+	    //正序堆测试
+        System.out.println("正序");
+	    Heap heap = new Heap(true);
 	    heap.push(0);
         System.out.println(heap.size());
         System.out.println(heap.isEmpty());
@@ -223,6 +152,38 @@ public class Test {
         System.out.println(heap.size());
         System.out.println(heap.isEmpty());
         heap.hierarchy();
+
+        //逆序堆测试
+        System.out.println("逆序");
+        heap = new Heap(false);
+        heap.push(0);
+        System.out.println(heap.size());
+        System.out.println(heap.isEmpty());
+        heap.hierarchy();
+
+        for (int i = 1; i < 20; i++)
+            heap.push(i);
+        System.out.println();
+        System.out.println("初始");
+        System.out.println(heap.size());
+        System.out.println(heap.isEmpty());
+        heap.hierarchy();
+
+        System.out.println();
+        System.out.println("删除");
+        for (int i = 0; i < 10; i++)
+            System.out.println(heap.pop());
+        System.out.println(heap.size());
+        System.out.println(heap.isEmpty());
+        heap.hierarchy();
+
+        System.out.println();
+        System.out.println("清空");
+        heap.clear();
+        System.out.println(heap.size());
+        System.out.println(heap.isEmpty());
+        heap.hierarchy();
+
     }
 
     //双向链表测试
@@ -282,7 +243,56 @@ public class Test {
 
     //优先队列测试
     public static void test_PriorityQueue() {
-        PriorityQueue queue = new PriorityQueue();
+	    //正序优先队列测试
+        System.out.println("正序");
+        PriorityQueue queue = new PriorityQueue(true);
+        for (char c = 'a'; c <= 'z'; c++)
+            queue.enter(c);
+        System.out.println("初始");
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
+
+        System.out.println();
+        System.out.println("删除");
+        for (int i = 0; i < 10; i++)
+            System.out.println(queue.depart());
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
+
+        System.out.println();
+        System.out.println("清空");
+        queue.clear();
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
+
+        for (int i = 0; i < 20; i++)
+            queue.enter(i);
+        System.out.println("初始");
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
+
+        System.out.println();
+        System.out.println("删除");
+        for (int i = 0; i < 10; i++)
+            System.out.println(queue.depart());
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
+
+        System.out.println();
+        System.out.println("清空");
+        queue.clear();
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
+        queue.print();
+
+        //逆序优先队列测试
+        System.out.println("逆序");
+        queue = new PriorityQueue(false);
         for (char c = 'a'; c <= 'z'; c++)
             queue.enter(c);
         System.out.println("初始");
@@ -357,16 +367,13 @@ public class Test {
     }
 
     //红黑树测试
-    public static void test_RBT() {
+    public static void test_RBT_1() {
         int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
-        RBT rbt = new RBT();
+        RBT_1 rbt = new RBT_1();
         for(int i = 0; i < array.length; i++)
             rbt.insert(array[i]);
         System.out.println("初始");
-        System.out.println(rbt.height());
         System.out.println(rbt.size());
-        System.out.println(rbt.contains(10));
-        System.out.println(rbt.contains(20));
         rbt.preTraverse();
         rbt.inTraverse();
         rbt.postTraverse();
@@ -429,7 +436,42 @@ public class Test {
 
     //跳跃表测试
     public static void test_SkipList() {
-        SkipList skipList = new SkipList(4, 3);
+	    //正序跳跃表测试
+        System.out.println("正序");
+        SkipList skipList = new SkipList(4, 3, true);
+        System.out.println("初始");
+        for(int i = 0; i < 20; i++) {
+            skipList.insert(i);
+            skipList.print();
+        }
+        System.out.println(skipList.isEmpty());
+        System.out.println(skipList.length());
+        System.out.println(skipList.size());
+        for (int i = 0; i < 5; i++)
+            skipList.trace(5 * i);
+
+        System.out.println("删除");
+        skipList.delete(0);
+        skipList.delete(10);
+        skipList.delete(19);
+        System.out.println(skipList.isEmpty());
+        System.out.println(skipList.length());
+        System.out.println(skipList.size());
+        skipList.print();
+        for (int i = 0; i < 5; i++)
+            skipList.trace(5 * i);
+
+        System.out.println("清空");
+        skipList.clear();
+        System.out.println(skipList.isEmpty());
+        System.out.println(skipList.length());
+        System.out.println(skipList.size());
+        skipList.print();
+        skipList.trace(0);
+
+        //逆序跳跃表测试
+        System.out.println("逆序");
+        skipList = new SkipList(4, 3, false);
         System.out.println("初始");
         for(int i = 0; i < 20; i++) {
             skipList.insert(i);
@@ -462,7 +504,44 @@ public class Test {
 
     }
 
-	
+    //伸展树测试
+    public static void test_SplayTree() {
+	    SplayTree tree = new SplayTree();
+	    for (int i = 0; i < 10; i++)
+	        tree.insert(i);
+        System.out.println("初始");
+        System.out.println(tree.isEmpty());
+        System.out.println(tree.size());
+        tree.hierarchy();
+        tree.inOrder();
+        for (int i = 0; i < 6; i++) {
+            System.out.println();
+            System.out.println(tree.search(2 * i));
+            tree.hierarchy();
+            tree.inOrder();
+        }
+
+        System.out.println();
+        System.out.println("删除");
+        tree.delete(1);
+        tree.delete(4);
+        tree.delete(7);
+        tree.delete(10);
+        System.out.println(tree.isEmpty());
+        System.out.println(tree.size());
+        tree.hierarchy();
+        tree.inOrder();
+
+        System.out.println();
+        System.out.println("清空");
+        tree.clear();
+        System.out.println(tree.isEmpty());
+        System.out.println(tree.size());
+        tree.hierarchy();
+        tree.inOrder();
+
+    }
+
 	//栈测试
 	public static void test_Stack() {
 	    Stack<Integer> stack = new Stack<>();
