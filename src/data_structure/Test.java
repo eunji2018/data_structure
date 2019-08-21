@@ -6,7 +6,6 @@ package data_structure;
 public class Test {
 
 	public static void main(String[] args) {
-//	    test_AVL();
 //	    test_DoubleQueue();
 //		test_UndirectedGraph();
 //		test_DirectedGraph();
@@ -16,17 +15,12 @@ public class Test {
 //		test_PriorityQueue();
 //		test_Queue();
 //		test_RBT_1();
+//		test_RBT_2();
 //		test_SingleList();
 //		test_SkipList();
-//		test_SplayTree();
 //		test_Stack();
 //		test_UnionFindSet();
-
 	}
-
-    //平衡查找树测试
-    public static void test_AVL() {
-    }
 
     //双端队列测试
     public static void test_DoubleQueue() {
@@ -366,7 +360,7 @@ public class Test {
 
     }
 
-    //红黑树测试
+    //第一种红黑树测试
     public static void test_RBT_1() {
         int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
         RBT_1 rbt = new RBT_1();
@@ -374,9 +368,34 @@ public class Test {
             rbt.insert(array[i]);
         System.out.println("初始");
         System.out.println(rbt.size());
-        rbt.preTraverse();
+        System.out.println(rbt.height());
+        rbt.preOrder();
+        rbt.inOrder();
+        rbt.postOrder_one();
+        rbt.postOrder_two();
+        rbt.hierarchy();
+        rbt.hierarchy_inturn_stack();
+        rbt.hierarchy_inturn_queue();
+        System.out.println(rbt.common(0, 19));
+        System.out.println(rbt.common(1, 6));
+        System.out.println(rbt.common(9, 14));
+
+        System.out.println();
+        System.out.println("删除");
+
+    }
+
+    //第二种红黑树测试
+    public static void test_RBT_2() {
+	    int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
+	    RBT_2 rbt = new RBT_2();
+	    for (int i = 0; i < array.length; i++)
+            rbt.insert(array[i]);
+        System.out.println("初始");
+        System.out.println(rbt.size());
+        System.out.println(rbt.height());
         rbt.inTraverse();
-        rbt.postTraverse();
+        rbt.hierarchy();
 
         System.out.println();
         System.out.println("删除");
@@ -501,44 +520,6 @@ public class Test {
         System.out.println(skipList.size());
         skipList.print();
         skipList.trace(0);
-
-    }
-
-    //伸展树测试
-    public static void test_SplayTree() {
-	    SplayTree tree = new SplayTree();
-	    for (int i = 0; i < 10; i++)
-	        tree.insert(i);
-        System.out.println("初始");
-        System.out.println(tree.isEmpty());
-        System.out.println(tree.size());
-        tree.hierarchy();
-        tree.inOrder();
-        for (int i = 0; i < 6; i++) {
-            System.out.println();
-            System.out.println(tree.search(2 * i));
-            tree.hierarchy();
-            tree.inOrder();
-        }
-
-        System.out.println();
-        System.out.println("删除");
-        tree.delete(1);
-        tree.delete(4);
-        tree.delete(7);
-        tree.delete(10);
-        System.out.println(tree.isEmpty());
-        System.out.println(tree.size());
-        tree.hierarchy();
-        tree.inOrder();
-
-        System.out.println();
-        System.out.println("清空");
-        tree.clear();
-        System.out.println(tree.isEmpty());
-        System.out.println(tree.size());
-        tree.hierarchy();
-        tree.inOrder();
 
     }
 

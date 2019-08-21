@@ -106,7 +106,7 @@ public class MCSEQ {
 			return -1;
 		int length = array.length;
 		int [] dp = new int[length];
-		int max = array[0], sum = array[0];
+		int max = array[0];
 		int temp, limit;
 		for (int i = 0; i < length; i++) {
 			dp[i] = array[i];
@@ -125,13 +125,34 @@ public class MCSEQ {
 		return max;
 	}
 
+	//最大子序列和
+	//子序列中相邻元素在原数组中的位置之差不低于k
+	//dp[i]表示array[0 - i]的最大子序列和
+	public static int generate5(int [] array, int k) {
+		if (array == null || array.length == 0)
+			return -1;
+		int length = array.length;
+		int [] dp = new int[length];
+		int temp = 0;
+		for (int i = 0; i < k; i++) {
+			dp[i] = Math.max(temp, array[i]);
+			temp = dp[i];
+		}
+		for (int i = k; i < length; i++)
+			dp[i] = Math.max(array[i] + dp[i-k], dp[i-1]);
+		//打印数组
+		for (int i = 0; i < length; i++)
+			System.out.print(dp[i] + " ");
+		return dp[length-1];
+	}
+
 	//最大连续子序列积
 	//positive表示以array[i]结尾的最大连续子序列积（正积）
 	//negative表示以array[i]结尾的最小连续子序列积（负积）
 	//正数一定存在最大积，不一定存在最小积
 	//负数一定存在最小积，不一定存在最大积
 	//0不存在最大积与最小积
-	public static int generate5(int [] array) {
+	public static int generate6(int [] array) {
 		if (array == null || array.length == 0)
 			return -1;
 		int length = array.length;

@@ -12,7 +12,7 @@ public class Heap {
 
     private TreeNode tail;//堆尾节点
 
-    private boolean order;//true表示正序，false表示逆序
+    private final boolean order;//true表示正序，false表示逆序
 
     //节点类
     private static class TreeNode{

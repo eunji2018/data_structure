@@ -144,8 +144,13 @@ public class Test {
         System.out.println("sum: " + MCSEQ.generate4(array1, 2));
         System.out.println("sum: " + MCSEQ.generate4(array1, 3));
 
+        System.out.println();
+        System.out.println("sum: " + MCSEQ.generate5(array1, 1));
+        System.out.println("sum: " + MCSEQ.generate5(array1, 2));
+        System.out.println("sum: " + MCSEQ.generate5(array1, 3));
+
         System.out.println("最大连续子序列积：");
-        System.out.println("multiply: " + MCSEQ.generate5(array1));
+        System.out.println("multiply: " + MCSEQ.generate6(array1));
     }
 
     //最低血量测试

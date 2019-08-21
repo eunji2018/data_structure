@@ -8,7 +8,7 @@ package data_structure;
 //实现了添加，删除边，广度优先遍历，深度优先遍历，最小生成树，最短路径，拓扑排序的操作
 public class Graph {
 
-	private boolean directed;//true代表有向图，false代表无向图
+	private final boolean directed;//true代表有向图，false代表无向图
 
     private int size;//顶点数目
 
@@ -99,10 +99,10 @@ public class Graph {
 	public void print() {
 		Edge edge;
 		System.out.println();
-		for(int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++) {
 			System.out.print(i + ": ");
 			edge = edges[i];
-			while(edge != null) {
+			while (edge != null) {
 				System.out.print("(" + edge.to + " " + edge.weight + ") ");
 				edge = edge.next;
 			}
@@ -120,11 +120,11 @@ public class Graph {
 		queue.enter(edge);
 		flag[edge.to] = true;
 		other.enter(edge.to);
-		while(!queue.isEmpty()) {
+		while (!queue.isEmpty()) {
 			edge = queue.depart();//出队
 			//将与此顶点邻接的且未被访问过的【所有】顶点加入队列
-			for(edge = edges[edge.to]; edge != null; edge = edge.next) {
-				if(!flag[edge.to]) {
+			for (edge = edges[edge.to]; edge != null; edge = edge.next) {
+				if (!flag[edge.to]) {
 					queue.enter(edge);
 					flag[edge.to] = true;//入队代表访问顶点
 					other.enter(edge.to);
@@ -143,11 +143,11 @@ public class Graph {
 		stack.push(edge);
 		flag[edge.to] = true;
 		queue.enter(edge.to);
-		while(!stack.isEmpty()) {
+		while (!stack.isEmpty()) {
 			edge = stack.peek();//取栈顶
 			//将与此顶点邻接的且未被访问过的【第一个】顶点加入栈
-			for(edge = edges[edge.to]; edge != null; edge = edge.next) {
-				if(!flag[edge.to]) {
+			for (edge = edges[edge.to]; edge != null; edge = edge.next) {
+				if (!flag[edge.to]) {
 					stack.push(edge);
 					flag[edge.to] = true;//入栈代表访问顶点
 					queue.enter(edge.to);
@@ -155,7 +155,7 @@ public class Graph {
 				}
 			}
 			//所有邻接顶点都被访问过，则出栈
-			if(edge == null)
+			if (edge == null)
 				stack.pop();
 		}
 		return queue;
@@ -172,8 +172,8 @@ public class Graph {
 	private void depthTraverse_recursive(int start, boolean [] flag, Queue<Integer> queue) {
 		queue.enter(start);
 		flag[start] = true;//入队代表访问顶点
-		for(Edge edge = edges[start]; edge != null; edge = edge.next) {
-			if(!flag[edge.to])
+		for (Edge edge = edges[start]; edge != null; edge = edge.next) {
+			if (!flag[edge.to])
 				depthTraverse_recursive(edge.to, flag, queue);
 		}
 		return;
@@ -301,42 +301,36 @@ public class Graph {
 		return queue;
 	}
 
-	//TODO 使用队列保存入度为0的顶点
 	//拓扑排序（有向图）
 	//每次循环选择一个没有入边的顶点，更新邻接顶点，直到所有顶点遍历完毕或者剩余的顶点构成环
 	public Queue topologicalSort() {
 		int [] count = new int[size]; //指向相应顶点的边的数量
-		boolean [] flag = new boolean[size];//true代表相应顶点已被遍历过
 		Queue<Integer> queue = new Queue<>();//遍历顺序
+		Queue<Integer> temp = new Queue<>();//保存没有入边的顶点
 		Edge edge;
 		int i;
 		//初始化count数组
-		for(i = 0; i < size; i++)
+		for (i = 0; i < size; i++)
 			for(edge = edges[i]; edge != null; edge = edge.next) 
 				count[edge.to]++;
+		for (i = 0; i < size; i++)
+			if (count[i] == 0)
+				temp.enter(i);
 		//开始排序
-		while(true) {
-			//查找当前第一个没有入边且未被遍历过的顶点
-			for(i = 0; i < size; i++) {
-				if(count[i] == 0 && !flag[i]) {
-					queue.enter(i);
-					flag[i] = true;
-					break;
-				}
-			}
-			//当前剩余顶点都有入边（存在环）或已遍历完（无环）
-			if(i == size)
+		while (true) {
+			if (temp.isEmpty())//当前剩余顶点都有入边（存在环）或已遍历完（无环）
 				break;
+			i = temp.depart();//当前第一个没有入边且未被遍历过的顶点
+			queue.enter(i);
 			//当前顶点所指向顶点的入度递减
 			edge = edges[i];
-			while(edge != null) {
+			while (edge != null) {
 				count[edge.to]--;
+				if (count[edge.to] == 0)
+					temp.enter(edge.to);
 				edge = edge.next;
 			}
 		}
 		return queue;
 	}
-
-	//最大流
-	
 }

@@ -14,7 +14,7 @@ public class PriorityQueue {
 	
 	private int length;//队列长度
 
-	private boolean order;//true表示正序，false表示逆序
+	private final boolean order;//true表示正序，false表示逆序
 	
 	//节点类
 	private static class Node {

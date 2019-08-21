@@ -3,8 +3,6 @@
  */
 package machine_test;
 
-import org.omg.CORBA.ARG_OUT;
-
 //位运算相关
 //与1异或、同或，等效于取反
 //与1相与，等于自身

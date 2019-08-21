@@ -5,6 +5,7 @@ package basic_algorithm.array;
 
 //跳跃数组
 //array[i]表示在位置i可以向后跳跃的最大步长，以第一个元素作为起点，最后一个元素作为终点
+//所有元素都为非负数
 public class JumpArray {
 
     //能否到达终点
@@ -19,7 +20,7 @@ public class JumpArray {
     //从右向左计算每个位置的最少次数
     public static int generate2(int [] array) {
         if (array == null || array.length == 0)
-            return 0;
+            return -1;
         int length = array.length;
         int [] dp = new int[length];
         dp[length-1] = 0;
@@ -35,6 +36,6 @@ public class JumpArray {
         //打印数组
         for (int i = 0; i < length; i++)
             System.out.print(dp[i] + " ");
-        return dp[0];
+        return (dp[0] == length + 1) ? -1 : dp[0];//length+1表示不能到达终点
     }
 }

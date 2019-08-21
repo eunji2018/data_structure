@@ -19,7 +19,7 @@ public class SkipList {
 	
 	private int size;//所有层节点个数
 
-	private boolean order;//true表示正序，false表示逆序
+	private final boolean order;//true表示正序，false表示逆序
 	
 	private Random random;//随机数
 	
