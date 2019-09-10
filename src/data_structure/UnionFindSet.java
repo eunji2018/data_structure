@@ -12,15 +12,19 @@ public class UnionFindSet {
 
     private int count;//并查集中集合的个数
 
+    private int maximum;//所有集合包含元素个数的最大值
+
     //节点类
     private static class Node {
 
         public int index;//节点代表的元素
+        public int rank;//节点的秩，即以节点为根的子树包含的节点个数
         public Node next;
         public Node parent;//父节点，指向自身表示节点是其所在集合的代表元素
 
         public Node(int index) {
             this.index = index;
+            this.rank = 1;
             this.next = null;
             this.parent = this;//新节点构成一个新的集合
         }
@@ -30,6 +34,7 @@ public class UnionFindSet {
         this.head = new Node(-1);//头节点不保存元素
         this.size = 0;
         this.count = 0;
+        this.maximum = 0;
     }
 
     public int size() {
@@ -38,6 +43,10 @@ public class UnionFindSet {
 
     public int count() {
         return count;
+    }
+
+    public int maximum() {
+        return maximum;
     }
 
     //判空
@@ -50,6 +59,7 @@ public class UnionFindSet {
         head.next = null;
         size = 0;
         count = 0;
+        maximum = 0;
         return;
     }
 
@@ -74,6 +84,7 @@ public class UnionFindSet {
         temp.next = node;
         size++;
         count++;
+        maximum = (1 > maximum) ? 1 : maximum;
         return;
     }
 
@@ -110,20 +121,28 @@ public class UnionFindSet {
         root1 = root(root1);
         Node root2 = search(other).next;
         root2 = root(root2);
-        root2.parent = root1;//root1作为新集合的代表元素
-        if (root1 != root2)//两个元素位于不同的集合
+        if (root1 != root2) {
+            if (root1.rank < root2.rank) {
+                Node temp = root1;
+                root1 = root2;
+                root2 = temp;
+            }
+            root2.parent = root1;
+            root1.rank += root2.rank;
+            maximum = (root1.rank > maximum) ? root1.rank : maximum;
             count--;
+        }
         return;
     }
 
     //打印
     public void print() {
         Node node = head.next;
-        System.out.println();
         while (node != null) {
             System.out.print("(" + node.index + " " + node.parent.index + ") ");
             node = node.next;
         }
+        System.out.println();
         return;
     }
 

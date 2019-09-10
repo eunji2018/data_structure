@@ -152,7 +152,6 @@ public class SkipList {
 		Node node = head;
 		Node temp = node;
 		int i = level;
-		System.out.println();
 		while(temp != null) {
 			System.out.print("level " + i-- + " : ");
 			while(temp.right != null) {
@@ -163,7 +162,8 @@ public class SkipList {
 			node = temp;
 			System.out.println();
 		}
-		return;
+        System.out.println();
+        return;
 	}
 	
 	//遍历：自底向上，打印路径中每层最右节点

@@ -5,10 +5,11 @@ package basic_algorithm.array;
 public class SlideWindow {
 
     //窗口的最大值
-    //
     public static void generate(int [] array, int n) {
 
         return;
     }
+
+    //窗口的中位数
 
 }

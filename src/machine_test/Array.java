@@ -276,6 +276,27 @@ public class Array {
 
 /*****其他*****/
 
+    //判断回文数
+    //先求出与目标数字位数相同的10的幂
+    //目标数字除以幂，得到最高位，目标数字对10求余数，得到最低位
+    //若两者不相等，则返回false，否则，同时向中间移动一位，继续比较，直到幂为1或者0
+    public static boolean palindromeNumber(int n) {
+        n = n < 0 ? (-n) : n;
+        int temp = 1;
+        while (n / temp >= 10)
+            temp = temp * 10;
+        int left, right;
+        while (temp != 0 && temp != 1) {
+            left = n / temp;
+            right = n % 10;
+            if (left != right)
+                return false;
+            n = (n % temp) / 10;
+            temp = temp / 100;
+        }
+        return true;
+    }
+
     //1-n整数中1出现的次数
 
     //数组元素能拼接出的最小值

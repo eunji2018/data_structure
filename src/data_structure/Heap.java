@@ -221,7 +221,6 @@ public class Heap {
         TreeNode node = head;
         queue.enter(node);
         queue.enter(new TreeNode(null));//虚拟节点，表示当前层遍历完毕
-        System.out.println();
         while (!queue.isEmpty()) {
             node = queue.depart();
             if (node.comparable == null) {//当前层遍历完毕
@@ -237,6 +236,7 @@ public class Heap {
                     queue.enter(node.right);
             }
         }
+        System.out.println();
         return;
     }
 }

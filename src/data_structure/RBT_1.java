@@ -137,21 +137,17 @@ public class RBT_1 {
 		return node;
 	}
 
-//	private static TreeNode getMin(TreeNode node) {
-//		if(node == null)
-//			return null;
-//		if(node.left == null)
-//			return node;
-//		return getMin(node.left);
-//	}
-//
-//	private static TreeNode getMax(TreeNode node) {
-//		if(node == null)
-//			return null;
-//		if(node.right == null)
-//			return node;
-//		return getMax(node.right);
-//	}
+	private static TreeNode getMin(TreeNode node) {
+	    while (node.left != null)
+	        node = node.left;
+	    return node;
+	}
+
+	private static TreeNode getMax(TreeNode node) {
+	    while (node.right != null)
+	        node = node.right;
+	    return node;
+	}
 	
 	
 	//删除
@@ -160,6 +156,27 @@ public class RBT_1 {
 
 
 
+
+    //最近公共父节点
+    public Comparable common(Comparable comparable1, Comparable comparable2) {
+        TreeNode node1 = select(comparable1);
+        TreeNode node2 = select(comparable2);
+        if(node1 == null || node2 == null)
+            return null;
+        return common(root, node1, node2).comparable;
+    }
+
+    //当以node为根的子树不包含两个节点时，返回null
+    //只包含一个节点时，返回此节点；包含两个节点时，返回最近公共父节点
+    private static TreeNode common(TreeNode node, TreeNode node1, TreeNode node2) {
+        if(node == null || node == node1 || node == node2)
+            return node;
+        TreeNode left = common(node.left, node1, node2);
+        TreeNode right = common(node.right, node1, node2);
+        if(left != null && right != null)
+            return node;
+        return left == null ? right : left;
+    }
 
 	/* 非递归式前序遍历
 	 * 1.使当前节点指向根节点，当前节点入栈
@@ -172,16 +189,16 @@ public class RBT_1 {
 			TreeNode node = root;
 			Stack<TreeNode> stack = new Stack<>();
 			stack.push(node);
-			System.out.println();
 			while(!stack.isEmpty()) {//栈非空
 				node = stack.pop();
-				System.out.print(node.comparable + ":" + (node.color ? "T " : "F "));//遍历节点
+				System.out.print(node.comparable + " ");//遍历节点
 				if (node.right != null)
 					stack.push(node.right);
 				if (node.left != null)
 					stack.push(node.left);
 			}
-		}
+            System.out.println();
+        }
 		return;
 	}
 
@@ -196,18 +213,18 @@ public class RBT_1 {
 		if (root != null) {
 			TreeNode node = root;
 			Stack<TreeNode> stack = new Stack<>();
-			System.out.println();
 			while(!stack.isEmpty() || node != null) {
 				if (node != null) {//当前节点非空
 					stack.push(node);
 					node = node.left;
 				} else {//栈非空
 					node = stack.pop();
-					System.out.print(node.comparable + ":" + (node.color ? "T " : "F "));//遍历节点
+					System.out.print(node.comparable + " ");//遍历节点
 					node = node.right;
 				}
 			}
-		}
+            System.out.println();
+        }
 		return;
 	}
 
@@ -233,19 +250,21 @@ public class RBT_1 {
 				if (node.right != null)
 					one.push(node.right);
 			}
-			System.out.println();
 			while(!other.isEmpty()) {//栈other非空
 				node = other.pop();
-				System.out.print(node.comparable + ":" + (node.color ? "T " : "F "));//遍历节点
+				System.out.print(node.comparable + " ");//遍历节点
 			}
-		}
+            System.out.println();
+        }
 		return;
 	}
 
 	/* 非递归式后序遍历（一个栈）
-	 * 1.
-	 * 2.
-	 * 3.
+	 * 1.使当前节点指向根节点，最近遍历的节点指向根节点，当前节点入栈
+	 * 2.若栈非空
+	 *  （1）栈顶节点存在子节点，并且最近遍历的节点不是其子节点，将右左子节点依次入栈
+	 *  （2）栈顶节点不存在子节点，或者存在子节点，最近遍历的节点是其子节点，将栈顶节点出栈，遍历节点，更新最近遍历的节点
+	 * 3.重复第2步，直到栈为空
 	 * 总结：
 	 */
 	public void postOrder_one() {
@@ -254,7 +273,6 @@ public class RBT_1 {
 			TreeNode last = root;//最近遍历的节点
 			Stack<TreeNode> stack = new Stack<>();
 			stack.push(node);
-			System.out.println();
 			while (!stack.isEmpty()) {
 				node = stack.peek();
 				if ((node.left != null || node.right != null) && last != node.left && last != node.right) {
@@ -265,10 +283,11 @@ public class RBT_1 {
 						stack.push(node.left);
 				}else {//栈顶节点没有子节点或者栈顶节点有子节点，最近遍历的节点是其子节点，则出栈
 					last = stack.pop();
-					System.out.print(last.comparable + ":" + (last.color ? "T " : "F "));//遍历节点
+					System.out.print(last.comparable + " ");//遍历节点
 				}
 			}
-		}
+            System.out.println();
+        }
 		return;
 	}
 
@@ -285,7 +304,6 @@ public class RBT_1 {
 		Queue<TreeNode> queue = new Queue<>();
 		queue.enter(node);
 		queue.enter(new TreeNode(null, false));//虚拟节点
-		System.out.println();
 		while(!queue.isEmpty()) {//队非空
 			node = queue.depart();
 			if (node.comparable == null) {//虚拟节点
@@ -301,7 +319,8 @@ public class RBT_1 {
 					queue.enter(node.right);
 			}
 		}
-		return;
+        System.out.println();
+        return;
 	}
 
 	//层次遍历（左右交替，两个栈）
@@ -312,7 +331,6 @@ public class RBT_1 {
 		Stack<TreeNode> left = new Stack<>();//保存从左到右遍历的节点
 		Stack<TreeNode> right = new Stack<>();//保存从右到左遍历的节点
 		left.push(node);//先从左到右
-		System.out.println();
 		while(!left.isEmpty() || !right.isEmpty()) {
 			if(!left.isEmpty()) {//从左到右遍历
 				while(!left.isEmpty()) {
@@ -347,7 +365,6 @@ public class RBT_1 {
 		DoubleQueue<TreeNode> queue = new DoubleQueue<>();
 		queue.enterHead(node);//先从左到右
 		int left = 1, right = 0;//left表示从左到右遍历的节点的数目，right表示从右到左遍历的节点的数目
-		System.out.println();
 		while (left != 0 || right != 0) {
 			if (left != 0) {//从左到右遍历，元素从队首出队
 				while (left != 0) {
@@ -386,25 +403,83 @@ public class RBT_1 {
 		return;
 	}
 
-	//最近公共父节点
-	public Comparable common(Comparable comparable1, Comparable comparable2) {
-		TreeNode node1 = select(comparable1);
-		TreeNode node2 = select(comparable2);
-		if(node1 == null || node2 == null)
-			return null;
-		return common(root, node1, node2).comparable;
-	}
-
-	//当以node为根的子树不包含两个节点时，返回null
-	//只包含一个节点时，返回此节点；包含两个节点时，返回最近公共父节点
-	private static TreeNode common(TreeNode node, TreeNode node1, TreeNode node2) {
-		if(node == null || node == node1 || node == node2)
-			return node;
-		TreeNode left = common(node.left, node1, node2);
-		TreeNode right = common(node.right, node1, node2);
-		if(left != null && right != null)
-			return node;
-		return left == null ? right : left;
-	}
+	//Morris遍历
+    public void morrisTraverse() {
+        TreeNode node = root;
+        TreeNode temp;
+        while (node != null) {
+            System.out.print(node.comparable + " ");
+            temp = node.left;
+            if (temp == null) {
+                node = node.right;
+            } else {
+                while (temp.right != null && temp.right != node)
+                    temp = temp.right;
+                if (temp.right == null) {
+                    temp.right = node;
+                    node = node.left;
+                }else {
+                    temp.right = null;
+                    node = node.right;
+                }
+            }
+        }
+        System.out.println();
+        return;
+    }
+    
+    //基于Morris遍历的前序遍历
+    public void morrisPreTraverse() {
+	    TreeNode node = root;
+	    TreeNode temp;
+        while (node != null) {
+            temp = node.left;
+            if (temp == null) {
+                System.out.print(node.comparable + " ");
+                node = node.right;
+            }else {
+                while (temp.right != null && temp.right != node)
+                    temp = temp.right;
+                if (temp.right == null) {
+                    System.out.print(node.comparable + " ");
+                    temp.right = node;
+                    node = node.left;
+                }else {
+                    temp.right = null;
+                    node = node.right;
+                }
+            }
+        }
+        System.out.println();
+        return;
+    }
+    
+    //基于Morris遍历的中序遍历
+    public void morrisInTraverse() {
+        TreeNode node = root;
+        TreeNode temp;
+        while (node != null) {
+            temp = node.left;
+            if (temp != null) {
+                while (temp.right != null && temp.right != node)
+                    temp = temp.right;
+                if (temp.right == null) {
+                    temp.right = node;
+                    node = node.left;
+                    continue;
+                }else
+                    temp.right = null;
+            }
+            System.out.print(node.comparable + " ");
+            node = node.right;
+        }
+        System.out.println();
+        return;
+    }
+    
+    //基于Morris遍历的后序遍历
+    public void morrisPostTraverse() {
+	    
+    }
 
 }

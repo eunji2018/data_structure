@@ -70,10 +70,10 @@ public class SingleList<T> {
 	}
 	
 	public void print() {
-		System.out.println();
 		for(Node temp = head.next; temp != null; temp = temp.next)
 			System.out.print(temp.data + " ");
-		return;
+        System.out.println();
+        return;
 	}
 	
 	//逆置链表（递归式）

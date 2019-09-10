@@ -87,11 +87,11 @@ public class PriorityQueue {
 	//打印
 	public void print() {
 		Node node = head.next;
-		System.out.println();
 		while(node != null) {
 			System.out.print(node.comparable + " ");
 			node = node.next;
 		}
+        System.out.println();
 		return;
 	}
 }

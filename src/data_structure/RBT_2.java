@@ -311,7 +311,6 @@ public class RBT_2 {
         if (root != sentry) {
             TreeNode node = root;
             Stack<TreeNode> stack = new Stack<>();
-            System.out.println();
             while (!stack.isEmpty() || node != sentry) {
                 if (node != sentry) {
                     stack.push(node);
@@ -322,6 +321,7 @@ public class RBT_2 {
                     node = node.right;
                 }
             }
+            System.out.println();
         }
         return;
     }
@@ -334,7 +334,6 @@ public class RBT_2 {
         Queue<TreeNode> queue = new Queue<>();
         queue.enter(node);
         queue.enter(new TreeNode(null, false));
-        System.out.println();
         while (!queue.isEmpty()) {
             node = queue.depart();
             if (node.comparable == null) {
@@ -350,6 +349,7 @@ public class RBT_2 {
                     queue.enter(node.right);
             }
         }
+        System.out.println();
         return;
     }
 

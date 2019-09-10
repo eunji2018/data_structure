@@ -6,6 +6,7 @@ package data_structure;
 public class Test {
 
 	public static void main(String[] args) {
+//	    test();
 //	    test_DoubleQueue();
 //		test_UndirectedGraph();
 //		test_DirectedGraph();
@@ -21,6 +22,11 @@ public class Test {
 //		test_Stack();
 //		test_UnionFindSet();
 	}
+
+	//测试
+    public static void test() {
+
+    }
 
     //双端队列测试
     public static void test_DoubleQueue() {
@@ -66,32 +72,39 @@ public class Test {
             graph.insert(array[i]);
         System.out.println("初始");
         graph.print();
+        System.out.println("广度优先遍历");
         graph.breadthTraverse(0).print();
         graph.breadthTraverse(5).print();
+        System.out.println("深度优先遍历");
         graph.depthTraverse(0).print();
         graph.depthTraverse_recursive(0).print();
         graph.depthTraverse(5).print();
         graph.depthTraverse_recursive(5).print();
+        System.out.println("最小生成树");
         graph.minSpanTree_K().print();
         graph.minSpanTree_P(0).print();
         graph.minSpanTree_P(5).print();
+        System.out.println("最短路径");
         graph.shortPath_D(0).print();
         graph.shortPath_D(5).print();
 
-        System.out.println();
         System.out.println("删除");
         graph.delete(3,6);
         graph.delete(4,5);
         graph.print();
+        System.out.println("广度优先遍历");
         graph.breadthTraverse(0).print();
         graph.breadthTraverse(5).print();
+        System.out.println("深度优先遍历");
         graph.depthTraverse(0).print();
         graph.depthTraverse_recursive(0).print();
         graph.depthTraverse(5).print();
         graph.depthTraverse_recursive(5).print();
+        System.out.println("最小生成树");
         graph.minSpanTree_K().print();
         graph.minSpanTree_P(0).print();
         graph.minSpanTree_P(5).print();
+        System.out.println("最短路径");
         graph.shortPath_D(0).print();
         graph.shortPath_D(5).print();
 
@@ -104,13 +117,17 @@ public class Test {
         Graph graph = new Graph(true,10);
         for (int i = 0; i < array.length; i++)
             graph.insert(array[i]);
+        System.out.println("初始");
         graph.print();
+        System.out.println("广度优先遍历");
         graph.breadthTraverse(0).print();
         graph.breadthTraverse(5).print();
+        System.out.println("深度优先遍历");
         graph.depthTraverse(0).print();
         graph.depthTraverse_recursive(0).print();
         graph.depthTraverse(5).print();
         graph.depthTraverse_recursive(5).print();
+        System.out.println("拓扑排序");
         graph.topologicalSort().print();
     }
 
@@ -120,62 +137,56 @@ public class Test {
         System.out.println("正序");
 	    Heap heap = new Heap(true);
 	    heap.push(0);
-        System.out.println(heap.size());
         System.out.println(heap.isEmpty());
+        System.out.println(heap.size());
         heap.hierarchy();
 
 	    for (int i = 1; i < 20; i++)
 	        heap.push(i);
-        System.out.println();
         System.out.println("初始");
-	    System.out.println(heap.size());
         System.out.println(heap.isEmpty());
+        System.out.println(heap.size());
 	    heap.hierarchy();
 
-        System.out.println();
         System.out.println("删除");
         for (int i = 0; i < 10; i++)
             System.out.println(heap.pop());
-        System.out.println(heap.size());
         System.out.println(heap.isEmpty());
+        System.out.println(heap.size());
         heap.hierarchy();
 
-        System.out.println();
         System.out.println("清空");
         heap.clear();
-        System.out.println(heap.size());
         System.out.println(heap.isEmpty());
+        System.out.println(heap.size());
         heap.hierarchy();
 
         //逆序堆测试
         System.out.println("逆序");
         heap = new Heap(false);
         heap.push(0);
-        System.out.println(heap.size());
         System.out.println(heap.isEmpty());
+        System.out.println(heap.size());
         heap.hierarchy();
 
         for (int i = 1; i < 20; i++)
             heap.push(i);
-        System.out.println();
         System.out.println("初始");
-        System.out.println(heap.size());
         System.out.println(heap.isEmpty());
+        System.out.println(heap.size());
         heap.hierarchy();
 
-        System.out.println();
         System.out.println("删除");
         for (int i = 0; i < 10; i++)
             System.out.println(heap.pop());
-        System.out.println(heap.size());
         System.out.println(heap.isEmpty());
+        System.out.println(heap.size());
         heap.hierarchy();
 
-        System.out.println();
         System.out.println("清空");
         heap.clear();
-        System.out.println(heap.size());
         System.out.println(heap.isEmpty());
+        System.out.println(heap.size());
         heap.hierarchy();
 
     }
@@ -183,26 +194,43 @@ public class Test {
     //双向链表测试
     public static void test_LinkedList() {
 	    LinkedList<Integer> list = new LinkedList<>();
-	    for (int i = 0; i < 10; i++)
-	        list.insert(i);
+	    for (int i = 9; i >= 0; i--)
+	        list.insertHead(i);
+	    for (int i = 9; i >= 0; i--)
+	        list.insertTail(i);
         System.out.println("初始");
-        System.out.println(list.length());
         System.out.println(list.isEmpty());
+        System.out.println(list.length());
         list.print();
 
-        System.out.println();
-        System.out.println("删除");
+        System.out.println("添加");
         for (int i = 0; i < 5; i++)
-            System.out.println(list.remove());
-        System.out.println(list.length());
+            list.insert(i, i);
         System.out.println(list.isEmpty());
+        System.out.println(list.length());
         list.print();
 
-        System.out.println();
+        System.out.println("删除");
+        System.out.println(list.removeHead());
+        System.out.println(list.removeTail());
+        System.out.println(list.remove(5));
+        System.out.println(list.remove(10));
+        System.out.println(list.removeFirst(10));
+        System.out.println(list.removeFirst(1));
+        System.out.println(list.removeLast(1));
+        System.out.println(list.removeLast(1));
+        System.out.println(list.removeFirst(5));
+        System.out.println(list.removeFirst(5));
+        System.out.println(list.removeLast(5));
+
+        System.out.println(list.isEmpty());
+        System.out.println(list.length());
+        list.print();
+
         System.out.println("清空");
         list.clear();
-        System.out.println(list.length());
         System.out.println(list.isEmpty());
+        System.out.println(list.length());
         list.print();
 
     }
@@ -222,7 +250,6 @@ public class Test {
         tree.hierarchy();
         tree.depthTraverse();
 
-        System.out.println();
         System.out.println("删除");
         tree.delete("meitu");
         tree.delete("tuan");
@@ -247,7 +274,6 @@ public class Test {
         System.out.println(queue.length());
         queue.print();
 
-        System.out.println();
         System.out.println("删除");
         for (int i = 0; i < 10; i++)
             System.out.println(queue.depart());
@@ -255,7 +281,6 @@ public class Test {
         System.out.println(queue.length());
         queue.print();
 
-        System.out.println();
         System.out.println("清空");
         queue.clear();
         System.out.println(queue.isEmpty());
@@ -269,7 +294,6 @@ public class Test {
         System.out.println(queue.length());
         queue.print();
 
-        System.out.println();
         System.out.println("删除");
         for (int i = 0; i < 10; i++)
             System.out.println(queue.depart());
@@ -277,7 +301,6 @@ public class Test {
         System.out.println(queue.length());
         queue.print();
 
-        System.out.println();
         System.out.println("清空");
         queue.clear();
         System.out.println(queue.isEmpty());
@@ -294,7 +317,6 @@ public class Test {
         System.out.println(queue.length());
         queue.print();
 
-        System.out.println();
         System.out.println("删除");
         for (int i = 0; i < 10; i++)
             System.out.println(queue.depart());
@@ -302,7 +324,6 @@ public class Test {
         System.out.println(queue.length());
         queue.print();
 
-        System.out.println();
         System.out.println("清空");
         queue.clear();
         System.out.println(queue.isEmpty());
@@ -316,7 +337,6 @@ public class Test {
         System.out.println(queue.length());
         queue.print();
 
-        System.out.println();
         System.out.println("删除");
         for (int i = 0; i < 10; i++)
             System.out.println(queue.depart());
@@ -324,7 +344,6 @@ public class Test {
         System.out.println(queue.length());
         queue.print();
 
-        System.out.println();
         System.out.println("清空");
         queue.clear();
         System.out.println(queue.isEmpty());
@@ -339,23 +358,21 @@ public class Test {
 	    for (int i = 0; i < 20; i++)
 	        queue.enter(i);
         System.out.println("初始");
-        System.out.println(queue.length());
         System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
         queue.print();
 
-        System.out.println();
         System.out.println("删除");
         for (int i = 0; i < 10; i++)
             System.out.println(queue.depart());
-        System.out.println(queue.length());
         System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
         queue.print();
 
-        System.out.println();
         System.out.println("清空");
         queue.clear();
-        System.out.println(queue.length());
         System.out.println(queue.isEmpty());
+        System.out.println(queue.length());
         queue.print();
 
     }
@@ -369,13 +386,20 @@ public class Test {
         System.out.println("初始");
         System.out.println(rbt.size());
         System.out.println(rbt.height());
+        System.out.println("Morris遍历");
+        rbt.morrisTraverse();
+        rbt.morrisPreTraverse();
+        rbt.morrisInTraverse();
+        System.out.println("非递归遍历");
         rbt.preOrder();
         rbt.inOrder();
         rbt.postOrder_one();
         rbt.postOrder_two();
+        System.out.println("层次遍历");
         rbt.hierarchy();
         rbt.hierarchy_inturn_stack();
         rbt.hierarchy_inturn_queue();
+        System.out.println("最近公共父节点");
         System.out.println(rbt.common(0, 19));
         System.out.println(rbt.common(1, 6));
         System.out.println(rbt.common(9, 14));
@@ -397,7 +421,6 @@ public class Test {
         rbt.inTraverse();
         rbt.hierarchy();
 
-        System.out.println();
         System.out.println("删除");
 
     }
@@ -411,7 +434,6 @@ public class Test {
         System.out.println(list.isEmpty());
         System.out.println(list.length());
 		list.print();
-        System.out.println();
 		System.out.println(list.middle());
 		System.out.println(list.reciprocal(7));
 
@@ -421,7 +443,6 @@ public class Test {
         System.out.println(list.isEmpty());
         System.out.println(list.length());
         list.print();
-        System.out.println();
         System.out.println(list.middle());
         System.out.println(list.reciprocal(5));
 
@@ -430,7 +451,6 @@ public class Test {
         System.out.println(list.isEmpty());
         System.out.println(list.length());
         list.print();
-        System.out.println();
         System.out.println(list.middle());
         System.out.println(list.reciprocal(7));
 
@@ -439,7 +459,6 @@ public class Test {
         System.out.println(list.isEmpty());
         System.out.println(list.length());
         list.print();
-        System.out.println();
         System.out.println(list.middle());
         System.out.println(list.reciprocal(3));
 
@@ -533,7 +552,6 @@ public class Test {
         System.out.println(stack.length());
         stack.print();
 
-        System.out.println();
         System.out.println("删除");
         for (int i = 0; i < 5; i++)
             System.out.println(stack.pop());
@@ -541,7 +559,6 @@ public class Test {
         System.out.println(stack.length());
         stack.print();
 
-        System.out.println();
         System.out.println("清空");
         stack.clear();
         System.out.println(stack.isEmpty());
@@ -559,8 +576,8 @@ public class Test {
         System.out.println(set.isEmpty());
         System.out.println(set.size());
         System.out.println(set.count());
+        System.out.println(set.maximum());
         set.print();
-        System.out.println();
         System.out.println(set.connected(0,9));
         System.out.println(set.connected(3,6));
 
@@ -574,8 +591,8 @@ public class Test {
         System.out.println(set.isEmpty());
         System.out.println(set.size());
         System.out.println(set.count());
+        System.out.println(set.maximum());
         set.print();
-        System.out.println();
         System.out.println(set.connected(0,9));
         System.out.println(set.connected(3,6));
 
@@ -584,6 +601,7 @@ public class Test {
         System.out.println(set.isEmpty());
         System.out.println(set.size());
         System.out.println(set.count());
+        System.out.println(set.maximum());
         set.print();
 
     }

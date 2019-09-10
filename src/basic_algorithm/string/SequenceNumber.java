@@ -42,5 +42,28 @@ public class SequenceNumber {
         return dp[row-1][column-1];
     }
 
-    //string所有子序列的个数，不考虑重复子序列、空字符
+    /* string所有子序列的个数，不考虑重复子序列、空字符
+     * dp[i]表示string[0 - i]中不同的子序列个数
+     * last[i]表示在string[0 - i-1]中string[i]最后出现的位置
+     * string[0 - i]的所有子序列分为两种情形：
+     * 1.不包含string[i]的子序列，结果为dp[i-1]
+     * 2.包含string[i]的子序列：（1）只包含string[i]，结果为1（2）包含string[i]并且包含string[0 - i-1]的至少一个字符，结果为dp[i-1]
+     * 第二种情形可能包含重复的子序列，并且重复子序列的个数为dp[last[i]-1]
+     * 以ababab为例，每行的子序列表示因为当前字符而构成的新的子序列，即用当前字符作为尾字符去拼接上方所有行的子序列，其中一部分可以作为新的子序列
+     * 所以前i行包含了string[0 - i]所有不同的子序列
+     * # : #（#表示空字符）
+     * a : a
+     * b : b ab
+     * a : aa ba aba
+     * b : bb abb aab bab abab
+     * a : aaa baa abaa bba abba aaba baba ababa
+     * b : bbb abbb aabb babb ababb aaab baab abaab bbab abbab aabab babab ababab
+     * 规律：使用string[i]拼接last[i]上方所有行的子序列时，得到的都是重复子序列，拼接其余行的子序列时，得到的都是新的子序列
+     * 递推关系为，dp[i] = 2 * dp[i-1] + 1（当last[i]不存在）或者2 * dp[i-1] - dp[last[i]-1]（当last[i]存在）
+     */
+
+    /* string所有子串的个数，不考虑重复子串、空字符
+     *
+     */
+
 }

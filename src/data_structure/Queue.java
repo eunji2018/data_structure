@@ -82,12 +82,12 @@ public class Queue<T> {
 	//打印
 	public void print() {
 		Node node = head.next;
-		System.out.println();
 		while(node != tail) {
 			System.out.print(node.data + " ");
 			node = node.next;
 		}
-		return;
+        System.out.println();
+        return;
 	}
 
 }

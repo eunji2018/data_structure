@@ -132,7 +132,6 @@ public class PrefixTree {
         TreeNode node = root;
         queue.enter(node);
         queue.enter(new TreeNode('/'));//虚拟节点，表示当前层遍历完毕
-        System.out.println();
         while (!queue.isEmpty()) {
             node = queue.depart();
             if (node.character == '/') {//当前层遍历完毕
@@ -148,6 +147,7 @@ public class PrefixTree {
                 }
             }
         }
+        System.out.println();
         return;
     }
 
@@ -159,7 +159,6 @@ public class PrefixTree {
         stack.push(node);
         other.push(-1);
         int index = -1;
-        System.out.println();
         while(!stack.isEmpty()) {
             node = stack.peek();//取栈顶
             //将此节点的子节点中未被访问过的【第一个】节点加入栈，从index + 1位置开始遍历子节点
@@ -178,6 +177,7 @@ public class PrefixTree {
                 index = other.pop();//当前节点在父节点children数组中的位置
             }
         }
+        System.out.println();
         return;
     }
 

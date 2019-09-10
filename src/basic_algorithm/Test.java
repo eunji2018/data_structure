@@ -18,15 +18,17 @@ public class Test {
 //	    test_MatrixMinPath();
 //	    test_MaxSubMatrix();
 
-	    test_MCSEQ();
+//	    test_MCSEQ();
+//	    test_MergeStone();
 //	    test_MinBlood();
-//        test_MinDescPathSum();
+//	    test_MinDescPathSum();
 //	    test_MinRefuel();
+	    test_PointGame();
 //	    test_StockProfit();
 //	    test_SwingSequence();
 
 //	    test_TOPK();
-
+//	    test_WaterStorage();
 //	    test_Fibonacci();
 
 //	    test_BubbleSort();
@@ -47,17 +49,17 @@ public class Test {
 //	    test_MinEditCost();
 //	    test_PalindromeSeparate();
 //	    test_PalindromeFill();
-//        test_SCSEQ();
-//        test_SequenceNumber();
+//	    test_SCSEQ();
+//	    test_SequenceNumber();
 //	    test_StringMatch();
-
 
 	}
 
 	//糖果分配问题测试
     public static void test_AllocateCandy() {
-	    int [] array = {5,4,1,1};
+	    int [] array = {2,2,3,2,2,1,1,2,2,1,1,2,2,3,3};
         System.out.println(AllocateCandy.generate1(array));
+        System.out.println(AllocateCandy.generate2(array));
     }
 
     //背包问题测试
@@ -98,8 +100,14 @@ public class Test {
 
     //跳跃数组测试
     public static void test_JumpArray() {
-        int [] array = {3,2,3,1,1,3,2,2,1,2};
-        int count = JumpArray.generate2(array);
+        int [] array = {3,2,3,0,1,1,3,2,0,2,1,2};
+        boolean result = JumpArray.generate1(array);
+        System.out.println();
+        System.out.println(result);
+        result = JumpArray.generate2(array);
+        System.out.println(result);
+
+        int count = JumpArray.generate3(array);
         System.out.println();
         System.out.println(count);
     }
@@ -129,15 +137,24 @@ public class Test {
 
     //最大连续子序列测试
     public static void test_MCSEQ() {
-        int [] array1 = {1,-2,3,5,-2,6,-1};
+        int [] array1 = {1,-2,0,3,5,-2,6,0,-1};
+        int [] array2 = {-2,-1,-2,-5,-1,0,-2};
+        int [] array3 = {-2,-3,-2,-5,-1,-2};
 
         System.out.println("最大连续子序列和：");
         System.out.println("线性遍历");
         System.out.println("sum: " + MCSEQ.generate1(array1));
+        System.out.println("sum: " + MCSEQ.generate1(array2));
+        System.out.println("sum: " + MCSEQ.generate1(array3));
         System.out.println("动态规划");
         System.out.println("sum: " + MCSEQ.generate2(array1));
+        System.out.println("sum: " + MCSEQ.generate2(array2));
+        System.out.println("sum: " + MCSEQ.generate2(array3));
         System.out.println("分治");
         System.out.println("sum: " + MCSEQ.generate3(array1));
+        System.out.println("sum: " + MCSEQ.generate3(array2));
+        System.out.println("sum: " + MCSEQ.generate3(array3));
+
 
         System.out.println("最大子序列和：");
         System.out.println("sum: " + MCSEQ.generate4(array1, 1));
@@ -151,6 +168,10 @@ public class Test {
 
         System.out.println("最大连续子序列积：");
         System.out.println("multiply: " + MCSEQ.generate6(array1));
+    }
+
+    //石头堆测试
+    public static void test_MergeStone() {
     }
 
     //最低血量测试
@@ -181,6 +202,14 @@ public class Test {
 	    count = MinRefuel.generate(50, 120, stations);
         System.out.println(count);
     }
+
+    //点数博弈测试
+    public static void test_PointGame() {
+	    int [] array = {1,2,3,4,5,4,3,2,1};
+	    int result = PointGame.generate(array);
+        System.out.println(result);
+    }
+
 
     //最大股票利润测试
     public static void test_StockProfit() {
@@ -227,6 +256,19 @@ public class Test {
     public static void test_TOPK() {
         int [] array = {15,14,20,16,17,13,12,18,11,19,5,4,10,6,7,3,2,9,8,1};
         TOPK.kMin(array, 7);
+    }
+
+    //蓄水问题测试
+    public static void test_WaterStorage() {
+	    int [] array1 = {5,2,3,1,6,2,3};
+	    int [] array2 = {2,6,1,5,3,7,2};
+	    int [] array3 = {1,2,3,4,5,3,2};
+        System.out.println(WaterStorage.generate1(array1));
+        System.out.println(WaterStorage.generate2(array1));
+        System.out.println(WaterStorage.generate1(array2));
+        System.out.println(WaterStorage.generate2(array2));
+        System.out.println(WaterStorage.generate1(array3));
+        System.out.println(WaterStorage.generate2(array3));
     }
 
     //斐波那契测试

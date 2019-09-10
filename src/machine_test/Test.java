@@ -6,33 +6,35 @@ package machine_test;
 public class Test {
 
 	public static void main(String[] args) {
+/**********数组相关**********/
 //		test_EvenAndOdd1();
 //		test_EvenAndOdd2();
-
 //		test_MinSortLength();
 //		test_Tuple();
 //		test_MaxLength();
 //		test_NaturalNumberSort();
 //		test_Median1();
 //		test_Median2();
+		test_PalindromeNumber();
 
+/**********位运算相关**********/
 //		test_Swap();
 //		test_NumberOfOne();
 //		test_NumberOfOne3();
-
 //		test_MaxCommonDivisor();
 //		test_OddTimes();
 //		test_MissNumber();
-//		test_TwoDimensionSearch();
-		test_MoveOut();
 
+/**********矩阵相关**********/
+//		test_TwoDimensionSearch();
+//		test_MoveOut();
+
+/**********随机数相关**********/
 //		test_NRandom();
 //		test_SquareRandom();
 //		test_NMRandom();
 //		test_01Random1();
 //		test_01Random2();
-
-
 
 	}
 
@@ -114,7 +116,19 @@ public class Test {
 		System.out.println(median);
 	}
 
-
+    //判断回文数
+    public static void test_PalindromeNumber() {
+	    int number1 = 1;
+	    int number2 = 11;
+	    int number3 = 12;
+	    int number4 = 123454321;
+	    int number5 = 123453321;
+        System.out.println(Array.palindromeNumber(number1));
+        System.out.println(Array.palindromeNumber(number2));
+        System.out.println(Array.palindromeNumber(number3));
+        System.out.println(Array.palindromeNumber(number4));
+        System.out.println(Array.palindromeNumber(number5));
+    }
 
 /**********位运算相关**********/
 

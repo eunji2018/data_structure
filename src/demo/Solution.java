@@ -1,6 +1,6 @@
 package demo;
 
-import java.util.*;
+import java.util.Arrays;
 
 //力扣笔试专用类
 class Solution {
@@ -8,13 +8,14 @@ class Solution {
     public static void main(String[] args) {
     }
 
-    public int[] countBits(int num) {
-        int [] result = new int[num+1];
-        for (int i = 1; i <= num; i++) {
-            result[i] = (i & 1) + result[i >> 1];
-        }
+    public int arrayPairSum(int[] nums) {
+        Arrays.sort(nums);
+        int result = 0;
+        for (int i = 0; i < nums.length; i += 2)
+            result += nums[i];
 
         return result;
     }
+
 }
 

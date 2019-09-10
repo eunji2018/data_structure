@@ -98,7 +98,6 @@ public class Graph {
 	//打印邻接表 from: (to weight)
 	public void print() {
 		Edge edge;
-		System.out.println();
 		for (int i = 0; i < size; i++) {
 			System.out.print(i + ": ");
 			edge = edges[i];
@@ -295,9 +294,9 @@ public class Graph {
 				break;
 		}
 		//打印距离数组
-		System.out.println();
 		for (int i = 0; i < size; i++)
 			System.out.print(distance[i] + " ");
+        System.out.println();
 		return queue;
 	}
 

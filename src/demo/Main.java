@@ -9,19 +9,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
 
-        String string = scanner.nextLine();
-        String c = scanner.nextLine();
-
-
-
-
-
-
         return;
 
     }
-
-
-
 
 }
