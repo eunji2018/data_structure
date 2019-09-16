@@ -11,7 +11,7 @@ public class QuickSort {
 	public static void sort(int [] array) {
 		if (array == null || array.length == 0) 
 			return;
-		sort(array, 0, array.length - 1);		
+		sort(array, 0, array.length - 1);
 	}
 	
 	private static void sort(int [] array, int left, int right) {
@@ -19,7 +19,7 @@ public class QuickSort {
 			return;
 		int index = partition(array, left, right);
 		//打印
-		for(int i = 0; i < array.length; i++) 
+		for (int i = 0; i < array.length; i++)
 			System.out.print(array[i] + " ");
 		System.out.println();
 		sort(array, left, index - 1);
@@ -30,11 +30,11 @@ public class QuickSort {
 	private static int partition(int [] array, int left, int right) {
 		int temp = array[left];//使用最左边的元素作为切分元素
 		int i = left, j = right;
-		while(i < j) {
-			while(i < j && array[j] >= temp)//先从右边比较，找到小于切分元素的元素
+		while (i < j) {
+			while (i < j && array[j] >= temp)//先从右边比较，找到小于切分元素的元素
 				j--;
 			array[i] = array[j];
-			while(i < j && array[i] <= temp)//再从左边比较，找到大于切分元素的元素
+			while (i < j && array[i] <= temp)//再从左边比较，找到大于切分元素的元素
 				i++;
 			array[j] = array[i];
 		}

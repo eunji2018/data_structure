@@ -13,7 +13,7 @@ class Future<T> extends Result<T> {
 
 	//调度线程关联执行结果
 	public synchronized void setResult(Result<T> result) {
-		if(ready)
+		if (ready)
 			return;
 		this.result = result;
 		this.ready = true;
@@ -23,7 +23,7 @@ class Future<T> extends Result<T> {
 	//客户端线程获取执行结果
 	@Override
 	public synchronized T getValue() {
-		while(!ready) {
+		while (!ready) {
 			try {
 				wait();
 			} catch (Exception e) {}

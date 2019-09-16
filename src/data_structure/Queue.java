@@ -53,7 +53,7 @@ public class Queue<T> {
 	
 	//出队
 	public T depart() {
-		if(length == 0)
+		if (length == 0)
 			return null;
 		Node node = head.next;
 		head.next = node.next;
@@ -82,7 +82,7 @@ public class Queue<T> {
 	//打印
 	public void print() {
 		Node node = head.next;
-		while(node != tail) {
+		while (node != tail) {
 			System.out.print(node.data + " ");
 			node = node.next;
 		}

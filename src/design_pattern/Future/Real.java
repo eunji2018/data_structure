@@ -8,7 +8,7 @@ public class Real implements Result {
 	public Real(int count, char c) {
 		System.out.println("		create real start " + c);
 		char[] buffer = new char[count];
-		for(int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++) {
 			buffer[i] = c;
 			try {
 				Thread.sleep(100);//表示构造对象需要一定的时间

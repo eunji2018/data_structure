@@ -31,7 +31,7 @@ public class SingleList<T> {
 	public void insert(T t) {
 		Node node = new Node(t);
 		Node temp = head;
-		while(temp.next != null)
+		while (temp.next != null)
 			temp = temp.next;
 		temp.next = node;
 		length++;
@@ -40,11 +40,11 @@ public class SingleList<T> {
 	
 	//删除元素（尾部）
 	public T remove() {
-		if(length == 0)
+		if (length == 0)
 			return null;
 		Node temp = head;
 		Node node = temp.next;
-		while(node.next != null) {
+		while (node.next != null) {
 			temp = node;
 			node = node.next;
 		}
@@ -70,7 +70,7 @@ public class SingleList<T> {
 	}
 	
 	public void print() {
-		for(Node temp = head.next; temp != null; temp = temp.next)
+		for (Node temp = head.next; temp != null; temp = temp.next)
 			System.out.print(temp.data + " ");
         System.out.println();
         return;
@@ -78,7 +78,7 @@ public class SingleList<T> {
 	
 	//逆置链表（递归式）
 	public void inverse_recursive() {
-		if(length == 0)
+		if (length == 0)
 			return;
 		Node temp = inverse(head.next);
 		head.next.next = null;//原来的首节点成为新的尾节点
@@ -87,7 +87,7 @@ public class SingleList<T> {
 	}
 	
 	private static Node inverse(Node node) {
-		if(node.next == null)//返回原来的尾节点
+		if (node.next == null)//返回原来的尾节点
 			return node;
 		Node temp = inverse(node.next);
 		node.next.next = node;//逆置此节点后面的节点
@@ -96,10 +96,10 @@ public class SingleList<T> {
 	
 	//逆置链表（循环式）
 	public void inverse() {
-		if(length == 0)
+		if (length == 0)
 			return;
 		Node left = null, right = head.next, temp = null;
-		while(right != null) {
+		while (right != null) {
 			temp = right.next;
 			right.next = left;//逆置指针
 			left = right;
@@ -111,16 +111,16 @@ public class SingleList<T> {
 	
 	//倒数第k个元素
 	public T reciprocal(int k) {
-		if(k < 1 || k > length)
+		if (k < 1 || k > length)
 			return null;
 		int count = 1;
 		Node left = head.next;
 		Node right = head.next;
-		while(count < k) {
+		while (count < k) {
 			right = right.next;
 			count++;
 		}
-		while(right.next != null) {
+		while (right.next != null) {
 			left = left.next;
 			right = right.next;
 		}
@@ -129,11 +129,11 @@ public class SingleList<T> {
 	
 	//中间元素：链表长度为偶数时，返回左半部最后一个元素
 	public T middle() {
-		if(length == 0)
+		if (length == 0)
 			return null;
 		Node left = head.next;//慢指针，每次向后走一步
 		Node right = head.next;//快指针，每次向后走两步
-		while(right.next != null && right.next.next != null) {
+		while (right.next != null && right.next.next != null) {
 			right = right.next.next;
 			left = left.next;
 		}

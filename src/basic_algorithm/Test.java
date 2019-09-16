@@ -15,22 +15,22 @@ public class Test {
 //	    test_Backpack();
 //	    test_ExchangeMoney();
 //	    test_JumpArray();
+//	    test_LISEQ();
 //	    test_MatrixMinPath();
 //	    test_MaxSubMatrix();
-
 //	    test_MCSEQ();
 //	    test_MergeStone();
 //	    test_MinBlood();
 //	    test_MinDescPathSum();
 //	    test_MinRefuel();
-	    test_PointGame();
+//	    test_PointGame();
 //	    test_StockProfit();
 //	    test_SwingSequence();
-
 //	    test_TOPK();
 //	    test_WaterStorage();
-//	    test_Fibonacci();
 
+//	    test_Fibonacci();
+//
 //	    test_BubbleSort();
 //	    test_HeapSort();
 //	    test_InsertSort();
@@ -39,18 +39,18 @@ public class Test {
 //	    test_SelectSort();
 //	    test_ShellSort();
 //	    test_ThreeWaySort();
-
+//
 //	    test_BracketLength();
 //	    test_LCSEQ();
 //	    test_LCSTR();
-//	    test_LISEQ();
 //	    test_LPSEQ();
 //	    test_LPSTR();
 //	    test_MinEditCost();
-//	    test_PalindromeSeparate();
 //	    test_PalindromeFill();
+//	    test_PalindromeSeparate();
 //	    test_SCSEQ();
 //	    test_SequenceNumber();
+//	    test_StaggeredString();
 //	    test_StringMatch();
 
 	}
@@ -110,6 +110,14 @@ public class Test {
         int count = JumpArray.generate3(array);
         System.out.println();
         System.out.println(count);
+    }
+
+    //最长递增子序列测试
+    public static void test_LISEQ() {
+        int [] array = {2,1,5,3,6,4,8,9,7};
+        int length = LISEQ.generate(array);
+        System.out.println();
+        System.out.println(length);
     }
 
     //矩阵最小路径和测试
@@ -205,8 +213,13 @@ public class Test {
 
     //点数博弈测试
     public static void test_PointGame() {
-	    int [] array = {1,2,3,4,5,4,3,2,1};
-	    int result = PointGame.generate(array);
+	    int [] array1 = {1,2,3,4,5,4,3,2,1};
+	    int result = PointGame.generate1(array1);
+        System.out.println(result);
+
+        System.out.println("---");
+        int [] array2 = {3,4,2};
+        result = PointGame.generate2(array2);
         System.out.println(result);
     }
 
@@ -347,18 +360,10 @@ public class Test {
         String string1 = "aabb11";
         String string2 = "aacc111";
         int length1 = LCSTR.generate1(string1.toCharArray(), string2.toCharArray());
-        System.out.println(length1);
+        System.out.println("length: " + length1);
         int length2 = LCSTR.generate2(string1.toCharArray(), string2.toCharArray());
-        System.out.println(length2);
+        System.out.println("length: " + length2);
     }
-
-	//最长递增子序列测试
-	public static void test_LISEQ() {
-		int [] array = {2,1,5,3,6,4,8,9,7};
-		int length = LISEQ.generate(array);
-		System.out.println();
-		System.out.println(length);
-	}
 
 	//最长回文子序列测试
     public static void test_LPSEQ() {
@@ -371,13 +376,13 @@ public class Test {
 	public static void test_LPSTR() {
 		String string = "abaabcdcbab";
 		int length = LPSTR.generate1(string.toCharArray());
-		System.out.println(length);
+		System.out.println("length: " + length);
 
 		length = LPSTR.generate2(string.toCharArray());
-        System.out.println(length);
+        System.out.println("length: " + length);
 
         length = LPSTR.generate3(string.toCharArray());
-        System.out.println(length);
+        System.out.println("length: " + length);
 	}
 	
 	//最小编辑代价测试
@@ -385,8 +390,19 @@ public class Test {
 	    String string1 = "abcdefg";
 	    String string2 = "abefh";
 	    int [] array = {5,3,2};
-	    int cost = MinEditCost.generate(string1.toCharArray(),string2.toCharArray(),array);
+	    int cost = MinEditCost.generate(string1.toCharArray(), string2.toCharArray(), array);
 	    System.out.println(cost);
+    }
+
+    //回文填充测试
+    public static void test_PalindromeFill() {
+        //在任意位置添加字符
+        String string1 = "a1bab2";
+        String string2 = "aabab1";
+        int count1 = PalindromeFill.generate(string1.toCharArray());
+        System.out.println(count1);
+        int count2 = PalindromeFill.generate(string2.toCharArray());
+        System.out.println(count2);
     }
 
     //回文分割测试
@@ -398,22 +414,11 @@ public class Test {
 	    //方法数
     }
 
-    //回文填充测试
-    public static void test_PalindromeFill() {
-	    //在任意位置添加字符
-	    String string1 = "a1bab2";
-	    String string2 = "aabab1";
-        int count1 = PalindromeFill.generate(string1.toCharArray());
-        System.out.println(count1);
-        int count2 = PalindromeFill.generate(string2.toCharArray());
-        System.out.println(count2);
-    }
-
     //最短公共超序列测试
     public static void test_SCSEQ() {
         String string1 = "ab12c345d67";
         String string2 = "a1b23c4d56e";
-        int length = SCSEQ.generate(string1.toCharArray(),string2.toCharArray());
+        int length = SCSEQ.generate(string1.toCharArray(), string2.toCharArray());
         System.out.println("length: " + length);
     }
 
@@ -423,6 +428,27 @@ public class Test {
         String string2 = "rabbit";
         int count = SequenceNumber.generate1(string1.toCharArray(), string2.toCharArray());
         System.out.println(count);
+    }
+
+    //交错字符串测试
+    public static void test_StaggeredString() {
+	    String string11 = "";
+	    String string12 = "abc";
+	    String target11 = "abc";
+	    String target12 = "aba";
+	    boolean result = StaggeredString.generate(string11.toCharArray(), string12.toCharArray(), target11.toCharArray());
+        System.out.println(result);
+        result = StaggeredString.generate(string11.toCharArray(), string12.toCharArray(), target12.toCharArray());
+        System.out.println(result);
+
+	    String string21 = "ab12";
+	    String string22 = "ab21";
+	    String target21 = "aab1b212";
+	    String target22 = "aab2b211";
+        result = StaggeredString.generate(string21.toCharArray(), string22.toCharArray(), target21.toCharArray());
+        System.out.println(result);
+        result = StaggeredString.generate(string21.toCharArray(), string22.toCharArray(), target22.toCharArray());
+        System.out.println(result);
     }
 
     //KMP测试

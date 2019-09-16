@@ -13,7 +13,7 @@ public class MCSEQ {
 			return -1;
 		int index = 0, start = 0, end = 0;
 		int sum = 0, max = Integer.MIN_VALUE;
-		for(int i = 0; i < array.length; i++) {
+		for (int i = 0; i < array.length; i++) {
 			sum = sum + array[i];
 			if (sum > max) {
 				max = sum;

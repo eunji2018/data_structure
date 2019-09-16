@@ -21,10 +21,10 @@ public class MergeSort {
 
 	private static void merge(int [] array, int left, int mid, int right) {
 		//复制待归并的元素到副本数组
-		for(int i = left; i <= right; i++) 
+		for (int i = left; i <= right; i++)
 			temp[i] = array[i];
 		int m = left, n = mid + 1;//m代表左半部分数组剩余的首元素，n代表右半部分数组剩余的首元素
-		for(int k = left; k <= right; k++) {
+		for (int k = left; k <= right; k++) {
 			if (m > mid) {//左半部分数组的所有元素已归并完
 				array[k] = temp[n++];
 			}else if (n > right) {//右半部分数组的所有元素已归并完
@@ -47,7 +47,7 @@ public class MergeSort {
 		sortUpToBottom(array, mid + 1, right);
 		merge(array, left, mid, right);
 		//打印
-		for(int i = 0; i < array.length; i++) 
+		for (int i = 0; i < array.length; i++)
 			System.out.print(array[i] + " ");
 		System.out.println();
 	}
@@ -59,12 +59,12 @@ public class MergeSort {
 	private static void sortBottomToUp(int [] array) {
 		int size = 1;//最左有序片段的长度，初始为1
 		int length = array.length;
-		while(size < length) {
-			for(int i = 0; i + size < length; i = i + 2 * size) 
+		while (size < length) {
+			for (int i = 0; i + size < length; i = i + 2 * size)
 				merge(array, i, i + size - 1, Math.min(i + 2 * size - 1, length - 1));//对同组的两个有序片段进行归并
 			size = 2 * size;//一次归并后，最左有序片段的长度翻倍
 			//打印
-			for(int i = 0; i < length; i++) 
+			for (int i = 0; i < length; i++)
 				System.out.print(array[i] + " ");
 			System.out.println();
 		}

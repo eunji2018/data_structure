@@ -104,7 +104,7 @@ public class PrefixTree {
         //字符串存在，标记节点，更新计数，删除不必要的节点
         TreeNode node, temp;
         stack.peek().end = false;//stack不为空，string最后一个字符对应的节点成为新的非终止节点
-        while(!stack.isEmpty()) {
+        while (!stack.isEmpty()) {
             node = stack.pop();
             node.count--;//更新计数
             if (node.count == 0) {//若当前节点不是终止节点且没有子节点（count为0），则删除
@@ -121,7 +121,7 @@ public class PrefixTree {
         if (string == null || string.length() == 0)
             return -1;
         search(string);
-        if(stack.length() != string.length())//若字符串的最长前缀不是其自身
+        if (stack.length() != string.length())//若字符串的最长前缀不是其自身
             return 0;
         return stack.peek().count;//stack不为空
     }
@@ -159,7 +159,7 @@ public class PrefixTree {
         stack.push(node);
         other.push(-1);
         int index = -1;
-        while(!stack.isEmpty()) {
+        while (!stack.isEmpty()) {
             node = stack.peek();//取栈顶
             //将此节点的子节点中未被访问过的【第一个】节点加入栈，从index + 1位置开始遍历子节点
             for (index = index + 1; index < SIZE; index++) {

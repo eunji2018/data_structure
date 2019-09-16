@@ -40,7 +40,7 @@ public class PalindromeSeparate {
             for (int j = 0; j < i; j++)
                 System.out.print(" " + " ");
             for (int j = i; j < length; j++)
-                System.out.print((palindrome[i][j] ? "t" : "f") + " ");
+                System.out.print(palindrome[i][j] ? "t " : "f ");
             System.out.println();
         }
         return dp[0];

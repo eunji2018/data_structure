@@ -58,7 +58,7 @@ public class DoubleQueue<T> {
 	
 	//队首出队
 	public T departHead() {
-		if(length == 0)
+		if (length == 0)
 			return null;
 		Node node = head.next;
 		head.next = node.next;
@@ -69,7 +69,7 @@ public class DoubleQueue<T> {
 	
 	//队尾出队
 	public T departTail() {
-		if(length == 0)
+		if (length == 0)
 			return null;
 		Node node = tail.previous;
 		tail.previous = node.previous;
@@ -98,7 +98,7 @@ public class DoubleQueue<T> {
 	//打印
 	public void print() {
 		Node node = head.next;
-		while(node != tail) {
+		while (node != tail) {
 			System.out.print(node.data + " ");
 			node = node.next;
 		}

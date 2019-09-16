@@ -15,8 +15,7 @@ public class Test {
 //		test_PrefixTree();
 //		test_PriorityQueue();
 //		test_Queue();
-//		test_RBT_1();
-//		test_RBT_2();
+		test_RBT();
 //		test_SingleList();
 //		test_SkipList();
 //		test_Stack();
@@ -377,11 +376,11 @@ public class Test {
 
     }
 
-    //第一种红黑树测试
-    public static void test_RBT_1() {
-        int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
-        RBT_1 rbt = new RBT_1();
-        for(int i = 0; i < array.length; i++)
+    //红黑树测试
+    public static void test_RBT() {
+	    int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
+	    RBT rbt = new RBT();
+	    for (int i = 0; i < array.length; i++)
             rbt.insert(array[i]);
         System.out.println("初始");
         System.out.println(rbt.size());
@@ -390,45 +389,51 @@ public class Test {
         rbt.morrisTraverse();
         rbt.morrisPreTraverse();
         rbt.morrisInTraverse();
+        rbt.morrisPostTraverse();
         System.out.println("非递归遍历");
-        rbt.preOrder();
-        rbt.inOrder();
-        rbt.postOrder_one();
-        rbt.postOrder_two();
+        rbt.preTraverse();
+        rbt.inTraverse();
+        rbt.postTraverse_one();
+        rbt.postTraverse_two();
         System.out.println("层次遍历");
         rbt.hierarchy();
         rbt.hierarchy_inturn_stack();
         rbt.hierarchy_inturn_queue();
         System.out.println("最近公共父节点");
-        System.out.println(rbt.common(0, 19));
-        System.out.println(rbt.common(1, 6));
-        System.out.println(rbt.common(9, 14));
-
-        System.out.println();
-        System.out.println("删除");
-
-    }
-
-    //第二种红黑树测试
-    public static void test_RBT_2() {
-	    int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
-	    RBT_2 rbt = new RBT_2();
-	    for (int i = 0; i < array.length; i++)
-            rbt.insert(array[i]);
-        System.out.println("初始");
-        System.out.println(rbt.size());
-        System.out.println(rbt.height());
-        rbt.inTraverse();
-        rbt.hierarchy();
+        System.out.println(rbt.shared(0,20));
+        System.out.println(rbt.shared(1,19));
+        System.out.println(rbt.shared(2,6));
+        System.out.println(rbt.shared(9,14));
 
         System.out.println("删除");
+        for (int i = 0; i < 5; i++) {
+            rbt.deleteMin();
+            System.out.println(rbt.size());
+            System.out.println(rbt.height());
+            rbt.inTraverse();
+            rbt.hierarchy();
+        }
+        for (int i = 0; i < 5; i++) {
+            rbt.deleteMax();
+            System.out.println(rbt.size());
+            System.out.println(rbt.height());
+            rbt.inTraverse();
+            rbt.hierarchy();
+        }
+        for (int i = 0; i < 5; i++) {
+            rbt.delete(5 + 2 * i);
+            System.out.println(rbt.size());
+            System.out.println(rbt.height());
+            rbt.inTraverse();
+            rbt.hierarchy();
+        }
 
     }
 
 	//单向链表测试
 	public static void test_SingleList() {
 		SingleList<Integer> list = new SingleList<>();
-		for(int i = 0; i < 20; i++)
+		for (int i = 0; i < 20; i++)
 			list.insert(i);
         System.out.println("初始");
         System.out.println(list.isEmpty());
@@ -478,7 +483,7 @@ public class Test {
         System.out.println("正序");
         SkipList skipList = new SkipList(4, 3, true);
         System.out.println("初始");
-        for(int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20; i++) {
             skipList.insert(i);
             skipList.print();
         }
@@ -511,7 +516,7 @@ public class Test {
         System.out.println("逆序");
         skipList = new SkipList(4, 3, false);
         System.out.println("初始");
-        for(int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20; i++) {
             skipList.insert(i);
             skipList.print();
         }

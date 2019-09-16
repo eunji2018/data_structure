@@ -10,9 +10,9 @@ public class InsertSort {
 	public static void sort(int [] array) {
 		if (array == null || array.length == 0) 
 			return;
-		int temp = 0;
-		for(int i = 1; i < array.length; i++) {
-			for(int j = i; j > 0; j--) {
+		int temp;
+		for (int i = 1; i < array.length; i++) {
+			for (int j = i; j > 0; j--) {
 				if (array[j] >= array[j-1]) {
 					break;
 				}else {
@@ -22,7 +22,7 @@ public class InsertSort {
 				}
 			}
 			//打印
-			for(int n = 0; n < array.length; n++) 
+			for (int n = 0; n < array.length; n++)
 				System.out.print(array[n] + " ");
 			System.out.println();
 		}

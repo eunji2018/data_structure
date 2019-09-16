@@ -166,7 +166,7 @@ public class LinkedList<T> {
 	
 	//打印
 	public void print() {
-		for(Node node = head.next; node != tail; node = node.next)
+		for (Node node = head.next; node != tail; node = node.next)
 			System.out.print(node.data + " ");
         System.out.println();
         return;

@@ -7,7 +7,7 @@ public class Data {
 	
 	public Data(int size) {
 		this.buffer = new char[size];
-		for(int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++) {
 			buffer[i] = '#';
 		}
 	}
@@ -34,7 +34,7 @@ public class Data {
 	
 	private char[] doRead() {
 		char[] temp = new char[buffer.length];
-		for(int i = 0; i < buffer.length; i++) {
+		for (int i = 0; i < buffer.length; i++) {
 			temp[i] = buffer[i];
 		}
 		slowly();
@@ -42,7 +42,7 @@ public class Data {
 	}
 	
 	private void doWrite(char c) {
-		for(int i = 0; i < buffer.length; i++) {
+		for (int i = 0; i < buffer.length; i++) {
 			buffer[i] = c;
 			slowly();
 		}

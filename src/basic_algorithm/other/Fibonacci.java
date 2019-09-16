@@ -14,7 +14,7 @@ public class Fibonacci {
 		int leftleft = 1;
 		int left = 1;
 		int current = 0;
-		for(int i = 3; i <= n; i++) {
+		for (int i = 3; i <= n; i++) {
 			current = leftleft + left;
 			leftleft = left;
 			left = current;

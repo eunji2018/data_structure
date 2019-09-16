@@ -13,7 +13,7 @@ public class StringMatch {
 			return -1;
 		int [] next = next(match);
 		int i = 0, j = 0;
-		while(i < source.length && j < match.length) {
+		while (i < source.length && j < match.length) {
 			if (source[i] == match[j]) {//元素匹配，模式串和源串都转到下一个元素
 				i++;
 				j++;
@@ -31,10 +31,10 @@ public class StringMatch {
 		int [] next = new int [string.length];
 		next[0] = -1;
 		int j;
-		for(int i = 2; i < string.length; i++) {
+		for (int i = 2; i < string.length; i++) {
 			j = next[i-1];
-			while(j >= 0) {
-				if(string[i-1] == string[j]) {
+			while (j >= 0) {
+				if (string[i-1] == string[j]) {
 					next[i] = j + 1;
 					break;
 				}else {
@@ -43,7 +43,7 @@ public class StringMatch {
 			}
 		}
 		//打印
-		for(int i = 0; i < next.length; i++) 
+		for (int i = 0; i < next.length; i++)
 			System.out.print(next[i] + " ");
 		System.out.println();
 		return next;

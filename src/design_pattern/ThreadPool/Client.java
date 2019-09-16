@@ -17,7 +17,7 @@ public class Client extends Thread {
 	public void run() {
 		super.run();
 		try {
-			for(int i = 0; true; i++) {
+			for (int i = 0; true; i++) {
 				Request request = new Request(getName() + " " + i);//准备请求
 				channel.put(request);//放入请求
 				Thread.sleep(random.nextInt(1000));

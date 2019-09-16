@@ -38,8 +38,8 @@ public class PriorityQueue {
 	//逆序时查找优先级【低于给定元素且最高】的节点，包含头节点
 	private Node search(Comparable comparable) {
 		Node temp = head;
-		while(temp.next != null) {
-			if(order && temp.next.comparable.compareTo(comparable) >= 0)
+		while (temp.next != null) {
+			if (order && temp.next.comparable.compareTo(comparable) >= 0)
 				break;
 			if (!order && temp.next.comparable.compareTo(comparable) <= 0)
 				break;
@@ -60,7 +60,7 @@ public class PriorityQueue {
 	
 	//出队
 	public Comparable depart() {
-		if(length == 0)
+		if (length == 0)
 			return null;
 		Node node = head.next;
 		head.next = node.next;
@@ -87,7 +87,7 @@ public class PriorityQueue {
 	//打印
 	public void print() {
 		Node node = head.next;
-		while(node != null) {
+		while (node != null) {
 			System.out.print(node.comparable + " ");
 			node = node.next;
 		}

@@ -45,11 +45,11 @@ public class Test {
 		int [] array1 = {0,1,2,3,4,5,6,7,8,9};
 		int [] array2 = {9,8,7,6,5,4,3,2,1,0};
 		Array.evenAndOdd1(array1);
-		for(int i = 0; i < array1.length; i++)
+		for (int i = 0; i < array1.length; i++)
 			System.out.print(array1[i] + " ");
 		System.out.println();
 		Array.evenAndOdd1(array2);
-		for(int i = 0; i < array2.length; i++)
+		for (int i = 0; i < array2.length; i++)
 			System.out.print(array2[i] + " ");
 	}
 
@@ -192,18 +192,18 @@ public class Test {
 						  {2,4,9,12},
 						  {4,7,10,13},
 						  {6,8,11,15}};
-		boolean flag1 = Matrix.twoDimensionSearch(array, 7);
+		boolean flag1 = Other.twoDimensionSearch(array, 7);
 		System.out.println(flag1);
-		boolean flag2 = Matrix.twoDimensionSearch(array, 5);
+		boolean flag2 = Other.twoDimensionSearch(array, 5);
 		System.out.println(flag2);
 	}
 
 	//走出矩阵测试
 	public static void test_MoveOut() {
-		System.out.println(Matrix.moveOut(3, 4, 0, 0, 1));
-		System.out.println(Matrix.moveOut(3, 4, 0, 1, 1));
-		System.out.println(Matrix.moveOut(3, 4, 0, 1, 2));
-		System.out.println(Matrix.moveOut(3, 4, 1, 1, 3));
+		System.out.println(Other.moveOut(3, 4, 0, 0, 1));
+		System.out.println(Other.moveOut(3, 4, 0, 1, 1));
+		System.out.println(Other.moveOut(3, 4, 0, 1, 2));
+		System.out.println(Other.moveOut(3, 4, 1, 1, 3));
 	}
 
 

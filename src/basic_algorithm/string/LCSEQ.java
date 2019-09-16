@@ -21,14 +21,14 @@ public class LCSEQ {
 		int [][] dp = new int [row][column];
 		dp[0][0] = string1[0] == string2[0] ? 1 : 0;
 		//初始化第一列
-		for(int i = 1; i < row; i++) 
+		for (int i = 1; i < row; i++)
 			dp[i][0] = Math.max(dp[i-1][0],(string1[i] == string2[0] ? 1 : 0));
 		//初始化第一行
-		for(int i = 1; i < column; i++) 
+		for (int i = 1; i < column; i++)
 			dp[0][i] = Math.max(dp[0][i-1],(string1[0] == string2[i] ? 1 : 0));
 		//构造矩阵
-		for(int i = 1; i < row; i++) {
-			for(int j = 1; j < column; j++) {
+		for (int i = 1; i < row; i++) {
+			for (int j = 1; j < column; j++) {
 				dp[i][j] = Math.max(dp[i-1][j],dp[i][j-1]);
 				if (string1[i] == string2[j]) 
 					dp[i][j] = Math.max(dp[i][j],dp[i-1][j-1]+1);
@@ -38,10 +38,10 @@ public class LCSEQ {
 		int x = row - 1, y = column - 1;
 		int count = dp[x][y];
 		Stack<Character> stack = new Stack<>();
-		while(count > 0) {
+		while (count > 0) {
 			if (x > 0 && dp[x][y] == dp[x-1][y]) {
 				x--;
-			}else if(y > 0 && dp[x][y] == dp[x][y-1]) {
+			}else if (y > 0 && dp[x][y] == dp[x][y-1]) {
 				y--;
 			}else {
 				stack.push(string1[x]);
@@ -50,7 +50,7 @@ public class LCSEQ {
 				y--;
 			}
 		}
-		while(!stack.isEmpty()) 
+		while (!stack.isEmpty())
 			System.out.print(stack.pop() + " ");
 		return dp[row-1][column-1];
 	}

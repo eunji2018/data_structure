@@ -19,14 +19,14 @@ public class Client {
 		//获取容器的迭代器，使用此迭代器遍历容器中的元素
         //先调用hasNext()方法判断，再调用next()方法取出元素
 		Iterator iterator = container.iterator();
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			System.out.print(iterator.next() + " ");
 		}
 		
 		System.out.println();
 		container.remove(1);
 		iterator.reset();
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			System.out.print(iterator.next() + " ");
 		}
 		

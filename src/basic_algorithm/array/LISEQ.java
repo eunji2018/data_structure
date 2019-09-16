@@ -14,9 +14,9 @@ public class LISEQ {
 	//生成长度数组
 	private static int[] length(int [] array) {
 		int [] dp = new int [array.length];
-		for(int i = 0; i < array.length; i++) {
+		for (int i = 0; i < array.length; i++) {
 			dp[i] = 1;
-			for(int j = 0; j < i; j++) 
+			for (int j = 0; j < i; j++)
 				if (array[j] < array[i]) 
 					dp[i] = Math.max(dp[i],dp[j]+1);
 		}		
@@ -30,20 +30,20 @@ public class LISEQ {
 		int [] dp = length(array);
 		//查找最长递增子序列的最后一个元素
 		int length = 0, index = 0;
-		for(int i = 0; i < dp.length; i++)
-			if(dp[i] > length) {
+		for (int i = 0; i < dp.length; i++)
+			if (dp[i] > length) {
 				length = dp[i];
 				index = i;
 			}
 		//从后向前查找序列的所有元素
 		Stack<Integer> stack = new Stack<>();
 		stack.push(array[index]);
-		for(int i = index; i >= 0; i--) 
+		for (int i = index; i >= 0; i--)
 			if (array[i] < array[index] && dp[i] == dp[index] - 1) {//可以作为前一个元素
 				stack.push(array[i]);
 				index = i;
 			}
-		while(!stack.isEmpty()) 			
+		while (!stack.isEmpty())
 			System.out.print(stack.pop() + " ");
 		return length;
 	}

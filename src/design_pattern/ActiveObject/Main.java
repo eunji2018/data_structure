@@ -30,7 +30,7 @@ class MakerClient extends Thread{
     public void run() {
         super.run();
         try {
-            for(int i = 1; true; i++){
+            for (int i = 1; true; i++){
                 Result<String> result = active.make(i, c);//发送生成字符串的异步消息
                 Thread.sleep(10);
                 String string = result.getValue();//获取返回结果
@@ -55,7 +55,7 @@ class DisplayClient extends Thread{
     public void run() {
         super.run();
         try {
-            for(int i = 0; true; i++){
+            for (int i = 0; true; i++){
                 String string = Thread.currentThread().getName() + " " + i;
                 active.display(string);//发送显示字符串的异步消息
                 Thread.sleep(500);

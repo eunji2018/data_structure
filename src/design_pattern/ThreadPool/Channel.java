@@ -16,21 +16,21 @@ public class Channel {
 		this.tail = 0;
 		this.count = 0;
 		this.workers = new Worker[size];
-		for(int i = 0; i < workers.length; i++) {
+		for (int i = 0; i < workers.length; i++) {
 			workers[i] = new Worker("worker " + i, this);
 		}
 	}
 	
 	//启动工作线程
 	public void start() {
-		for(int i = 0; i < workers.length; i++) {
+		for (int i = 0; i < workers.length; i++) {
 			workers[i].start();
 		}
 	}
 	
 	//客户端线程放入请求
 	public synchronized void put(Request request) {
-		while(count == requests.length) {//请求已满
+		while (count == requests.length) {//请求已满
 			try {
 				wait();
 			} catch (InterruptedException e) {}
@@ -44,7 +44,7 @@ public class Channel {
 	
 	//工作线程取出请求
 	public synchronized Request take() {
-		while(count == 0) {//请求已空
+		while (count == 0) {//请求已空
 			try {
 				wait();
 			} catch (InterruptedException e) {}

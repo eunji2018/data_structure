@@ -15,7 +15,7 @@ public class ConcreteIterator implements Iterator{
 	
 	@Override
 	public boolean hasNext() {
-		return index < container.size() ? true : false;
+		return index < container.size();
 	}
 
 	//外部类必须在调用hasNext()方法判断后再调用next()方法

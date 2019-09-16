@@ -19,7 +19,7 @@ public class Writer extends Thread {
 	public void run() {
 		super.run();
 		try {
-			while(true) {
+			while (true) {
 				data.write(nextchar());//执行写入操作
 				Thread.sleep(random.nextInt(500));
 			}
@@ -29,7 +29,7 @@ public class Writer extends Thread {
 	private char nextchar() {
 		char c = filler.charAt(index);
 		index++;
-		if(index == filler.length())
+		if (index == filler.length())
 			index = 0;
 		return c;
 	}

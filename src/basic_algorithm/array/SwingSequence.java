@@ -62,5 +62,4 @@ public class SwingSequence {
         return length + 1;
     }
 
-
 }

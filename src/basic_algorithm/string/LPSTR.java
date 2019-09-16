@@ -22,9 +22,9 @@ public class LPSTR {
 		//当前最长回文子串的半径与中心位置
 		int max = 0;
 		int position = 0;
-		for(int i = 0; i < temp.length; i++) {
+		for (int i = 0; i < temp.length; i++) {
 			radius[i] = i < right ? Math.min(radius[2*index-i],right-i) : 1;
-			while(i + radius[i] < temp.length && i - radius[i] >= 0) {
+			while (i + radius[i] < temp.length && i - radius[i] >= 0) {
 				if (temp[i+radius[i]] != temp[i-radius[i]])
 					break;
 				radius[i]++;
@@ -33,16 +33,15 @@ public class LPSTR {
 				right = i + radius[i];
 				index = i;
 			}
-			if(radius[i] > max) {//更新最长回文半径
+			if (radius[i] > max) {//更新最长回文半径
 				max = radius[i];
 				position = i;
 			}
 		}
 		//打印最长回文子串
-		for(int i = position - max + 1; i < position + max; i++) {
-			if(temp[i] == '#')
-				continue;
-			System.out.print(temp[i] + " ");
+		for (int i = position - max + 1; i < position + max; i++) {
+			if (temp[i] != '#')
+    			System.out.print(temp[i] + " ");
 		}
 		return max - 1;
 	}
@@ -51,7 +50,7 @@ public class LPSTR {
 	private static char [] process(char [] string) {
 		char [] temp = new char [string.length*2+1];
 		int i = 0;
-		for(; i < string.length; i++) {
+		for (; i < string.length; i++) {
 			temp[2*i] = '#';
 			temp[2*i+1] = string[i];
 		}
@@ -88,7 +87,7 @@ public class LPSTR {
 			for (int j = 0; j < i; j++)
 				System.out.print(" " + " ");
 			for (int j = i; j < length; j++)
-				System.out.print((dp[i][j] ? "t" : "f") + " ");
+				System.out.print(dp[i][j] ? "t " : "f ");
 			System.out.println();
 		}
 		//打印最长回文子串

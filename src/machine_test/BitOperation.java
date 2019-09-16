@@ -26,8 +26,8 @@ public class BitOperation {
     public static int numberOfOne1(int n) {
         int count = 0;
         int temp = 1;
-        while(temp != 0) {
-            if((temp & n) != 0)//按位与，结果不为0表示当前位为1
+        while (temp != 0) {
+            if ((temp & n) != 0)//按位与，结果不为0表示当前位为1
                 count++;
             temp = temp << 1;//左移一位，从低位到高位
         }
@@ -39,7 +39,7 @@ public class BitOperation {
     //n & (~n+1)的结果等于只保留n最低位的1
     public static int numberOfOne2(int n) {
         int count = 0;
-        while(n != 0) {
+        while (n != 0) {
             count++;
             n = (n - 1) & n;
         }

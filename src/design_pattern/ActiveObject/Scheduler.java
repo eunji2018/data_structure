@@ -17,7 +17,7 @@ public class Scheduler extends Thread {
 	@Override
 	public void run() {
 		super.run();
-		while(true) {
+		while (true) {
 			Request request = pool.take();//取出请求
 			request.execute();//处理请求
 		}

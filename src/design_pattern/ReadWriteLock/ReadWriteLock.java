@@ -16,7 +16,7 @@ public class ReadWriteLock {
 		waitingReaders++;
 		try {
 			//有正在工作的写线程、或者写入操作优先的时候有正在等待的写线程
-			while(workingWriters > 0 || (prefer && waitingWriters > 0)) {
+			while (workingWriters > 0 || (prefer && waitingWriters > 0)) {
 				wait();
 			}	
 		} finally {
@@ -39,7 +39,7 @@ public class ReadWriteLock {
 		waitingWriters++;
 		try {
 			//有正在工作的读线程、或者有正在工作的写线程、或者读取操作优先的时候有正在等待的读线程
-			while(workingReaders > 0 || workingWriters > 0 || (!prefer && waitingReaders > 0)) {
+			while (workingReaders > 0 || workingWriters > 0 || (!prefer && waitingReaders > 0)) {
 				wait();
 			}	
 		} finally {

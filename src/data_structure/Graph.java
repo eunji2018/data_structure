@@ -310,7 +310,7 @@ public class Graph {
 		int i;
 		//初始化count数组
 		for (i = 0; i < size; i++)
-			for(edge = edges[i]; edge != null; edge = edge.next) 
+			for (edge = edges[i]; edge != null; edge = edge.next)
 				count[edge.to]++;
 		for (i = 0; i < size; i++)
 			if (count[i] == 0)

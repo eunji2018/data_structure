@@ -49,7 +49,7 @@ public class SkipList {
 		this.stack = new Stack<Node>();
 		this.head = new Node(null);//头节点的值默认为null
 		Node temp = head;
-		for(int i = 1; i < level; i++) {
+		for (int i = 1; i < level; i++) {
 			temp.down = new Node(null);
 			temp = temp.down;
 		}
@@ -63,7 +63,7 @@ public class SkipList {
 	//清空
 	public void clear() {
 		Node temp = head;
-		while(temp != null) {
+		while (temp != null) {
 			temp.right = null;
 			temp = temp.down;
 		}
@@ -86,7 +86,7 @@ public class SkipList {
 	private Node search(Comparable comparable) {
 		stack.clear();
 		Node temp = head;//从顶层开始
-		while(true) {
+		while (true) {
 			while (temp.right != null) {
 				if (order && temp.right.comparable.compareTo(comparable) >= 0)//正序时查找当前层【小于】给定值的最大的节点
 					break;
@@ -94,7 +94,7 @@ public class SkipList {
 					break;
 				temp = temp.right;
 			}
-			if(temp.down == null)//找到底层的节点
+			if (temp.down == null)//找到底层的节点
 				break;
 			stack.push(temp);//stack保存遍历路径中每一层最右边的节点，除底层外
 			temp = temp.down;//转到下一层
@@ -106,16 +106,16 @@ public class SkipList {
     //若元素已存在，则返回，保证无重复元素
 	public void insert(Comparable comparable) {
 		Node temp = search(comparable);
-		if(temp.right != null && temp.right.comparable.compareTo(comparable) == 0)//元素已存在
+		if (temp.right != null && temp.right.comparable.compareTo(comparable) == 0)//元素已存在
 			return;
 		Node node = new Node(comparable);
 		Node other;
 		//根据随机数，自底向上添加每层的新节点
-		while(true) {
+		while (true) {
 			node.right = temp.right;
 			temp.right = node;//当前层添加完毕
 			size++;
-			if(random.nextInt(rate) != 0 || stack.isEmpty())
+			if (random.nextInt(rate) != 0 || stack.isEmpty())
 				break;
 			//若随机数为0且还未到顶层，则向上层添加元素
 			temp = stack.pop();
@@ -131,15 +131,15 @@ public class SkipList {
     //若元素不存在，则返回，否则删除所有层中包含的元素
 	public void delete(Comparable comparable) {
 		Node temp = search(comparable);
-		if(temp.right == null || temp.right.comparable.compareTo(comparable) != 0)//元素不存在
+		if (temp.right == null || temp.right.comparable.compareTo(comparable) != 0)//元素不存在
 			return;
-		while(true) {
-			if(temp.right == null || temp.right.comparable.compareTo(comparable) != 0) //当前层的元素不存在
+		while (true) {
+			if (temp.right == null || temp.right.comparable.compareTo(comparable) != 0) //当前层的元素不存在
 				break;
 			//从底层开始，依次删除每层的元素
 			temp.right = temp.right.right;
 			size--;
-			if(stack.isEmpty())//到达顶层
+			if (stack.isEmpty())//到达顶层
 				break;
 			temp = stack.pop();//转到上一层
 		}
@@ -152,9 +152,9 @@ public class SkipList {
 		Node node = head;
 		Node temp = node;
 		int i = level;
-		while(temp != null) {
+		while (temp != null) {
 			System.out.print("level " + i-- + " : ");
-			while(temp.right != null) {
+			while (temp.right != null) {
 				temp = temp.right;
 				System.out.print(temp.comparable + " ");
 			}
@@ -170,7 +170,7 @@ public class SkipList {
 	public void trace(Comparable comparable) {
 		Node temp = search(comparable);
 		System.out.print(temp.comparable + " ");
-		while(!stack.isEmpty()) 
+		while (!stack.isEmpty())
 			System.out.print(stack.pop().comparable + " ");
 		System.out.println();
 		return;

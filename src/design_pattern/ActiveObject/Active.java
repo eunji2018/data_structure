@@ -55,7 +55,7 @@ class Server implements Active{
 	@Override
 	public Result<String> make(int count, char c) {
 		char [] buffer = new char[count];
-		for(int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++) {
 			buffer[i] = c;
 			try {
 				Thread.sleep(100);

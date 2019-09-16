@@ -9,12 +9,12 @@ package basic_algorithm.sort;
 public class ThreeWaySort {
 
 	public static void sort(int [] array) {
-		if(array == null || array.length == 0)
+		if (array == null || array.length == 0)
 			return;
 		int left = 0, right = array.length - 1;//left左侧都是最小值，right右侧都是最大值
 		int i = 0;//当前元素的位置
-		while(i <= right) {
-			switch(array[i]) {
+		while (i <= right) {
+			switch (array[i]) {
 				case 0 : swap(array, left, i);//最小值，交换元素
 						 left++;
 						 i++;
@@ -25,10 +25,10 @@ public class ThreeWaySort {
 						 right--;
 			}
 			//打印
-			for(int n = 0; n < array.length; n++) {
-				if(n == left) {
+			for (int n = 0; n < array.length; n++) {
+				if (n == left) {
 					System.out.print("(" + array[n] + " ");
-				}else if(n == right) {
+				}else if (n == right) {
 					System.out.print(array[n] + ") ");
 				}else {
 					System.out.print(array[n] + " ");

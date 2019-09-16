@@ -12,16 +12,16 @@ public class Array {
 
     //调整数组使奇数在前偶数在后
     public static void evenAndOdd1(int [] array) {
-        if(array == null || array.length == 0)
+        if (array == null || array.length == 0)
             return;
         int left = 0, right = array.length - 1;
         int temp;
-        while(left < right) {
-            while(left < right && (array[left] % 2) == 1)//从左开始找到偶数或者未找到
+        while (left < right) {
+            while (left < right && (array[left] % 2) == 1)//从左开始找到偶数或者未找到
                 left++;
-            while(left < right && (array[right] % 2) == 0)//从右开始找到奇数或者未找到
+            while (left < right && (array[right] % 2) == 0)//从右开始找到奇数或者未找到
                 right--;
-            if(left < right) {
+            if (left < right) {
                 temp = array[left];
                 array[left] = array[right];
                 array[right] = temp;
@@ -110,7 +110,7 @@ public class Array {
                     temp = (Integer)left.pop();
                 }
                 right.push(temp);
-                System.out.print((float)((Integer)left.peek() + (Integer) right.peek()) / 2 + " ");
+                System.out.print((float)((Integer)left.peek() + (Integer)right.peek()) / 2 + " ");
             }
         }
         return;

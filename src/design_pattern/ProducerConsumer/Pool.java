@@ -19,7 +19,7 @@ public class Pool {
 	
 	//生产者放入
 	public synchronized void put(String data) throws Exception {
-		while(count == buffer.length) {//缓冲池满，生产者线程阻塞
+		while (count == buffer.length) {//缓冲池满，生产者线程阻塞
 			wait();
 		}
 		buffer[tail] = data;
@@ -32,7 +32,7 @@ public class Pool {
 	
 	//消费者取出
 	public synchronized String take() throws Exception {
-		while(count == 0) {//缓冲池空，消费者线程阻塞
+		while (count == 0) {//缓冲池空，消费者线程阻塞
 			wait();
 		}
 		String data = buffer[head];

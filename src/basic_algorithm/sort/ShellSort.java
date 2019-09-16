@@ -11,10 +11,10 @@ public class ShellSort {
 		if (array == null || array.length == 0) 
 			return;
 		int step = array.length / 4;//当前循环中比较的两个元素的位置之差
-		int temp = 0;
-		while(step > 0) {
-			for(int i = step; i < array.length; i++) {
-				for(int j = i; j >= step; j = j - step) {
+		int temp;
+		while (step > 0) {
+			for (int i = step; i < array.length; i++) {
+				for (int j = i; j >= step; j = j - step) {
 					if (array[j] >= array[j-step]) {
 						break;
 					}else {
@@ -26,7 +26,7 @@ public class ShellSort {
 				}
 			}
 			//打印
-			for(int n = 0; n < array.length; n++) 
+			for (int n = 0; n < array.length; n++)
 				System.out.print(array[n] + " ");
 			System.out.println();
 			step = step / 2;//步长递减

@@ -18,7 +18,7 @@ public class Consumer extends Thread {
 	public void run() {
 		super.run();
 		try {
-			while(true) {
+			while (true) {
 				pool.take();//从缓冲池取出数据
 				Thread.sleep(random.nextInt(1000));
 			}

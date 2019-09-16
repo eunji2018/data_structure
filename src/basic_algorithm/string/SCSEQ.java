@@ -15,17 +15,17 @@ public class SCSEQ {
         int [][] dp = new int[row][column];
         dp[0][0] = string1[0] == string2[0] ? 1 : 0;
         //初始化第一列
-        for(int i = 1; i < row; i++)
+        for (int i = 1; i < row; i++)
             dp[i][0] = Math.max(dp[i-1][0],(string1[i] == string2[0] ? 1 : 0));
         //初始化第一行
-        for(int i = 1; i < column; i++)
+        for (int i = 1; i < column; i++)
             dp[0][i] = Math.max(dp[0][i-1],(string1[0] == string2[i] ? 1 : 0));
         //构造矩阵
-        for(int i = 1; i < row; i++) {
-            for(int j = 1; j < column; j++) {
-                dp[i][j] = Math.max(dp[i-1][j],dp[i][j-1]);
+        for (int i = 1; i < row; i++) {
+            for (int j = 1; j < column; j++) {
+                dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
                 if (string1[i] == string2[j])
-                    dp[i][j] = Math.max(dp[i][j],dp[i-1][j-1]+1);
+                    dp[i][j] = Math.max(dp[i][j], dp[i-1][j-1]+1);
             }
         }
         //构造最短公共超序列

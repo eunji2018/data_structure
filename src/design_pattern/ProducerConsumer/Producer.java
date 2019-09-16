@@ -19,7 +19,7 @@ public class Producer extends Thread {
 	public void run() {
 		super.run();
 		try {
-			while(true) {
+			while (true) {
 				Thread.sleep(random.nextInt(1000));
 				String data = "data " + next();//生产数据
 				pool.put(data);//向缓冲池放入数据

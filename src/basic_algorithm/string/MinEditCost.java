@@ -31,8 +31,8 @@ public class MinEditCost {
         for (int i = 1; i < row; i ++) {
             for (int j = 1; j < column; j++) {
                 dp[i][j] = dp[i-1][j-1] + (string1[i-1] == string2[j-1] ? 0 : replace);
-                dp[i][j] = Math.min(dp[i][j],dp[i-1][j]+delete);
-                dp[i][j] = Math.min(dp[i][j],dp[i][j-1]+insert);
+                dp[i][j] = Math.min(dp[i][j], dp[i-1][j]+delete);
+                dp[i][j] = Math.min(dp[i][j], dp[i][j-1]+insert);
             }
         }
         //打印矩阵

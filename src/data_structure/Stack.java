@@ -50,7 +50,7 @@ public class Stack<T> {
 	
 	//出栈
 	public T pop() {
-		if(length == 0)
+		if (length == 0)
 			return null;
 		Node node = head.next;
 		head.next = node.next;
@@ -60,7 +60,7 @@ public class Stack<T> {
 	
 	//取栈顶
 	public T peek() {
-		if(length == 0)
+		if (length == 0)
 			return null;
 		return (T)head.next.data;
 	}
@@ -84,7 +84,7 @@ public class Stack<T> {
 	//打印
 	public void print() {
 		Node node = head.next;
-		while(node != null) {
+		while (node != null) {
 			System.out.print(node.data + " ");
 			node = node.next;
 		}

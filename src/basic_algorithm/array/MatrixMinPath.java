@@ -19,18 +19,18 @@ public class MatrixMinPath {
 		int [][] dp = new int [row][column];
 		dp[0][0] = matrix[0][0];
 		//初始化第一列
-		for(int i = 1; i < row; i++) 
+		for (int i = 1; i < row; i++)
 			dp[i][0] = dp[i-1][0] + matrix[i][0];
 		//初始化第一行
-		for(int j = 1; j < column; j++) 
+		for (int j = 1; j < column; j++)
 			dp[0][j] = dp[0][j-1] + matrix[0][j];
 		//构造矩阵
-		for(int i = 1; i < row; i++) 
-			for(int j = 1; j < column; j++) 
+		for (int i = 1; i < row; i++)
+			for (int j = 1; j < column; j++)
 				dp[i][j] = Math.min(dp[i-1][j], dp[i][j-1]) + matrix[i][j];
 		//打印矩阵
-		for(int i = 0; i < row; i++) {
-			for(int j = 0; j < column; j++) {
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < column; j++) {
 				System.out.print(dp[i][j] + " ");
 			}
 			System.out.println();
@@ -38,26 +38,26 @@ public class MatrixMinPath {
 		//打印最小路径
 		Stack<Integer> stack = new Stack<>();
 		int x = row - 1, y = column - 1;
-		while(x > 0 && y > 0) {
+		while (x > 0 && y > 0) {
 			stack.push(matrix[x][y]);
-			if(dp[x][y] - matrix[x][y] == dp[x-1][y]) {
+			if (dp[x][y] - matrix[x][y] == dp[x-1][y]) {
 				x--;//回溯时，优先向上
 			}else {
 				y--;			
 			}
 		}
-		if(x == 0) {//回溯到第一行
-			while(y >= 0) {
+		if (x == 0) {//回溯到第一行
+			while (y >= 0) {
 				stack.push(matrix[0][y]);
 				y--;
 			}
 		}else {//回溯到第一列
-			while(x >= 0) {
+			while (x >= 0) {
 				stack.push(matrix[x][0]);
 				x--;
 			}
 		}				
-		while(!stack.isEmpty()) 
+		while (!stack.isEmpty())
 			System.out.print(stack.pop() + " ");
 		System.out.println();
 		return dp[row-1][column-1];
@@ -72,11 +72,11 @@ public class MatrixMinPath {
 		boolean rowmore = (more == matrix.length);
 		int [] array = new int [less];
 		array[0] = matrix[0][0];
-		for(int i = 1; i < less; i++) 
+		for (int i = 1; i < less; i++)
 			array[i] = array[i-1] + (rowmore ? matrix[0][i] : matrix[i][0]);
-		for(int i = 1; i < more; i++) {
+		for (int i = 1; i < more; i++) {
 			array[0] = array[0] + (rowmore ? matrix[i][0] : matrix[0][i]);
-			for(int j = 1; j < less; j++) 
+			for (int j = 1; j < less; j++)
 				array[j] = Math.min(array[j], array[j-1]) + (rowmore ? matrix[i][j] : matrix[j][i]);
 		}				
 		return array[less-1];

@@ -30,7 +30,7 @@ public class ConcreteSubject implements Subject{
 	
 	@Override
 	public void notifyObserver() {
-		for(Observer observer : observers) {
+		for (Observer observer : observers) {
 			observer.update(this);
 		}
 	}
