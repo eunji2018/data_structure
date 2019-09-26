@@ -4,15 +4,15 @@ package design_pattern.Decorator;
 public abstract class Component {
 
     //表示组件的状态
-	protected String description;
-	
-	public abstract void describe();
+    protected String description;
+    
+    public abstract void describe();
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}	
+    public void setDescription(String description) {
+        this.description = description;
+    }    
 }

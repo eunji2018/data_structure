@@ -5,14 +5,14 @@ package design_pattern.ReadWriteLock;
 //实现了读写分离，提高性能效率
 public class Client {
 
-	public static void main(String[] args) {
-		Data data = new Data(10);
-		new Reader(data).start();
-		new Reader(data).start();
-		new Reader(data).start();
-		new Reader(data).start();
-		new Reader(data).start();
-		new Writer(data, "abcdefg").start();
-		new Writer(data, "ABCDEFG").start();
-	}
+    public static void main(String[] args) {
+        Data data = new Data(10);
+        new Reader(data).start();
+        new Reader(data).start();
+        new Reader(data).start();
+        new Reader(data).start();
+        new Reader(data).start();
+        new Writer(data, "abcdefg").start();
+        new Writer(data, "ABCDEFG").start();
+    }
 }

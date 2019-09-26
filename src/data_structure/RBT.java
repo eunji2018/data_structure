@@ -495,12 +495,13 @@ public class RBT {
         return;
     }
 
-    //层次遍历（从左到右，队列）
-    //1.使当前节点指向根节点，当前节点入队，虚拟节点入队
-    //2.若队非空，则使当前节点指向出队的队首节点
-    //（1）当前节点是虚拟节点，若队为空，则结束，若队非空，则当前节点入队
-    //（2）当前节点不是虚拟节点，遍历节点，将左右子节点依次入队
-    //3.重复第2步，直到队为空
+    /* 层次遍历（从左到右，队列）
+     * 1.使当前节点指向根节点，当前节点入队，虚拟节点入队
+     * 2.若队非空，则使当前节点指向出队的队首节点
+     * （1）当前节点是虚拟节点，若队为空，则结束，若队非空，则当前节点入队
+     * （2）当前节点不是虚拟节点，遍历节点，将左右子节点依次入队
+     * 3.重复第2步，直到队为空
+     */
     public void hierarchy() {
         if (root == sentry)
             return;
@@ -607,7 +608,9 @@ public class RBT {
         return;
     }
 
-    //Morris遍历
+    /* Morris遍历
+     *
+     */
     public void morrisTraverse() {
         TreeNode node = root;
         TreeNode temp;
@@ -632,7 +635,9 @@ public class RBT {
         return;
     }
 
-    //基于Morris遍历的前序遍历
+    /* 基于Morris遍历的前序遍历
+     *
+     */
     public void morrisPreTraverse() {
         TreeNode node = root;
         TreeNode temp;
@@ -658,7 +663,9 @@ public class RBT {
         return;
     }
 
-    //基于Morris遍历的中序遍历
+    /* 基于Morris遍历的中序遍历
+     *
+     */
     public void morrisInTraverse() {
         TreeNode node = root;
         TreeNode temp;
@@ -681,7 +688,9 @@ public class RBT {
         return;
     }
 
-    //基于Morris遍历的后序遍历
+    /* 基于Morris遍历的后序遍历
+     *
+     */
     public void morrisPostTraverse() {
         TreeNode node = root;
         TreeNode temp;

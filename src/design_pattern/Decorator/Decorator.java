@@ -6,5 +6,5 @@ public abstract class Decorator extends Component{
     //此装饰者关联的组件
     protected Component component;
 
-	public abstract void describe();
+    public abstract void describe();
 }

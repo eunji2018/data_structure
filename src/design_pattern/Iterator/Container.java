@@ -4,16 +4,16 @@ package design_pattern.Iterator;
 public interface Container {
 
     //添加元素
-	void add(Object object);
+    void add(Object object);
 
-	//删除元素
-	void remove(Object object);
+    //删除元素
+    void remove(Object object);
 
-	//获取指定位置的元素
-	Object get(int index);
+    //获取指定位置的元素
+    Object get(int index);
 
-	Iterator iterator();
-	
-	int size();
-	
+    Iterator iterator();
+    
+    int size();
+    
 }

@@ -5,17 +5,17 @@ package design_pattern.Strategy;
 public class Context {
 
     //此上下文关联的策略
-	private Strategy strategy;
-	
-	public Context(Strategy strategy) {
-		this.strategy = strategy;
-	}
+    private Strategy strategy;
+    
+    public Context(Strategy strategy) {
+        this.strategy = strategy;
+    }
 
-	public void setStrategy(Strategy strategy) {
-		this.strategy = strategy;
-	}
-	
-	public void action() {
-		strategy.operate();
-	}
+    public void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
+    }
+    
+    public void action() {
+        strategy.operate();
+    }
 }

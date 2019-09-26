@@ -74,6 +74,12 @@ public class TraverseSequence {
         return root;
     }
 
+    //根据层次遍历构造二叉树（空节点用 # 表示）
+    private static TreeNode hierarchy(String [] sequence) {
+
+        return null;
+    }
+
     private static void preTraverse(TreeNode node) {
         if (node != null) {
             System.out.print(node.value + " ");

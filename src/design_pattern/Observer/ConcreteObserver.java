@@ -5,11 +5,11 @@ package design_pattern.Observer;
 public class ConcreteObserver implements Observer{
 
     //表示观察者的状态
-	private int state;
-	
-	@Override
-	public void update(Subject subject) {
-		state = ((ConcreteSubject)subject).getState();
-		System.out.println(this + ": " + state);
-	}
+    private int state;
+    
+    @Override
+    public void update(Subject subject) {
+        state = ((ConcreteSubject)subject).getState();
+        System.out.println(this + ": " + state);
+    }
 }

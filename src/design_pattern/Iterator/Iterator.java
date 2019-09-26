@@ -4,12 +4,12 @@ package design_pattern.Iterator;
 public interface Iterator {
 
     //判断是否存在下一个元素
-	boolean hasNext();
+    boolean hasNext();
 
-	//获取下一个元素
-	Object next();
+    //获取下一个元素
+    Object next();
 
-	//重置
-	void reset();
-	
+    //重置
+    void reset();
+    
 }

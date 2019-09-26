@@ -8,10 +8,10 @@ import java.util.List;
 public class ConcreteSubject implements Subject{
 
     //表示主题的状态
-	private int state;
+    private int state;
 
-	//保存关联的观察者
-	private List<Observer> observers;
+    //保存关联的观察者
+    private List<Observer> observers;
 
     public ConcreteSubject() {
         this.state = 0;
@@ -19,29 +19,29 @@ public class ConcreteSubject implements Subject{
     }
 
     @Override
-	public void register(Observer observer) {
-		observers.add(observer);
-	}
-	
-	@Override
-	public void remove(Observer observer) {
-		observers.remove(observer);
-	}
-	
-	@Override
-	public void notifyObserver() {
-		for (Observer observer : observers) {
-			observer.update(this);
-		}
-	}
+    public void register(Observer observer) {
+        observers.add(observer);
+    }
+    
+    @Override
+    public void remove(Observer observer) {
+        observers.remove(observer);
+    }
+    
+    @Override
+    public void notifyObserver() {
+        for (Observer observer : observers) {
+            observer.update(this);
+        }
+    }
 
-	public int getState() {
-		return state;
-	}
+    public int getState() {
+        return state;
+    }
 
-	public void setState(int state) {
-		this.state = state;
-		notifyObserver();
-	}
+    public void setState(int state) {
+        this.state = state;
+        notifyObserver();
+    }
 
 }

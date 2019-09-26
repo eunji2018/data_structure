@@ -4,8 +4,8 @@ package design_pattern.Observer;
 //当被观察对象的状态发生变化时，会通知给观察者
 public class Client {
 
-	public static void main(String[] args) {
-		ConcreteSubject subject = new ConcreteSubject();
+    public static void main(String[] args) {
+        ConcreteSubject subject = new ConcreteSubject();
         Observer observer1 = new ConcreteObserver();
         Observer observer2 = new ConcreteObserver();
         Observer observer3 = new ConcreteObserver();
@@ -25,5 +25,5 @@ public class Client {
         subject.setState(300);
 
         return;
-	}
+    }
 }

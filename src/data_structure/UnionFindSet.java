@@ -100,11 +100,14 @@ public class UnionFindSet {
         Node node = search(index).next;
         Node root = root(node);
         //路径优化：将node到root路径上的所有节点直接指向root节点
-        Node temp;
-        while (node.parent != node) {
-            temp = node.parent;
+        int decrement = 0;
+        Node temp = node.parent;
+        while (temp != root) {
+            decrement += node.rank;
             node.parent = root;
+            temp.rank -= decrement;
             node = temp;
+            temp = node.parent;
         }
         return root.index;
     }
@@ -139,7 +142,7 @@ public class UnionFindSet {
     public void print() {
         Node node = head.next;
         while (node != null) {
-            System.out.print("(" + node.index + " " + node.parent.index + ") ");
+            System.out.print("(" + node.index + " " + node.rank + " " + node.parent.index + ") ");
             node = node.next;
         }
         System.out.println();

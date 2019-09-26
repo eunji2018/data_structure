@@ -2,31 +2,31 @@ package design_pattern.ActiveObject;
 
 //调度线程
 public class Scheduler extends Thread {
-	
-	private final Pool pool;
-	
-	public Scheduler(Pool pool) {
-		this.pool = pool;
-	}
+    
+    private final Pool pool;
+    
+    public Scheduler(Pool pool) {
+        this.pool = pool;
+    }
 
-	public void invoke(Request request) {
-		pool.put(request);
-		return;
-	}
-	
-	@Override
-	public void run() {
-		super.run();
-		while (true) {
-			Request request = pool.take();//取出请求
-			request.execute();//处理请求
-		}
-	}
+    public void invoke(Request request) {
+        pool.put(request);
+        return;
+    }
+    
+    @Override
+    public void run() {
+        super.run();
+        while (true) {
+            Request request = pool.take();//取出请求
+            request.execute();//处理请求
+        }
+    }
 }
 
 //请求缓冲池
 class Pool{
-	
+    
     private static final int MAX = 10;
     private final Request[] requests;
     private int head;//下一次取出请求的位置

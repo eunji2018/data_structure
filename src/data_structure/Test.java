@@ -5,35 +5,37 @@ package data_structure;
 
 public class Test {
 
-	public static void main(String[] args) {
-//	    test();
-//	    test_DoubleQueue();
-//		test_UndirectedGraph();
-//		test_DirectedGraph();
-//		test_Heap();
-//		test_LinkedList();
-//		test_PrefixTree();
-//		test_PriorityQueue();
-//		test_Queue();
-		test_RBT();
-//		test_SingleList();
-//		test_SkipList();
-//		test_Stack();
-//		test_UnionFindSet();
-	}
+    public static void main(String[] args) {
+//        test();
+//        test_DoubleQueue();
+//        test_UndirectedGraph();
+//        test_DirectedGraph();
+//        test_Heap();
+//        test_LinkedList();
+//        test_PrefixTree();
+//        test_PriorityQueue();
+//        test_Queue();
+//        test_RBT();
+//        test_SingleList();
+//        test_SkipList();
+//        test_Stack();
+//        test_UnionFindSet();
+    }
 
-	//测试
+    //测试
     public static void test() {
-
+        //并查集
+        UnionFindSet set = new UnionFindSet();
+        set.union(1,2);
     }
 
     //双端队列测试
     public static void test_DoubleQueue() {
-	    DoubleQueue<Integer> queue = new DoubleQueue<>();
-	    for (int i = 0; i < 6; i++)
-	        queue.enterHead(i);
-	    for (int i = 6; i < 15; i++)
-	        queue.enterTail(i);
+        DoubleQueue<Integer> queue = new DoubleQueue<>();
+        for (int i = 0; i < 6; i++)
+            queue.enterHead(i);
+        for (int i = 6; i < 15; i++)
+            queue.enterTail(i);
         System.out.println("初始");
         System.out.println(queue.length());
         System.out.println(queue.isEmpty());
@@ -126,26 +128,49 @@ public class Test {
         graph.depthTraverse_recursive(0).print();
         graph.depthTraverse(5).print();
         graph.depthTraverse_recursive(5).print();
+        System.out.println("最短路径");
+        graph.shortPath_D(0).print();
+        graph.shortPath_D(5).print();
+        System.out.println("拓扑排序");
+        graph.topologicalSort().print();
+
+        System.out.println("删除");
+        graph.delete(3,5);
+        graph.delete(3,6);
+        graph.delete(4,5);
+        graph.delete(4,6);
+        graph.print();
+        System.out.println("广度优先遍历");
+        graph.breadthTraverse(0).print();
+        graph.breadthTraverse(5).print();
+        System.out.println("深度优先遍历");
+        graph.depthTraverse(0).print();
+        graph.depthTraverse_recursive(0).print();
+        graph.depthTraverse(5).print();
+        graph.depthTraverse_recursive(5).print();
+        System.out.println("最短路径");
+        graph.shortPath_D(0).print();
+        graph.shortPath_D(5).print();
         System.out.println("拓扑排序");
         graph.topologicalSort().print();
     }
 
     //堆测试
     public static void test_Heap() {
-	    //正序堆测试
+        //正序堆测试
         System.out.println("正序");
-	    Heap heap = new Heap(true);
-	    heap.push(0);
+        Heap heap = new Heap(true);
+        heap.push(0);
         System.out.println(heap.isEmpty());
         System.out.println(heap.size());
         heap.hierarchy();
 
-	    for (int i = 1; i < 20; i++)
-	        heap.push(i);
+        for (int i = 1; i < 20; i++)
+            heap.push(i);
         System.out.println("初始");
         System.out.println(heap.isEmpty());
         System.out.println(heap.size());
-	    heap.hierarchy();
+        heap.hierarchy();
 
         System.out.println("删除");
         for (int i = 0; i < 10; i++)
@@ -192,11 +217,11 @@ public class Test {
 
     //双向链表测试
     public static void test_LinkedList() {
-	    LinkedList<Integer> list = new LinkedList<>();
-	    for (int i = 9; i >= 0; i--)
-	        list.insertHead(i);
-	    for (int i = 9; i >= 0; i--)
-	        list.insertTail(i);
+        LinkedList<Integer> list = new LinkedList<>();
+        for (int i = 9; i >= 0; i--)
+            list.insertHead(i);
+        for (int i = 9; i >= 0; i--)
+            list.insertTail(i);
         System.out.println("初始");
         System.out.println(list.isEmpty());
         System.out.println(list.length());
@@ -263,7 +288,7 @@ public class Test {
 
     //优先队列测试
     public static void test_PriorityQueue() {
-	    //正序优先队列测试
+        //正序优先队列测试
         System.out.println("正序");
         PriorityQueue queue = new PriorityQueue(true);
         for (char c = 'a'; c <= 'z'; c++)
@@ -353,9 +378,9 @@ public class Test {
 
     //队列测试
     public static void test_Queue() {
-	    Queue<Integer> queue = new Queue();
-	    for (int i = 0; i < 20; i++)
-	        queue.enter(i);
+        Queue<Integer> queue = new Queue();
+        for (int i = 0; i < 20; i++)
+            queue.enter(i);
         System.out.println("初始");
         System.out.println(queue.isEmpty());
         System.out.println(queue.length());
@@ -378,9 +403,9 @@ public class Test {
 
     //红黑树测试
     public static void test_RBT() {
-	    int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
-	    RBT rbt = new RBT();
-	    for (int i = 0; i < array.length; i++)
+        int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
+        RBT rbt = new RBT();
+        for (int i = 0; i < array.length; i++)
             rbt.insert(array[i]);
         System.out.println("初始");
         System.out.println(rbt.size());
@@ -430,17 +455,17 @@ public class Test {
 
     }
 
-	//单向链表测试
-	public static void test_SingleList() {
-		SingleList<Integer> list = new SingleList<>();
-		for (int i = 0; i < 20; i++)
-			list.insert(i);
+    //单向链表测试
+    public static void test_SingleList() {
+        SingleList<Integer> list = new SingleList<>();
+        for (int i = 0; i < 20; i++)
+            list.insert(i);
         System.out.println("初始");
         System.out.println(list.isEmpty());
         System.out.println(list.length());
-		list.print();
-		System.out.println(list.middle());
-		System.out.println(list.reciprocal(7));
+        list.print();
+        System.out.println(list.middle());
+        System.out.println(list.reciprocal(7));
 
         System.out.println("删除");
         for (int i = 0; i < 5; i++)
@@ -452,7 +477,7 @@ public class Test {
         System.out.println(list.reciprocal(5));
 
         System.out.println("逆置");
-		list.inverse();
+        list.inverse();
         System.out.println(list.isEmpty());
         System.out.println(list.length());
         list.print();
@@ -475,11 +500,11 @@ public class Test {
         System.out.println(list.middle());
         System.out.println(list.reciprocal(1));
 
-	}
+    }
 
     //跳跃表测试
     public static void test_SkipList() {
-	    //正序跳跃表测试
+        //正序跳跃表测试
         System.out.println("正序");
         SkipList skipList = new SkipList(4, 3, true);
         System.out.println("初始");
@@ -547,11 +572,11 @@ public class Test {
 
     }
 
-	//栈测试
-	public static void test_Stack() {
-	    Stack<Integer> stack = new Stack<>();
-	    for (int i = 0; i < 20; i++)
-	        stack.push(i);
+    //栈测试
+    public static void test_Stack() {
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < 20; i++)
+            stack.push(i);
         System.out.println("初始");
         System.out.println(stack.isEmpty());
         System.out.println(stack.length());
@@ -572,10 +597,10 @@ public class Test {
 
     }
 
-	//并查集测试
+    //并查集测试
     public static void test_UnionFindSet() {
-	    UnionFindSet set = new UnionFindSet();
-	    for (int i = 0; i < 10; i++)
+        UnionFindSet set = new UnionFindSet();
+        for (int i = 0; i < 10; i++)
             set.insert(i);
         System.out.println("初始");
         System.out.println(set.isEmpty());
@@ -600,6 +625,7 @@ public class Test {
         set.print();
         System.out.println(set.connected(0,9));
         System.out.println(set.connected(3,6));
+        set.print();
 
         System.out.println("清空");
         set.clear();
@@ -610,5 +636,5 @@ public class Test {
         set.print();
 
     }
-	
+    
 }

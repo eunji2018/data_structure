@@ -6,8 +6,8 @@ package design_pattern.Decorator;
 //缺点：导致程序中增加许多很小的类
 public class Client {
 
-	public static void main(String[] args) {
-		Component component = new ConcreteComponent();
+    public static void main(String[] args) {
+        Component component = new ConcreteComponent();
         component.setDescription("i am a boy");
         
         Decorator decorator1 = new ConcreteDecorator(component);
@@ -20,6 +20,6 @@ public class Client {
         decorator1.describe();
         decorator2.describe();
 
-        return;	
-	}
+        return;    
+    }
 }

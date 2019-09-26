@@ -5,18 +5,18 @@ package design_pattern.ActiveObject;
 //结合了生产者消费者模式，Future模式，线程池模式
 public class Main {
 
-	public static void main(String[] args) {
-		Active active = ActiveFactory.create();
+    public static void main(String[] args) {
+        Active active = ActiveFactory.create();
         new MakerClient("abby", active).start();
         new MakerClient("bob", active).start();
         new DisplayClient("cindy", active).start();
-	}
+    }
 }
 
 //客户端线程
 //请求生成字符串
 class MakerClient extends Thread{
-	
+    
     private final Active active;
     private final char c;
 
@@ -43,7 +43,7 @@ class MakerClient extends Thread{
 //客户端线程
 //请求显示字符串
 class DisplayClient extends Thread{
-	
+    
     private final Active active;
 
     public DisplayClient(String name, Active active){
