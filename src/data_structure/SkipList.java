@@ -165,15 +165,5 @@ public class SkipList {
         System.out.println();
         return;
     }
-    
-    //遍历：自底向上，打印路径中每层最右节点
-    public void trace(Comparable comparable) {
-        Node temp = search(comparable);
-        System.out.print(temp.comparable + " ");
-        while (!stack.isEmpty())
-            System.out.print(stack.pop().comparable + " ");
-        System.out.println();
-        return;
-    }
-    
+
 }

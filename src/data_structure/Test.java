@@ -12,7 +12,8 @@ public class Test {
 //        test_DirectedGraph();
 //        test_Heap();
 //        test_LinkedList();
-//        test_PrefixTree();
+//        test_PrefixTree_1();
+//        test_PrefixTree_2();
 //        test_PriorityQueue();
 //        test_Queue();
 //        test_RBT();
@@ -259,9 +260,9 @@ public class Test {
 
     }
 
-    //前缀树测试
-    public static void test_PrefixTree() {
-        PrefixTree tree = new PrefixTree();
+    //第一种前缀树测试
+    public static void test_PrefixTree_1() {
+        PrefixTree_1 tree = new PrefixTree_1();
         String [] strings = {"ca", "can", "f", "fei", "fen", "mei", "meitu", "t", "tuan", "tui"};
         for (int i = 0; i < strings.length; i++)
             tree.insert(strings[i]);
@@ -272,7 +273,8 @@ public class Test {
         System.out.println(tree.prefix("mei"));
         System.out.println(tree.prefix("t"));
         tree.hierarchy();
-        tree.depthTraverse();
+        tree.depthTraverse1();
+        tree.depthTraverse2();
 
         System.out.println("删除");
         tree.delete("meitu");
@@ -281,6 +283,60 @@ public class Test {
         System.out.println(tree.contains("meitu"));
         System.out.println(tree.prefix("mei"));
         System.out.println(tree.prefix("t"));
+        tree.hierarchy();
+        tree.depthTraverse1();
+        tree.depthTraverse2();
+
+    }
+
+    //第二种前缀树测试
+    public static void test_PrefixTree_2() {
+        PrefixTree_2 tree = new PrefixTree_2();
+        String [] strings1 = {"fen", "feng", "fan", "fou", "bei", "mei", "mi"};
+        for (int i = 0; i < strings1.length; i++)
+            tree.insert(strings1[i]);
+        System.out.println("初始");
+        System.out.println(tree.size());
+        System.out.println(tree.contains("fan"));
+        System.out.println(tree.contains("min"));
+        System.out.println(tree.prefix("fe"));
+        System.out.println(tree.prefix("mai"));
+        tree.hierarchy();
+        tree.depthTraverse();
+
+        System.out.println("删除");
+        tree.delete("bei");
+        tree.delete("mei");
+        tree.delete("fen");
+        tree.delete("feng");
+        tree.delete("fan");
+        tree.delete("fou");
+        tree.delete("mi");
+        System.out.println(tree.size());
+        tree.hierarchy();
+        tree.depthTraverse();
+
+        String [] strings2 = {"bei", "fan", "fen", "feng", "fou", "mei", "mi"};
+        for (int i = 0; i < strings2.length; i++)
+            tree.insert(strings2[i]);
+        System.out.println("初始");
+        System.out.println(tree.size());
+        System.out.println(tree.contains("fen"));
+        System.out.println(tree.contains("ming"));
+        System.out.println(tree.prefix("fe"));
+        System.out.println(tree.prefix("mai"));
+        tree.hierarchy();
+        tree.depthTraverse();
+
+        System.out.println("删除");
+        tree.delete("bei");
+        tree.delete("fan");
+        tree.delete("fen");
+        tree.delete("feng");
+        tree.delete("fou");
+        tree.delete("mei");
+        tree.delete("mi");
+        System.out.println(tree.size());
         tree.hierarchy();
         tree.depthTraverse();
 
@@ -421,7 +477,7 @@ public class Test {
         rbt.postTraverse_one();
         rbt.postTraverse_two();
         System.out.println("层次遍历");
-        rbt.hierarchy();
+        rbt.hierarchy_queue();
         rbt.hierarchy_inturn_stack();
         rbt.hierarchy_inturn_queue();
         System.out.println("最近公共父节点");
@@ -436,21 +492,21 @@ public class Test {
             System.out.println(rbt.size());
             System.out.println(rbt.height());
             rbt.inTraverse();
-            rbt.hierarchy();
+            rbt.hierarchy_queue();
         }
         for (int i = 0; i < 5; i++) {
             rbt.deleteMax();
             System.out.println(rbt.size());
             System.out.println(rbt.height());
             rbt.inTraverse();
-            rbt.hierarchy();
+            rbt.hierarchy_queue();
         }
         for (int i = 0; i < 5; i++) {
             rbt.delete(5 + 2 * i);
             System.out.println(rbt.size());
             System.out.println(rbt.height());
             rbt.inTraverse();
-            rbt.hierarchy();
+            rbt.hierarchy_queue();
         }
 
     }
@@ -515,8 +571,6 @@ public class Test {
         System.out.println(skipList.isEmpty());
         System.out.println(skipList.length());
         System.out.println(skipList.size());
-        for (int i = 0; i < 5; i++)
-            skipList.trace(5 * i);
 
         System.out.println("删除");
         skipList.delete(0);
@@ -526,8 +580,6 @@ public class Test {
         System.out.println(skipList.length());
         System.out.println(skipList.size());
         skipList.print();
-        for (int i = 0; i < 5; i++)
-            skipList.trace(5 * i);
 
         System.out.println("清空");
         skipList.clear();
@@ -535,7 +587,6 @@ public class Test {
         System.out.println(skipList.length());
         System.out.println(skipList.size());
         skipList.print();
-        skipList.trace(0);
 
         //逆序跳跃表测试
         System.out.println("逆序");
@@ -548,8 +599,6 @@ public class Test {
         System.out.println(skipList.isEmpty());
         System.out.println(skipList.length());
         System.out.println(skipList.size());
-        for (int i = 0; i < 5; i++)
-            skipList.trace(5 * i);
 
         System.out.println("删除");
         skipList.delete(0);
@@ -559,8 +608,6 @@ public class Test {
         System.out.println(skipList.length());
         System.out.println(skipList.size());
         skipList.print();
-        for (int i = 0; i < 5; i++)
-            skipList.trace(5 * i);
 
         System.out.println("清空");
         skipList.clear();
@@ -568,7 +615,6 @@ public class Test {
         System.out.println(skipList.length());
         System.out.println(skipList.size());
         skipList.print();
-        skipList.trace(0);
 
     }
 

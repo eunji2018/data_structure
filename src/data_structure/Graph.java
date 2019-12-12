@@ -185,7 +185,7 @@ public class Graph {
      * 每次循环从剩余的边中选择连接两个集合顶点的最小权重的边添加到生成树中，直到所有顶点加入到生成树
      */
     public Queue minSpanTree_P(int start) {
-        UnionFindSet set = new UnionFindSet();
+        UnionFindSet set = new UnionFindSet();//可以使用布尔数组表示顶点是否已加入生成树中
         for (int i = 0; i < size; i++)//初始时每个顶点构成一棵树
             set.insert(i);
         Queue<String> queue = new Queue<>();//保存构造过程中符合条件的边，(from to weght)
@@ -304,6 +304,20 @@ public class Graph {
                 break;
         }
         return queue;
+    }
+
+    /* 最短路径：F算法（适用情形：）
+     * 所有顶点对的最短路径
+     */
+    public void shortPath_F() {
+
+    }
+
+    /* 最短路径：B算法（适用情形：）
+     * 单源最短路径
+     */
+    public void shortPath_B(int start) {
+
     }
 
     /* 拓扑排序（有向图）

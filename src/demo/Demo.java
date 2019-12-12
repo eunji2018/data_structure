@@ -8,8 +8,9 @@ public class Demo {
 //        test3();
 //        test4();
 //        test5();
-        test6();
+//        test6();
 //        test7();
+        test8();
     }
 
     public static void test1() {
@@ -136,5 +137,35 @@ public class Demo {
         System.out.println(result);
     }
 
+    public static void test8() {
+        new Child();
+        System.out.println("-----");
+        new Child();//第二次创建对象时不会调用静态代码块
+    }
 
+
+}
+
+class Parent {
+    public Parent() {
+        System.out.println("父类构造方法");
+    }
+    static {
+        System.out.println("父类静态代码块");
+    }
+    {
+        System.out.println("父类普通代码块");
+    }
+}
+
+class Child extends Parent {
+    public Child() {
+        System.out.println("子类构造方法");
+    }
+    static {
+        System.out.println("子类静态代码块");
+    }
+    {
+        System.out.println("子类普通代码块");
+    }
 }

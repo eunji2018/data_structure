@@ -70,11 +70,10 @@ public class Heap {
             tail = next();//堆尾后一个位置的父节点
             //更新引用
             //堆大小为偶数时，新元素是右子节点，为奇数时，是左子节点
-            if ((size & 1) == 0) {
+            if ((size & 1) == 0)
                 tail.right = node;
-            }else {
+            else
                 tail.left = node;
-            }
             node.parent = tail;
         }
         tail = node;
@@ -97,11 +96,10 @@ public class Heap {
             swap(head, node);//交换元素
             //更新引用
             //堆大小为偶数时，堆尾是左子节点，为奇数时，是右子节点
-            if ((size & 1) == 0) {
+            if ((size & 1) == 0)
                 node.parent.left = null;
-            }else {
+            else
                 node.parent.right = null;
-            }
             //调整堆，保持有序
             sink(head);
         }

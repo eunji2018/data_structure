@@ -3,7 +3,7 @@
  */
 package data_structure;
 
-/* 红黑树的第二种实现
+/* 红黑树的实现
  * 红黑树性质：
  * （1）节点为黑色或者红色，根节点保持黑色
  * （2）如果节点为红色，则两个子节点都是黑色
@@ -292,21 +292,17 @@ public class RBT {
         return;
     }
 
-    //删除元素
-    //查找被删节点与替代节点，使用替代节点的元素替代被删节点的元素，保留被删节点的颜色，删除替代节点
-    public Comparable delete(Comparable comparable) {
-        TreeNode node = search(comparable);
-        if (node == sentry)//元素不存在
-            return null;
+    //传入被删节点，查找替代节点，使用替代节点的元素替代被删节点的元素，保留被删节点的颜色，删除替代节点
+    private Comparable delete(TreeNode node) {
         TreeNode substitute;//替代节点
         TreeNode start;//调整红黑树的起始节点
-        //优先使用后继节点作为替代节点
-        if (node.right != sentry) {//存在右子节点，以后继节点替代被删节点
-            substitute = getMin(node.right);
-            start = substitute.right;
-        }else if (node.left != sentry) {//只存在左子节点，以前驱节点替代被删节点
+        //优先使用前驱节点作为替代节点
+        if (node.left != sentry) {//存在左子节点，以前驱节点替代被删节点
             substitute = getMax(node.left);
             start = substitute.left;
+        }else if (node.right != sentry) {//存在右子节点，以后继节点替代被删节点
+            substitute = getMin(node.right);
+            start = substitute.right;
         }else {//不存在子节点，被删节点作为替代节点
             substitute = node;
             start = node.left;
@@ -319,46 +315,26 @@ public class RBT {
         return substitute.comparable;
     }
 
+    //删除元素
+    public Comparable delete(Comparable comparable) {
+        TreeNode node = search(comparable);
+        if (node == sentry)//元素不存在
+            return null;
+        return delete(node);
+    }
+
     public Comparable deleteMin() {
         if (size == 0)
             return null;
         TreeNode node = getMin(root);
-        TreeNode substitute;
-        TreeNode start;
-        if (node.right != sentry) {
-            substitute = getMin(node.right);
-            start = substitute.right;
-        }else {
-            substitute = node;
-            start = node.left;
-        }
-        swap(node, substitute);
-        replace(start, substitute);
-        if (!substitute.color)
-            correct_delete(start);
-        size--;
-        return substitute.comparable;
+        return delete(node);
     }
 
     public Comparable deleteMax() {
         if (size == 0)
             return null;
         TreeNode node = getMax(root);
-        TreeNode substitute;
-        TreeNode start;
-        if (node.left != sentry) {
-            substitute = getMax(node.left);
-            start = substitute.left;
-        }else {
-            substitute = node;
-            start = node.left;
-        }
-        swap(node, substitute);
-        replace(start, substitute);
-        if (!substitute.color)
-            correct_delete(start);
-        size--;
-        return substitute.comparable;
+        return delete(node);
     }
 
     //最近公共父节点
@@ -498,11 +474,11 @@ public class RBT {
     /* 层次遍历（从左到右，队列）
      * 1.使当前节点指向根节点，当前节点入队，虚拟节点入队
      * 2.若队非空，则使当前节点指向出队的队首节点
-     * （1）当前节点是虚拟节点，若队为空，则结束，若队非空，则当前节点入队
-     * （2）当前节点不是虚拟节点，遍历节点，将左右子节点依次入队
+     *  （1）当前节点是虚拟节点，若队为空，则结束，若队非空，则当前节点入队
+     *  （2）当前节点不是虚拟节点，遍历节点，将左右子节点依次入队
      * 3.重复第2步，直到队为空
      */
-    public void hierarchy() {
+    public void hierarchy_queue() {
         if (root == sentry)
             return;
         TreeNode node = root;
@@ -526,6 +502,13 @@ public class RBT {
         }
         System.out.println();
         return;
+    }
+
+    /* 层次遍历（从左到右，一个栈）
+     *
+     */
+    public void hierarchy_stack() {
+
     }
 
     //层次遍历（左右交替，两个栈）
@@ -568,38 +551,45 @@ public class RBT {
             return;
         TreeNode node = root;
         DoubleQueue<TreeNode> queue = new DoubleQueue<>();
-        queue.enterHead(node);//先从左到右
-        int left = 1, right = 0;//left表示从左到右遍历的节点的数目，right表示从右到左遍历的节点的数目
-        while (left != 0 || right != 0) {
-            if (left != 0) {//从左到右遍历，元素从队首出队
-                while (left != 0) {
+        boolean flag = true;//true表示从左到右，false表示从右到左
+        queue.enterTail(node);//先从左到右
+        queue.enterTail(new TreeNode(null, false));//虚拟节点
+        while (!queue.isEmpty()) {
+            if (flag) {//从左到右遍历，元素从队首出队
+                while (true) {
                     node = queue.departHead();
-                    System.out.print(node.comparable + ":" + (node.color ? "T " : "F "));//遍历节点
-                    left--;
-                    //左右子节点依次从队尾入队，更新right
-                    if (node.left != sentry) {
-                        queue.enterTail(node.left);
-                        right++;
-                    }
-                    if (node.right != sentry) {
-                        queue.enterTail(node.right);
-                        right++;
+                    if (node.comparable == null) {
+                        if (!queue.isEmpty()) {
+                            queue.enterHead(node);
+                            flag = false;
+                        }
+                        break;
+                    }else {
+                        System.out.print(node.comparable + ":" + (node.color ? "T " : "F "));//遍历节点
+                        //左右子节点依次从队尾入队
+                        if (node.left != sentry)
+                            queue.enterTail(node.left);
+                        if (node.right != sentry)
+                            queue.enterTail(node.right);
                     }
                 }
                 System.out.println();
             }else {//从右到左遍历，元素从队尾出队
-                while (right != 0) {
+                while (true) {
                     node = queue.departTail();
-                    System.out.print(node.comparable + ":" + (node.color ? "T " : "F "));//遍历节点
-                    right--;
-                    //右左子节点依次从队首入队，更新left
-                    if (node.right != sentry) {
-                        queue.enterHead(node.right);
-                        left++;
-                    }
-                    if (node.left != sentry) {
-                        queue.enterHead(node.left);
-                        left++;
+                    if (node.comparable == null) {
+                        if (!queue.isEmpty()) {
+                            queue.enterTail(node);
+                            flag = true;
+                        }
+                        break;
+                    }else {
+                        System.out.print(node.comparable + ":" + (node.color ? "T " : "F "));//遍历节点
+                        //右左子节点依次从队首入队
+                        if (node.right != sentry)
+                            queue.enterHead(node.right);
+                        if (node.left != sentry)
+                            queue.enterHead(node.left);
                     }
                 }
                 System.out.println();
@@ -609,7 +599,13 @@ public class RBT {
     }
 
     /* Morris遍历
-     *
+     * 1.使当前节点指向根节点
+     * 2.若当前节点非空，遍历节点
+     * （1）左子节点存在
+     *  若左子树最右节点的right为空，则使其指向当前节点，当前节点指向左子节点
+     *  若左子树最右节点的right指向当前节点，则使其为空，当前节点指向右子节点
+     * （2）左子节点不存在，当前节点指向右子节点
+     * 3.重复第2步，直到当前节点为空
      */
     public void morrisTraverse() {
         TreeNode node = root;
@@ -636,7 +632,13 @@ public class RBT {
     }
 
     /* 基于Morris遍历的前序遍历
-     *
+     * 1.使当前节点指向根节点
+     * 2.若当前节点非空
+     * （1）左子节点存在
+     *  若左子树最右节点的right为空，则使其指向当前节点，遍历当前节点，当前节点指向左子节点
+     *  若左子树最右节点的right指向当前节点，则使其为空，当前节点指向右子节点
+     * （2）左子节点不存在，遍历当前节点，当前节点指向右子节点
+     * 3.重复第2步，直到当前节点为空
      */
     public void morrisPreTraverse() {
         TreeNode node = root;
@@ -664,7 +666,9 @@ public class RBT {
     }
 
     /* 基于Morris遍历的中序遍历
-     *
+     * 1.
+     * 2.
+     * 3.
      */
     public void morrisInTraverse() {
         TreeNode node = root;
@@ -689,7 +693,9 @@ public class RBT {
     }
 
     /* 基于Morris遍历的后序遍历
-     *
+     * 1.
+     * 2.
+     * 3.
      */
     public void morrisPostTraverse() {
         TreeNode node = root;

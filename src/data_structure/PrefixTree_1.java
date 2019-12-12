@@ -3,16 +3,17 @@
  */
 package data_structure;
 
-/* 前缀树（字典树）的实现
+/* 前缀树（字典树）的第一种实现
  * 利用字符串的公共前缀节约存储空间，字符串不重复存储，使用26个小写英文字符集
  * 前缀树性质：
  * 根节点没有对应的字符
  * 从根节点到某一节点路径上的字符拼接起来就是对应的字符串
  * 所有节点的子节点上的字符都不相同
+ * 树的结构与添加元素的顺序无关
  */
-public class PrefixTree {
+public class PrefixTree_1 {
 
-    private TreeNode root;
+    private final TreeNode root;
 
     private static final char START = 'a';//字符集的首字符
 
@@ -36,7 +37,7 @@ public class PrefixTree {
         }
     }
 
-    public PrefixTree() {
+    public PrefixTree_1() {
         this.root = new TreeNode('#');//根节点保存'#'字符，且不是终止节点
         this.stack = new Stack<>();
     }
@@ -46,23 +47,16 @@ public class PrefixTree {
         return root.count;
     }
 
-    public boolean contains(String string) {
-        if (string == null || string.length() == 0)//非法字符串
-            return false;
-        return search(string);
-    }
-
     //查找字符串
     //string只包含字符集内的字符，即不为null且不为空串
     //stack保存string在前缀树中的最长前缀对应的所有节点
     private boolean search(String string) {
         stack.clear();
-        int index = 0;
+        int index;
         TreeNode node = root;
-        char [] array = string.toCharArray();
         //从前向后依次查找string中的字符
-        for (int i = 0; i < array.length; i++) {
-            index = array[i] - START;//当前字符在字符集中的位置
+        for (int i = 0; i < string.length(); i++) {
+            index = string.charAt(i) - START;//当前字符在字符集中的位置
             if (node.children[index] == null)
                 return false;
             node = node.children[index];
@@ -71,19 +65,24 @@ public class PrefixTree {
         return node.end;//终止节点表示存在此字符串，非终止节点表示不存在
     }
 
+    public boolean contains(String string) {
+        if (string == null || string.length() == 0)//非法字符串
+            return false;
+        return search(string);
+    }
+
     //添加字符串
-    //若字符串已存在，则返回，保证不重复存储
+    //若字符串已存在，则返回
     public void insert(String string) {
         if (string == null || string.length() == 0 || search(string))
             return;
         //字符串不存在，有两种情况
         TreeNode node = stack.isEmpty() ? root : stack.peek();//指向最长前缀的最后一个字符，若不存在，则指向root
         if (stack.length() != string.length()) {//字符串在前缀树中的最长前缀不是其自身，构造新节点，标记节点，更新计数
-            int index = 0;
-            char [] array = string.toCharArray();
-            for (int i = stack.length(); i < array.length; i++) {//从最长前缀的下一个字符开始
-                index = array[i] - START;//当前字符在字符集中的位置
-                node.children[index] = new TreeNode(array[i]);//构造新节点
+            int index;
+            for (int i = stack.length(); i < string.length(); i++) {//从最长前缀的下一个字符开始
+                index = string.charAt(i) - START;//当前字符在字符集中的位置
+                node.children[index] = new TreeNode(string.charAt(i));//构造新节点
                 node = node.children[index];
                 stack.push(node);//可以看作一边构造新的节点，一边遍历新的节点
             }
@@ -153,7 +152,8 @@ public class PrefixTree {
     }
 
     //深度优先遍历
-    public void depthTraverse() {
+    //入栈访问式
+    public void depthTraverse1() {
         Stack<TreeNode> stack = new Stack<>();
         Stack<Integer> other = new Stack<>();//保存对应节点在父节点children数组中的位置，入栈、出栈与stack同步
         TreeNode node = root;
@@ -179,6 +179,23 @@ public class PrefixTree {
             }
         }
         System.out.println();
+        return;
+    }
+
+    //深度优先遍历
+    //出栈访问式
+    public void depthTraverse2() {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        stack.push(node);
+        while (!stack.isEmpty()) {
+            node = stack.pop();
+            System.out.print(node.character + ":" + (node.end ? "t " : "f "));//出栈代表访问节点
+            for (int i = SIZE - 1; i >= 0; i--) {
+                if (node.children[i] != null)
+                    stack.push(node.children[i]);
+            }
+        }
         return;
     }
 
