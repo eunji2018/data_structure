@@ -140,7 +140,7 @@ public class PrefixTree_1 {
                 queue.enter(node);//代表每层最后的虚拟节点
                 System.out.println();
             }else {
-                System.out.print(node.character + ":" + (node.end ? "t " : "f "));
+                System.out.print(node.character + ":" + (node.end ? "T " : "F "));
                 for (int i = 0; i < SIZE; i++) {
                     if (node.children[i] != null)
                         queue.enter(node.children[i]);
@@ -168,7 +168,7 @@ public class PrefixTree_1 {
                     node = node.children[index];
                     stack.push(node);
                     other.push(index);
-                    System.out.print(node.character + ":" + (node.end ? "t " : "f "));//入栈代表访问节点
+                    System.out.print(node.character + ":" + (node.end ? "T " : "F "));//入栈代表访问节点
                     index = -1;//新节点从第一个位置开始遍历子节点
                     break;
                 }
@@ -190,7 +190,7 @@ public class PrefixTree_1 {
         stack.push(node);
         while (!stack.isEmpty()) {
             node = stack.pop();
-            System.out.print(node.character + ":" + (node.end ? "t " : "f "));//出栈代表访问节点
+            System.out.print(node.character + ":" + (node.end ? "T " : "F "));//出栈代表访问节点
             for (int i = SIZE - 1; i >= 0; i--) {
                 if (node.children[i] != null)
                     stack.push(node.children[i]);

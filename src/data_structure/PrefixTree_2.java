@@ -17,7 +17,7 @@ public class PrefixTree_2 {
 
     private int index;//查找操作中，等于字符串在树中最长前缀的长度
 
-    private boolean direction;//表示查找操作中的方向，正下方为true，两侧为false
+    private boolean direction;//表示查找操作中的方向，正下方为true，两侧为false（前缀树为空时，一定为true）
 
     //节点类
     private class TreeNode{
@@ -228,7 +228,7 @@ public class PrefixTree_2 {
                 queue.enter(node);
                 System.out.println();
             }else {
-                System.out.print(node.character + ":" + (node.end ? "t " : "f "));
+                System.out.print(node.character + ":" + (node.end ? "T " : "F "));
                 if (node.left != sentry)
                     queue.enter(node.left);
                 if (node.middle != sentry)
@@ -249,7 +249,7 @@ public class PrefixTree_2 {
         stack.push(node);
         while (!stack.isEmpty()) {
             node = stack.pop();
-            System.out.print(node.character + ":" + (node.end ? "t " : "f "));//出栈代表访问节点
+            System.out.print(node.character + ":" + (node.end ? "T " : "F "));//出栈代表访问节点
             if (node.right != sentry)
                 stack.push(node.right);
             if (node.middle != sentry)

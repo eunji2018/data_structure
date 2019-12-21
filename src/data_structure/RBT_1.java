@@ -3,7 +3,7 @@
  */
 package data_structure;
 
-/* 红黑树的实现
+/* 红黑树的第一种实现
  * 红黑树性质：
  * （1）节点为黑色或者红色，根节点保持黑色
  * （2）如果节点为红色，则两个子节点都是黑色
@@ -16,20 +16,20 @@ package data_structure;
  * 删除元素的情形，替代元素，删除颜色（主要会违反性质3）：
  * 1.被删颜色是红色，不需要修正
  * 2.被删颜色是黑色，将起始节点作为当前节点
- *      （1）当前节点是红色，对当前节点进行变色
- *      （2）当前节点是黑色
- *          1）兄弟节点是红色，对父节点进行旋转，转化为下列三种情况
- *          2）兄弟节点是黑色，并且其子节点都为黑色，对兄弟节点进行变色，使当前节点指向父节点
- *          3）兄弟节点是黑色，并且其存在红色子节点，进行旋转变色
+ *     （1）当前节点是红色，对当前节点进行变色
+ *     （2）当前节点是黑色
+ *         1）兄弟节点是红色，对父节点进行旋转，转化为下列三种情况
+ *         2）兄弟节点是黑色，并且其子节点都为黑色，对兄弟节点进行变色，继续向上修正
+ *         3）兄弟节点是黑色，并且其存在红色子节点（左子节点或者右子节点为红色），进行旋转变色
  * 红色节点有两种：没有子节点，或者有两个黑色子节点
  * 黑色节点若有一个黑色子节点，则另一个子节点一定存在
  * 添加、删除元素不会修改哨兵节点的颜色
  */
-public class RBT {
+public class RBT_1 {
 
     private TreeNode root;
 
-    private final TreeNode sentry;//哨兵节点，实际存在的节点的空指针都指向哨兵节点
+    private final TreeNode sentry;//哨兵节点，其他节点的空指针都指向哨兵节点
 
     private int size;
 
@@ -53,7 +53,7 @@ public class RBT {
         }
     }
 
-    public RBT() {
+    public RBT_1() {
         this.sentry = new TreeNode(null, false);//哨兵节点为黑色
         this.root = sentry;
         this.size = 0;
@@ -73,11 +73,10 @@ public class RBT {
         TreeNode temp = node.right;
         //调整节点与其右子节点的左子节点的关系
         node.right = temp.left;
-        if (temp.left != sentry)
-            temp.left.parent = node;
+        temp.left.parent = node;
         //调整节点的父节点与其右子节点的关系
         temp.parent = node.parent;
-        if (node.parent == sentry)
+        if (node == root)
             root = temp;
         else if (node == node.parent.left)
             node.parent.left = temp;
@@ -97,11 +96,10 @@ public class RBT {
         TreeNode temp = node.left;
         //调整节点与其左子节点的右子节点的关系
         node.left = temp.right;
-        if (temp.right != sentry)
-            temp.right.parent = node;
+        temp.right.parent = node;
         //调整节点的父节点与其左子节点的关系
         temp.parent = node.parent;
-        if (node.parent == sentry)
+        if (node == root)
             root = temp;
         else if (node == node.parent.left)
             node.parent.left = temp;
@@ -140,7 +138,7 @@ public class RBT {
 
     //替换节点
     private void replace(TreeNode source, TreeNode target) {
-        if (target.parent == sentry)
+        if (target == root)
             root = source;
         else if (target == target.parent.left)
             target.parent.left = source;
@@ -305,7 +303,7 @@ public class RBT {
             start = substitute.right;
         }else {//不存在子节点，被删节点作为替代节点
             substitute = node;
-            start = node.left;
+            start = sentry;
         }
         swap(node, substitute);//替代元素
         replace(start, substitute);//起始节点取代替代节点的位置
@@ -502,13 +500,6 @@ public class RBT {
         }
         System.out.println();
         return;
-    }
-
-    /* 层次遍历（从左到右，一个栈）
-     *
-     */
-    public void hierarchy_stack() {
-
     }
 
     //层次遍历（左右交替，两个栈）

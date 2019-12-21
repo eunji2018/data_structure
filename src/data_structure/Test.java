@@ -16,7 +16,8 @@ public class Test {
 //        test_PrefixTree_2();
 //        test_PriorityQueue();
 //        test_Queue();
-//        test_RBT();
+//        test_RBT_1();
+        test_RBT_2();
 //        test_SingleList();
 //        test_SkipList();
 //        test_Stack();
@@ -457,10 +458,10 @@ public class Test {
 
     }
 
-    //红黑树测试
-    public static void test_RBT() {
+    //第一种红黑树测试
+    public static void test_RBT_1() {
         int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
-        RBT rbt = new RBT();
+        RBT_1 rbt = new RBT_1();
         for (int i = 0; i < array.length; i++)
             rbt.insert(array[i]);
         System.out.println("初始");
@@ -508,6 +509,64 @@ public class Test {
             rbt.inTraverse();
             rbt.hierarchy_queue();
         }
+        rbt.delete(6);
+        rbt.delete(8);
+        rbt.delete(10);
+        rbt.delete(12);
+        rbt.delete(14);
+        System.out.println(rbt.size());
+        System.out.println(rbt.height());
+        rbt.inTraverse();
+        rbt.hierarchy_queue();
+
+    }
+
+    //第二种红黑树测试
+    public static void test_RBT_2() {
+        int [] array = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
+        RBT_2 rbt = new RBT_2();
+        for (int i = 0; i < array.length; i++)
+            rbt.insert(array[i]);
+        System.out.println("初始");
+        System.out.println(rbt.size());
+        System.out.println(rbt.height());
+        System.out.println("遍历");
+        rbt.preTraverse();
+        rbt.inTraverse();
+        rbt.postTraverse();
+        rbt.hierarchy();
+
+        System.out.println("删除");
+        for (int i = 0; i < 5; i++) {
+            rbt.deleteMin();
+            System.out.println(rbt.size());
+            System.out.println(rbt.height());
+            rbt.inTraverse();
+            rbt.hierarchy();
+        }
+        for (int i = 0; i < 5; i++) {
+            rbt.deleteMax();
+            System.out.println(rbt.size());
+            System.out.println(rbt.height());
+            rbt.inTraverse();
+            rbt.hierarchy();
+        }
+        for (int i = 0; i < 5; i++) {
+            rbt.delete(5 + 2 * i);
+            System.out.println(rbt.size());
+            System.out.println(rbt.height());
+            rbt.inTraverse();
+            rbt.hierarchy();
+        }
+        rbt.delete(6);
+        rbt.delete(8);
+        rbt.delete(10);
+        rbt.delete(12);
+        rbt.delete(14);
+        System.out.println(rbt.size());
+        System.out.println(rbt.height());
+        rbt.inTraverse();
+        rbt.hierarchy();
 
     }
 
