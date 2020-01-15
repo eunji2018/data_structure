@@ -17,7 +17,7 @@ public class Test {
 //        test_PriorityQueue();
 //        test_Queue();
 //        test_RBT_1();
-        test_RBT_2();
+//        test_RBT_2();
 //        test_SingleList();
 //        test_SkipList();
 //        test_Stack();
@@ -26,9 +26,7 @@ public class Test {
 
     //测试
     public static void test() {
-        //并查集
-        UnionFindSet set = new UnionFindSet();
-        set.union(1,2);
+
     }
 
     //双端队列测试
@@ -113,7 +111,7 @@ public class Test {
 
     }
 
-    //有向图测试
+    //有向图测试1
     public static void test_DirectedGraph() {
         int [][] array = {{0,1,3},{0,2,5},{0,3,6},{0,4,7},{1,3,2},{2,4,3},{3,5,2},{3,6,3},
                 {4,5,2},{4,6,3},{5,7,5},{5,9,7},{6,8,4},{6,9,5},{7,9,4},{8,9,3}};
@@ -155,6 +153,26 @@ public class Test {
         graph.shortPath_D(5).print();
         System.out.println("拓扑排序");
         graph.topologicalSort().print();
+
+        System.out.println("---");
+        //不存在可以到达的负权重环
+        int [][] array1 = {{0,1,3},{0,2,4},{1,3,5},{1,4,-2},{2,3,-1},{2,4,-3},
+                {3,1,-2},{4,0,1},{4,3,5},{5,6,2},{6,5,-4}};
+        graph = new Graph(true,7);
+        for (int i = 0; i < array1.length; i++)
+            graph.insert(array1[i]);
+        graph.print();
+        System.out.println(graph.shortPath_B(0));
+
+        System.out.println("---");
+        //存在可以到达的负权重环
+        int [][] array2 = {{0,1,3},{0,2,4},{1,3,5},{1,4,-4},{2,3,-1},{2,4,-3},
+                {3,1,-2},{4,0,1},{4,3,5},{5,6,2},{6,5,-4}};
+        graph = new Graph(true,7);
+        for (int i = 0; i < array2.length; i++)
+            graph.insert(array2[i]);
+        graph.print();
+        System.out.println(graph.shortPath_B(0));
     }
 
     //堆测试

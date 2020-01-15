@@ -5,7 +5,6 @@ package data_structure;
 
 /* 优先队列的有序单向链表实现
  * 元素有序且可以重复
- * 优化：跳跃表实现或堆实现
  * comparable1.compareTo(comparable2) < 0 表示comparable1优先于comparable2
  * Java八种数据类型都实现了Comparable接口，整型数据较小的优先，字符型数据字典序较前的优先
  */

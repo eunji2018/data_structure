@@ -52,6 +52,7 @@ public class Test {
 //        test_SequenceNumber();
 //        test_StaggeredString();
 //        test_StringMatch();
+        test_WildcardMatch();
 
     }
 
@@ -457,6 +458,19 @@ public class Test {
         String match = "abcdabcdeabc";
         int index = StringMatch.generate(source.toCharArray(), match.toCharArray());
         System.out.println("index: " + index);
+    }
+
+    //通配符匹配测试
+    public static void test_WildcardMatch() {
+        String expression = "a.ba*";
+        String [] strings1 = {"abb", "acbaaa", "acbc", "acbac"};//true true false false
+        for (int i = 0; i < strings1.length; i++)
+            System.out.println(WildcardMatch.generate(strings1[i].toCharArray(), expression.toCharArray()));
+        System.out.println("---");
+        expression = "a.*ba";
+        String [] strings2 = {"aba", "acba", "acb"};//true true false
+        for (int i = 0; i < strings2.length; i++)
+            System.out.println(WildcardMatch.generate(strings2[i].toCharArray(), expression.toCharArray()));
     }
 
 }

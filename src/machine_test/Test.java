@@ -211,7 +211,7 @@ public class Test {
 
     //等可能N随机数
     public static void test_NRandom() {
-        int seed = 5;
+        int seed = 8;
         int [] array = new int[seed];
         int result = 0;
         for (int i = 0; i < 100000; i++) {
@@ -237,7 +237,7 @@ public class Test {
 
     //N-M随机数
     public static void test_NMRandom() {
-        int from = 5;
+        int from = 8;
         int to = 10;
         int result = 0;
         int [] array = new int[to];

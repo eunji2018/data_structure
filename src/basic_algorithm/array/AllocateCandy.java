@@ -8,8 +8,6 @@ public class AllocateCandy {
 
     //数组中的元素代表分值，要求每个位置至少分配一个糖果
     //并且相邻位置中分值高的必须分配更多的糖果，求解需要的最少糖果数量
-    //
-    //
     public static int generate1(int [] array) {
         if (array == null || array.length == 0)
             return 0;

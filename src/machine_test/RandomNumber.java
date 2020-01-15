@@ -11,7 +11,7 @@ public class RandomNumber {
     //等可能N随机数
     //生成0 - N-1的随机数
     public static int generate1(int n) {
-        return (int) (Math.random() * 5);//random()方法返回浮点数 0 <= double < 1
+        return (int) (Math.random() * n);//random()方法返回浮点数 0 <= double < 1
     }
 
     //平方随机数

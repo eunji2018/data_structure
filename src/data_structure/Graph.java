@@ -3,10 +3,7 @@
  */
 package data_structure;
 
-/* 图的邻接链表实现
- * 无向图只考虑连通图，有向图可以不强连通
- * 实现了添加，删除边，广度优先遍历，深度优先遍历，最小生成树，最短路径，拓扑排序的操作
- */
+//图的邻接链表实现
 public class Graph {
 
     private final boolean directed;//true代表有向图，false代表无向图
@@ -188,7 +185,7 @@ public class Graph {
         UnionFindSet set = new UnionFindSet();//可以使用布尔数组表示顶点是否已加入生成树中
         for (int i = 0; i < size; i++)//初始时每个顶点构成一棵树
             set.insert(i);
-        Queue<String> queue = new Queue<>();//保存构造过程中符合条件的边，(from to weght)
+        Queue<String> queue = new Queue<>();//保存构造过程中符合条件的边，(from to weight)
         PriorityQueue priorityQueue = new PriorityQueue(true);
         boolean [] flag = new boolean[size];//true代表相应顶点所有的边都已放入队列，已被访问过
         int last = start;//最近添加到最小生成树的顶点
@@ -230,7 +227,7 @@ public class Graph {
         UnionFindSet set = new UnionFindSet();
         for (int i = 0; i < size; i++)//初始时每个顶点构成一棵树
             set.insert(i);
-        Queue<String> queue = new Queue<>();//保存构造过程中符合条件的边，(from to weght)
+        Queue<String> queue = new Queue<>();//保存构造过程中符合条件的边，(from to weight)
         //对边按权重排序
         PriorityQueue priorityQueue = new PriorityQueue(true);
         boolean [] flag = new boolean[size];//true代表相应顶点所有的边都已放入队列，已被访问过
@@ -256,17 +253,35 @@ public class Graph {
         return queue;
     }
 
-    /* 最短路径：D算法（适用情形：不包含负权值边）
-     * 单源最短路径
-     * 定理：若存在从start到end的最短路径，路径上的某顶点为middle，则路径中middle之前的一段就是从start到middle的最短路径
-     * 类似广度优先遍历，每次循环从当前可达的剩余顶点中选择距离起点最近的顶点，更新起点到顶点的距离
-     * 直到所有顶点遍历完毕或者剩余的顶点不可达
-     * 回溯最短路径（除起点外）：与顶点邻接的所有顶点中，若两点最短路径长度之差等于连接边的权重，则邻接顶点可以作为前一个顶点
+    /* 最短路径问题
+     * 1.在有向图中，从顶点s到顶点t的最短路径权重有三种情况：
+     * （1）正无穷，不存在从s到t的路径
+     * （2）负无穷，存在从s到t的路径，并且存在某条路径上的某个顶点在负权重环上
+     * （3）某个确定的值，存在从s到t的路径，并且所有路径上的所有顶点都不在负权重环上
+     * 2.最优子结构
+     * 若存在从顶点s到顶点t的最短路径，路径上的两个顶点为m和n（m在n之前），则这条路径上m到n之间的一段就是从m到n的最短路径
+     * 3.松弛操作
+     * 假设数组distance表示从起点s到相应顶点的最短路径估计，对于边（i，j），权重为w（i，j）
+     * 若distance[j] > distance[i] + w（i，j），则使distance[j] = distance[i] + w（i，j）
+     * 4.相关性质，假设#（s，t）表示从顶点s到顶点t的最短路径权重
+     * （1）三角不等式性质：对于边（i，j），则有#（s，j）<= #（s，i）+ w（i，j）
+     * （2）上界性质：对于顶点t，有distance[t] >= #（s，t）
+     * （3）收敛性质：对于顶点i、j，若s、...、i、j是一条最短路径，并且在对边（i，j）进行松弛操作前的任意时刻有distance[i] = #（s，i），
+     * 则在松弛操作后有distance[j] = #（s，j）
+     * （4）路径松弛性质：若t0、t1、...、tk是从起点s = t0到顶点tk的一条最短路径，并且对路径上的边进行松弛操作的顺序为从前向后，
+     * 则有distance[tk] = #（s，tk）
+     * 5.最短路径是简单路径，不包含环路，无论环的权重是多少
+     */
+
+    /* 单一源点最短路径：D算法（适用情形：不包含负权值边。但是某种包含负权值边的情形也可以适用）
+     * 类似广度优先遍历和最小生成树P算法
+     * 每次循环从当前可达的剩余顶点中选择距离起点最近的顶点，更新起点到其他顶点的距离，直到所有顶点遍历完毕或者剩余的顶点不可达
+     * 回溯最短路径（除起点外）：与顶点邻接的所有顶点中，若两点最短路径长度之差等于边的权重，则邻接顶点可以作为前一个顶点
      */
     public Queue shortPath_D(int start) {
         Queue<String> queue = new Queue<>();//依次保存与起点最近的顶点，以及最短路径的长度
         boolean [] flag = new boolean[size];//true代表相应顶点已放入队列，其所有的边已被访问过
-        int [] distance = new int[size];//起点与相应顶点的当前距离
+        int [] distance = new int[size];//起点与相应顶点的当前最短距离
         int [] previous = new int[size];//起点到相应顶点最短路径上的前一个顶点
         //初始化距离数组
         for (int i = 0; i < size; i++)
@@ -306,18 +321,56 @@ public class Graph {
         return queue;
     }
 
-    /* 最短路径：F算法（适用情形：）
-     * 所有顶点对的最短路径
+    /* 单一源点最短路径：B算法（适用情形：包含负权值边、负权重环）
+     * 假设L表示从起点到顶点的最短路径长度并且为一个确定值（若存在多条最短路径，则取最小长度）
+     * 在第k次循环后（1 <= k <= size-1），将得到所有L = k的顶点的最短路径权重。由于松弛操作的顺序不同，可能提前得到顶点的最短路径权重
+     * 对于有向无环图，可以按照拓扑排序的顺序对从顶点出发的所有边进行松弛操作
+     * 队列优化：
      */
-    public void shortPath_F() {
-
-    }
-
-    /* 最短路径：B算法（适用情形：）
-     * 单源最短路径
-     */
-    public void shortPath_B(int start) {
-
+    public boolean shortPath_B(int start) {
+        int [] distance = new int[size];//起点到相应顶点的当前最短距离
+        int [] previous = new int[size];//起点到相应顶点最短路径上的前一个顶点
+        //初始化距离数组
+        for (int i = 0; i < size; i++)
+            distance[i] = Integer.MAX_VALUE;
+        distance[start] = 0;
+        //初始化前一顶点数组
+        for (int i = 0; i < size; i++)
+            previous[i] = -1;
+        previous[start] = start;
+        //构造最短路径
+        Edge edge;
+        for (int i = 1; i < size; i++) {//执行size-1次循环
+            for (int j = 0; j < size; j++) {//每次循环对所有的边进行松弛操作
+                if (distance[j] == Integer.MAX_VALUE)//松弛操作的条件一定不满足
+                    continue;
+                edge = edges[j];
+                while (edge != null) {
+                    if (distance[j] + edge.weight < distance[edge.to]) {//找到更短的路径，更新
+                        distance[edge.to] = distance[j] + edge.weight;
+                        previous[edge.to] = j;
+                    }
+                    edge = edge.next;
+                }
+            }
+        }
+        //打印距离数组、前一顶点数组
+        for (int i = 0; i < size; i++)
+            if (distance[i] != Integer.MAX_VALUE)
+                System.out.print("(" + i + " " + distance[i] + " " + previous[i] + ")");
+        System.out.println();
+        //检测负权重环
+        for (int i = 0; i < size; i++) {
+            if (distance[i] == Integer.MAX_VALUE)
+                continue;
+            edge = edges[i];
+            while (edge != null) {
+                if (distance[i] + edge.weight < distance[edge.to])//存在从起点可以到达的负权重环
+                    return false;
+                edge = edge.next;
+            }
+        }
+        return true;
     }
 
     /* 拓扑排序（有向图）
@@ -353,4 +406,5 @@ public class Graph {
         }
         return queue;
     }
+
 }

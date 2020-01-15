@@ -4,7 +4,6 @@
 package data_structure;
 
 //单向链表的实现
-//实现了添加，删除元素，判空，清空，逆置的操作
 public class SingleList<T> {
     
     private Node head;//头节点
