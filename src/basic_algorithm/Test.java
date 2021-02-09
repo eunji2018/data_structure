@@ -17,6 +17,7 @@ public class Test {
 //        test_JumpArray();
 //        test_LISEQ();
 //        test_MatrixMinPath();
+//        test_MaxPointProduct();
 //        test_MaxSubMatrix();
 //        test_MCSEQ();
 //        test_MergeStone();
@@ -49,10 +50,10 @@ public class Test {
 //        test_PalindromeFill();
 //        test_PalindromeSeparate();
 //        test_SCSEQ();
-//        test_SequenceNumber();
+        test_SequenceNumber();
 //        test_StaggeredString();
 //        test_StringMatch();
-        test_WildcardMatch();
+//        test_WildcardMatch();
 
     }
 
@@ -116,7 +117,7 @@ public class Test {
     //最长递增子序列测试
     public static void test_LISEQ() {
         int [] array = {2,1,5,3,6,4,8,9,7};
-        int length = LISEQ.generate(array);
+        int length = LISEQ.generate1(array);
         System.out.println();
         System.out.println(length);
     }
@@ -131,6 +132,13 @@ public class Test {
         int pathSum2 = MatrixMinPath.generate2(matrix);
         System.out.println(pathSum1);
         System.out.println(pathSum2);
+    }
+
+    //两个数组最大点积测试
+    public static void test_MaxPointProduct() {
+        int [] array1 = {-3,-8,3,-10,1,3,9};
+        int [] array2 = {9,2,3,7,-9,1,-8,5,-1,-1};
+        System.out.println(MaxPointProduct.generate(array1, array2));
     }
 
     //最大子矩阵和测试
@@ -274,15 +282,22 @@ public class Test {
 
     //蓄水问题测试
     public static void test_WaterStorage() {
-        int [] array1 = {5,2,3,1,6,2,3};
-        int [] array2 = {2,6,1,5,3,7,2};
-        int [] array3 = {1,2,3,4,5,3,2};
-        System.out.println(WaterStorage.generate1(array1));
-        System.out.println(WaterStorage.generate2(array1));
-        System.out.println(WaterStorage.generate1(array2));
-        System.out.println(WaterStorage.generate2(array2));
-        System.out.println(WaterStorage.generate1(array3));
-        System.out.println(WaterStorage.generate2(array3));
+//        int [] array1 = {5,2,3,1,6,2,3};
+//        int [] array2 = {2,6,1,5,3,7,2};
+//        int [] array3 = {1,2,3,4,5,3,2};
+//        System.out.println(WaterStorage.generate1(array1));
+//        System.out.println(WaterStorage.generate2(array1));
+//        System.out.println(WaterStorage.generate1(array2));
+//        System.out.println(WaterStorage.generate2(array2));
+//        System.out.println(WaterStorage.generate1(array3));
+//        System.out.println(WaterStorage.generate2(array3));
+        
+        int [] array4 = {1,2,3,4,5,6,7};
+        int [] array5 = {2,5,7,4,1,6,3};
+        int [] array6 = {3,4,1,7,2,5,7};
+        System.out.println(WaterStorage.generate3(array4));
+        System.out.println(WaterStorage.generate3(array5));
+        System.out.println(WaterStorage.generate3(array6));
     }
 
     //斐波那契测试
@@ -427,8 +442,12 @@ public class Test {
     public static void test_SequenceNumber() {
         String string1 = "rabbbit";
         String string2 = "rabbit";
-        int count = SequenceNumber.generate1(string1.toCharArray(), string2.toCharArray());
-        System.out.println(count);
+        int count1 = SequenceNumber.generate1(string1.toCharArray(), string2.toCharArray());
+        System.out.println(count1);
+
+        String string3 = "aba";
+        int count2 = SequenceNumber.generate2(string3.toCharArray());
+        System.out.println(count2);
     }
 
     //交错字符串测试

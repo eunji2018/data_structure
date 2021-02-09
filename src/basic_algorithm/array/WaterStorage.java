@@ -44,7 +44,7 @@ public class WaterStorage {
         return result;
     }
 
-    //从两端向中间遍历，左右当前位置分别即为left，right
+    //从两端向中间遍历，左右当前位置分别记为left，right
     //leftMax表示array[0 - left-1]中的最大高度，rightMax表示array[right+1 - length-1]中的最大高度
     //若leftMax <= rightMax，则leftMax即为left位置两侧最大高度的较小值
     //若leftMax > rightMax，则rightMax即为right位置两侧最大高度的较小值
@@ -67,6 +67,44 @@ public class WaterStorage {
                 right--;
             }
         }
+        return result;
+    }
+
+    /* array[i]表示对应位置上宽度不计的挡板高度，求解所有挡板的中间能够蓄水的最大值
+     */
+    //先从左向右遍历，index表示向右遍历到的位置，current表示当前位置
+    //若array[index] >= array[current]，则当前位置的挡板刚好可以蓄满水
+    //再从右向左遍历，index表示向左遍历到的位置，current表示当前位置
+    //若array[index] >= array[current]，则当前位置的挡板刚好可以蓄满水
+    public static int generate3(int [] array) {
+    	if (array == null || array.length == 0)
+    		return -1;
+    	int length = array.length;
+    	int result = 0;
+    	int current = 0, index = 1;
+        //从左向右
+        while (index < length) {
+        	//当前位置的挡板刚好可以蓄满水
+			if (array[index] >= array[current]) {
+				result += array[current] * (index - current);
+				current = index;
+			}
+			index++;
+		}
+        int position = current;//最高挡板的位置
+        //从右向左
+        if (position < length - 1) {
+        	current = length - 1;
+        	index = current - 1;
+			while (index >= position) {
+				//当前位置的挡板刚好可以蓄满水
+				if (array[index] >= array[current]) {
+					result += array[current] * (current - index);
+					current = index;
+				}
+				index--;
+			}
+		}
         return result;
     }
 
